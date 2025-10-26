@@ -1,0 +1,98 @@
+
+services:
+  # Dịch vụ Cơ sở dữ liệu MySQL
+  mysql_db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: your_strong_password
+      # Tạo các database tương ứng với mỗi service
+      MYSQL_DATABASE: mutrapro_auth,mutrapro_order,mutrapro_task,mutrapro_file,mutrapro_studio,mutrapro_notification
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  # Định nghĩa 6 microservices
+  auth-service:
+    build: ./services/auth-service
+    restart: always
+    ports:
+      - "3001:3001"
+    environment:
+      - DB_HOST=mysql_db # Kết nối tới container DB
+      - DB_USER=root
+      - DB_PASSWORD=your_strong_password
+      - DB_AUTH_NAME=mutrapro_auth
+    depends_on:
+      - mysql_db # Khởi chạy sau khi DB đã sẵn sàng
+
+  order-service:
+    build: ./services/order-service
+    restart: always
+    ports:
+      - "3002:3002"
+    environment:
+      - DB_HOST=mysql_db
+      - DB_USER=root
+      - DB_PASSWORD=your_strong_password
+      - DB_ORDER_NAME=mutrapro_order
+    depends_on:
+      - mysql_db
+
+  task-service:
+    build: ./services/task-service
+    restart: always
+    ports:
+      - "3003:3003"
+    environment:
+      - DB_HOST=mysql_db
+      - DB_USER=root
+      - DB_PASSWORD=your_strong_password
+      - DB_TASK_NAME=mutrapro_task
+    depends_on:
+      - mysql_db
+
+  file-service:
+    build: ./services/file-service
+    restart: no
+    ports:
+      - "3004:3004"
+    volumes: # Để lưu file upload
+      - ./services/file-service/uploads:/app/uploads
+    environment:
+      - DB_HOST=mysql_db
+      - DB_USER=root
+      - DB_PASSWORD=your_strong_password
+      - DB_FILE_NAME=mutrapro_file
+    depends_on:
+      - mysql_db
+
+  studio-service:
+    build: ./services/studio-service
+    restart: always
+    ports:
+      - "3005:3005"
+    environment:
+      - DB_HOST=mysql_db
+      - DB_USER=root
+      - DB_PASSWORD=your_strong_password
+      - DB_STUDIO_NAME=mutrapro_studio
+    depends_on:
+      - mysql_db
+
+  notification-service:
+    build: ./services/notification-service
+    restart: always
+    ports:
+      - "3006:3006"
+    environment:
+      - DB_HOST=mysql_db
+      - DB_USER=root
+      - DB_PASSWORD=your_strong_password
+      - DB_NOTIFICATION_NAME=mutrapro_notification
+    depends_on:
+      - mysql_db
+
+volumes:
+  mysql_data:
