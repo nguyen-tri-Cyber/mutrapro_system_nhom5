@@ -28,38 +28,39 @@ const io = new Server(server, {
 // Mục đích: Biết được socket ID nào tương ứng với user ID nào
 // để gửi thông báo đến đúng người dùng.
 let onlineUsers = {};
-
 const addUser = (userId, socketId) => {
     onlineUsers[userId] = socketId;
+    console.log(`[Notification Service] User ${userId} added with socket ${socketId}. Online users:`, onlineUsers); // Log thêm
 };
 
 const removeUser = (socketId) => {
-    // Tìm userId dựa trên socketId và xóa khỏi danh sách
+    let removedUserId = null; // Biến để lưu ID user bị xóa
     Object.keys(onlineUsers).forEach(userId => {
         if (onlineUsers[userId] === socketId) {
             delete onlineUsers[userId];
+            removedUserId = userId; // Ghi lại ID
         }
     });
+    if (removedUserId) {
+        console.log(`[Notification Service] User ${removedUserId} removed (socket ${socketId}). Online users:`, onlineUsers); // Log thêm
+    }
 };
 
 // --- 5. LẮNG NGHE CÁC KẾT NỐI TỪ CLIENT (REACT APP) ---
 io.on("connection", (socket) => {
-    console.log(`Một người dùng đã kết nối: ${socket.id}`);
+    console.log(`[Notification Service] A user connected: ${socket.id}`);
 
-    // Lắng nghe sự kiện khi user đăng nhập và gửi userId của họ lên
+    // Lắng nghe sự kiện "addUser" từ client
     socket.on("addUser", (userId) => {
+        console.log(`[Notification Service] Received 'addUser' event for userId: ${userId} from socket: ${socket.id}`); // Log thêm
         addUser(userId, socket.id);
-        console.log("Danh sách người dùng online:", onlineUsers);
     });
 
-    // Lắng nghe sự kiện khi user ngắt kết nối (tắt tab, logout)
     socket.on("disconnect", () => {
-        console.log(`Người dùng đã ngắt kết nối: ${socket.id}`);
+        console.log(`[Notification Service] User disconnected: ${socket.id}`);
         removeUser(socket.id);
-        console.log("Danh sách người dùng online:", onlineUsers);
     });
 });
-
 
 // Cấu hình "bể kết nối" đến DB (giữ nguyên)
 const dbConfig = {
@@ -100,23 +101,27 @@ app.post('/send', async (req, res) => {
 // CÁCH DÙNG: VD: task-service sau khi tạo task sẽ gọi POST đến đây
 // BODY: { "userId": 5, "eventName": "new_task", "data": { "orderId": 12, "description": "Ký âm..." } }
 // =================================================================
+// API REAL-TIME (ĐÃ NÂNG CẤP)
 app.post('/notify', (req, res) => {
     const { userId, eventName, data } = req.body;
+    console.log(`[Notification Service] Received POST /notify for userId: ${userId}, event: ${eventName}`); // Log thêm
 
-    // Tìm socket ID của người dùng cần nhận thông báo
-    const receiverSocketId = onlineUsers[userId];
+    if (userId === 'broadcast') {
+        io.emit(eventName, data); 
+        console.log(`[Notification Service] Broadcasted event '${eventName}'`);
+        return res.status(200).json({ message: "Sự kiện đã được broadcast." });
+    }
+    // ========================
 
+    // Logic gửi cho 1 người giữ nguyên
+const receiverSocketId = onlineUsers[userId];
     if (receiverSocketId) {
-        // Nếu người dùng đang online, gửi sự kiện đến họ
         io.to(receiverSocketId).emit(eventName, data);
-        console.log(`Đã gửi sự kiện '${eventName}' đến người dùng ID: ${userId}`);
+        console.log(`[Notification Service] Emitted event '${eventName}' to user ${userId} (socket ${receiverSocketId})`);
         res.status(200).json({ message: "Thông báo đã được gửi đi." });
     } else {
-        // Nếu người dùng offline, báo lại cho service gọi đến
-        console.log(`Người dùng ID: ${userId} không online, không gửi thông báo real-time.`);
-        res.status(404).json({ message: "Người dùng không online." });
-        // (Nâng cao): Ở đây bạn có thể thêm logic để lưu thông báo này vào DB
-        // để khi người dùng online trở lại, họ sẽ thấy.
+        console.log(`[Notification Service] User ${userId} is OFFLINE. Cannot send real-time message.`);
+        res.status(404).json({ message: "Người dùng không online." }); 
     }
 });
 

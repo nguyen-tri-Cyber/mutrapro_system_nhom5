@@ -3,6 +3,7 @@ const mysql = require('mysql2/promise');
 const cors = require('cors');
 const multer = require('multer');
 const path = require('path');
+const axios = require('axios');
 const fs = require('fs');
 require('dotenv').config();
 
@@ -24,12 +25,21 @@ const dbConfig = {
     database: process.env.DB_FILE_NAME || 'mutrapro_file',
     charset: 'utf8mb4',
     waitForConnections: true,
-    connectionLimit: 10, // Giới hạn 10 kết nối
+    connectionLimit: 10,
     queueLimit: 0
 };
 
 // Tạo ra một "bể" chứa các kết nối có sẵn
 const pool = mysql.createPool(dbConfig);
+
+// Hàm helper để gửi thông báo
+const notify = async (userId, eventName, data) => {
+    try {
+        await axios.post('http://notification-service:3006/notify', { userId, eventName, data });
+    } catch (err) {
+        console.error(`Lỗi khi gửi thông báo '${eventName}':`, err.message);
+    }
+};
 
 console.log('---DATABASE CONFIG---', dbConfig);
 
@@ -40,30 +50,22 @@ app.get('/ping', (req, res) => {
     res.status(200).send('Pong from File Service!');
 });
 
-// --- API MỚI ĐỂ DOWNLOAD FILE ---
+// --- API MỚI ĐỂ DOWNLOAD FILE --- (Không đổi)
 app.get('/files/download/:fileId', async (req, res) => {
     const { fileId } = req.params;
     let connection;
     try {
         connection = await pool.getConnection();
-        // Lấy thông tin file từ DB, bao gồm cả file_path
         const [rows] = await connection.execute('SELECT * FROM file WHERE id = ?', [fileId]);
-
         if (rows.length === 0) {
             return res.status(404).send('File not found.');
         }
-
         const fileInfo = rows[0];
-        // Tạo đường dẫn tuyệt đối đến file trên server
         const filePath = path.join(__dirname, fileInfo.file_path);
-
-        // Kiểm tra xem file có thực sự tồn tại không
         if (fs.existsSync(filePath)) {
-            // Gửi file về cho client để tải xuống với tên gốc
             res.download(filePath, fileInfo.file_name, (err) => {
                 if (err) {
                     console.error('File download error:', err);
-                    // Không gửi response lỗi ở đây vì header đã được gửi
                 }
             });
         } else {
@@ -77,18 +79,17 @@ app.get('/files/download/:fileId', async (req, res) => {
     }
 });
 
-// API LẤY FILE THEO ORDER ID
+// API LẤY FILE THEO ORDER ID (Không đổi)
 app.get('/files/order/:orderId', async (req, res) => {
     const { orderId } = req.params;
     let connection;
     try {
         connection = await pool.getConnection();
-        // --- THÊM "LIMIT 1" VÀO CUỐI CÂU LỆNH SQL ---
         const [rows] = await connection.execute(
-            'SELECT id, file_name, file_type, created_at FROM file WHERE order_id = ? ORDER BY created_at DESC LIMIT 1',
+            'SELECT id, file_name, file_type, created_at FROM file WHERE order_id = ? ORDER BY created_at DESC', // Gỡ LIMIT 1 để lấy tất cả file
             [orderId]
         );
-        res.json(rows); // Sẽ trả về mảng có 0 hoặc 1 phần tử
+        res.json(rows);
     } catch (error) {
         console.error(`Error fetching files for order ${orderId}:`, error);
         res.status(500).json({ error: 'Database error' });
@@ -97,10 +98,10 @@ app.get('/files/order/:orderId', async (req, res) => {
     }
 });
 
-
-// Endpoint chính để tải file lên
+// Endpoint chính để tải file lên (ĐÃ NÂNG CẤP)
 app.post('/upload', upload.single('file'), async (req, res) => {
-    const { order_id, uploader_id, file_type } = req.body;
+    // Giả sử frontend sẽ gửi thêm coordinatorId khi chuyên viên nộp bài
+    const { order_id, uploader_id, file_type, coordinatorId } = req.body;
     const file = req.file;
 
     if (!file) {
@@ -110,7 +111,6 @@ app.post('/upload', upload.single('file'), async (req, res) => {
     const { originalname, path: filePath } = file;
     let connection;
     try {
-        // "Mượn" kết nối
         connection = await pool.getConnection();
         const [result] = await connection.execute(
             `INSERT INTO file (order_id, uploader_id, file_name, file_path, file_type)
@@ -118,12 +118,23 @@ app.post('/upload', upload.single('file'), async (req, res) => {
             [order_id, uploader_id, originalname, filePath, file_type]
         );
         
+        // ======================= PHẦN NÂNG CẤP REAL-TIME =======================
+        // Nếu là file sản phẩm (không phải audio gốc) và có coordinatorId, thì gửi thông báo
+        if (file_type !== 'audio' && coordinatorId) {
+            notify(coordinatorId, 'product_file_uploaded', {
+                orderId: order_id,
+                fileName: originalname,
+                uploaderId: uploader_id,
+                message: `Chuyên viên vừa nộp file sản phẩm cho đơn hàng #${order_id}.`
+            });
+        }
+        // ======================================================================
+        
         res.status(201).json({ id: result.insertId, message: 'File uploaded successfully', filePath: filePath });
     } catch (error) {
         console.error('---!!! DATABASE OPERATION FAILED !!!---:', error);
         res.status(500).json({ error: 'Database error', details: error.message });
     } finally {
-        // "Trả lại" kết nối
         if (connection) connection.release();
     }
 });

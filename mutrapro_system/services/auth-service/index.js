@@ -21,18 +21,22 @@ const dbConfig = {
 
 const pool = mysql.createPool(dbConfig);
 
-// API Endpoint: Đăng ký người dùng
+// API Endpoint: Đăng ký người dùng (ĐÃ NÂNG CẤP BẢO MẬT)
 app.post('/register', async (req, res) => {
-    const { name, email, password, role } = req.body;
+    // Chỉ lấy name, email, password từ body, phớt lờ `role` để bảo mật
+    const { name, email, password } = req.body; 
     let connection;
     try {
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
         connection = await pool.getConnection();
+
+        // Luôn INSERT với role là 'customer', bất kể frontend gửi lên cái gì
         const [result] = await connection.execute(
             'INSERT INTO users (name, email, password_hash, role) VALUES (?, ?, ?, ?)',
-            [name, email, hashedPassword, role]
+            [name, email, hashedPassword, 'customer'] // Hardcode 'customer' ở đây
         );
+
         res.status(201).json({ id: result.insertId, message: 'User registered successfully' });
     } catch (error) {
         console.error('Registration error:', error);
@@ -45,6 +49,7 @@ app.post('/register', async (req, res) => {
     }
 });
 
+// Các API còn lại không thay đổi logic cốt lõi
 // API Endpoint: Đăng nhập
 app.post('/login', async (req, res) => {
     const { email, password } = req.body;
@@ -119,44 +124,31 @@ app.put('/users/:id', async (req, res) => {
     }
 });
 
-// ======================= API MỚI ĐỂ ĐỔI MẬT KHẨU =======================
-// MỤC ĐÍCH: Cho phép người dùng đổi mật khẩu sau khi xác thực mật khẩu cũ.
-// CÁCH GỌI: PUT http://localhost:3001/users/5/password
-// BODY: { "oldPassword": "...", "newPassword": "..." }
-// ========================================================================
+// API ĐỂ ĐỔI MẬT KHẨU
 app.put('/users/:id/password', async (req, res) => {
     const { id } = req.params;
     const { oldPassword, newPassword } = req.body;
     let connection;
-
     if (!oldPassword || !newPassword) {
         return res.status(400).json({ error: 'Vui lòng cung cấp đủ mật khẩu cũ và mới.' });
     }
-
     try {
         connection = await pool.getConnection();
-        // 1. Lấy mật khẩu đã mã hóa hiện tại từ DB
         const [rows] = await connection.execute('SELECT password_hash FROM users WHERE id = ?', [id]);
         if (rows.length === 0) {
             return res.status(404).json({ message: 'Không tìm thấy người dùng.' });
         }
-        
-        // 2. So sánh mật khẩu cũ người dùng nhập với mật khẩu trong DB
         const user = rows[0];
         const isMatch = await bcrypt.compare(oldPassword, user.password_hash);
         if (!isMatch) {
             return res.status(401).json({ error: 'Mật khẩu cũ không đúng.' });
         }
-
-        // 3. Nếu đúng, mã hóa mật khẩu mới và cập nhật vào DB
         const salt = await bcrypt.genSalt(10);
         const hashedNewPassword = await bcrypt.hash(newPassword, salt);
-
         await connection.execute(
             'UPDATE users SET password_hash = ? WHERE id = ?',
             [hashedNewPassword, id]
         );
-
         res.json({ message: 'Đổi mật khẩu thành công.' });
     } catch (error) {
         console.error('Change password error:', error);

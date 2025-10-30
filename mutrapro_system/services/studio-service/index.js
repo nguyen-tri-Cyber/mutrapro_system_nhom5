@@ -2,6 +2,8 @@
 const express = require('express');
 const mysql = require('mysql2/promise');
 const cors = require('cors');
+// axios đã có sẵn, tuyệt vời!
+const axios = require('axios');
 require('dotenv').config();
 
 const app = express();
@@ -21,9 +23,18 @@ const dbConfig = {
 
 const pool = mysql.createPool(dbConfig);
 
+// Hàm helper để gửi thông báo (đã có sẵn)
+const notify = async (userId, eventName, data) => {
+    try {
+        await axios.post('http://notification-service:3006/notify', { userId, eventName, data });
+    } catch (err) {
+        console.error(`Lỗi khi gửi thông báo '${eventName}':`, err.message);
+    }
+};
+
 // === API CHO KHÁCH HÀNG & CHUYÊN GIA ===
 
-// API Endpoint: Lấy danh sách phòng thu
+// API Endpoint: Lấy danh sách phòng thu (Không đổi)
 app.get('/studios', async (req, res) => {
     let connection;
     try {
@@ -38,9 +49,10 @@ app.get('/studios', async (req, res) => {
     }
 });
 
-// API Endpoint: Đặt lịch phòng thu
+// API Endpoint: Đặt lịch phòng thu (ĐÃ NÂNG CẤP)
 app.post('/bookings', async (req, res) => {
-    const { studio_id, artist_id, order_id, start_time, end_time } = req.body;
+    // Giả sử frontend sẽ gửi thêm studioAdminId để biết ai là người nhận thông báo
+    const { studio_id, artist_id, order_id, start_time, end_time, studioAdminId } = req.body;
     let connection;
     try {
         connection = await pool.getConnection();
@@ -49,6 +61,18 @@ app.post('/bookings', async (req, res) => {
              VALUES (?, ?, ?, ?, ?, 'scheduled')`,
             [studio_id, artist_id, order_id, start_time, end_time]
         );
+        
+        // --- PHẦN NÂNG CẤP REAL-TIME ---
+        // Gửi thông báo cho admin phòng thu (nếu có ID được gửi lên)
+        if (studioAdminId) {
+            notify(studioAdminId, 'new_booking', {
+                studioId: studio_id,
+                orderId: order_id,
+                message: `Có một lịch đặt mới tại phòng thu của bạn cho đơn hàng #${order_id}.`
+            });
+        }
+        // -----------------------------
+
         res.status(201).json({ id: result.insertId, message: 'Booking created' });
     } catch (error) {
         console.error('Create booking error:', error);
@@ -58,15 +82,13 @@ app.post('/bookings', async (req, res) => {
     }
 });
 
+// === CÁC API DÀNH RIÊNG CHO ADMIN PHÒNG THU ===
 
-// === CÁC API MỚI DÀNH RIÊNG CHO ADMIN PHÒNG THU ===
-
-// 1. API: Lấy toàn bộ lịch đặt để hiển thị trên calendar
+// 1. API: Lấy toàn bộ lịch đặt (Không đổi)
 app.get('/bookings/all', async (req, res) => {
     let connection;
     try {
         connection = await pool.getConnection();
-        // JOIN với bảng studios để lấy tên phòng thu
         const [rows] = await connection.execute(`
             SELECT b.id, b.order_id, b.start_time, b.end_time, s.name as studio_name
             FROM booking b
@@ -83,8 +105,7 @@ app.get('/bookings/all', async (req, res) => {
     }
 });
 
-
-// 2. API: Cập nhật trạng thái phòng thu
+// 2. API: Cập nhật trạng thái phòng thu (ĐÃ NÂNG CẤP)
 app.put('/studios/:id/status', async (req, res) => {
     const { id } = req.params;
     const { status } = req.body;
@@ -104,6 +125,15 @@ app.put('/studios/:id/status', async (req, res) => {
         if (result.affectedRows === 0) {
             return res.status(404).json({ message: 'Không tìm thấy phòng thu.' });
         }
+
+        // --- PHẦN NÂNG CẤP REAL-TIME ---
+        // Gửi broadcast cho tất cả mọi người biết trạng thái đã thay đổi
+        notify('broadcast', 'studio_status_updated', {
+            studioId: id,
+            newStatus: status
+        });
+        // -----------------------------
+
         res.json({ message: 'Cập nhật trạng thái phòng thu thành công.' });
     } catch (error) {
         console.error('Update studio status error:', error);
@@ -113,8 +143,9 @@ app.put('/studios/:id/status', async (req, res) => {
     }
 });
 
-// 3. API: Tạo một phòng thu mới
+// 3. API: Tạo một phòng thu mới (Không đổi)
 app.post('/studios', async (req, res) => {
+    /* ... Giữ nguyên code cũ ... */
     const { name, location } = req.body;
     if (!name || !location) {
         return res.status(400).json({ error: 'Vui lòng cung cấp đủ tên và địa điểm.' });
@@ -135,8 +166,9 @@ app.post('/studios', async (req, res) => {
     }
 });
 
-// 4. API: Xóa một phòng thu
+// 4. API: Xóa một phòng thu (Không đổi)
 app.delete('/studios/:id', async (req, res) => {
+    /* ... Giữ nguyên code cũ ... */
     const { id } = req.params;
     let connection;
     try {
@@ -156,6 +188,35 @@ app.delete('/studios/:id', async (req, res) => {
         if (connection) connection.release();
     }
 });
+
+// === API MỚI ĐỂ "LÀM GIÀU DỮ LIỆU" CHO ORDER-SERVICE ===
+app.get('/bookings/order/:orderId', async (req, res) => {
+    const { orderId } = req.params;
+    let connection;
+    try {
+        connection = await pool.getConnection();
+        // Lấy thêm cả thời gian để hiển thị cho chi tiết
+        const [rows] = await connection.execute(`
+            SELECT s.name as studioName, s.location, b.start_time, b.end_time 
+            FROM booking b
+            JOIN studios s ON b.studio_id = s.id
+            WHERE b.order_id = ? 
+            LIMIT 1
+        `, [orderId]);
+
+        if (rows.length > 0) {
+            res.json(rows[0]); // Trả về { studioName, location, start_time, end_time }
+        } else {
+            res.status(404).json({ message: 'Không tìm thấy lịch đặt cho đơn hàng này.' });
+        }
+    } catch (error) {
+        console.error("Lỗi khi lấy booking theo order ID:", error);
+        res.status(500).json({ error: 'Database error' });
+    } finally {
+        if (connection) connection.release();
+    }
+});
+// =======================================================
 
 
 const PORT = process.env.PORT || 3005;

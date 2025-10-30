@@ -2,6 +2,7 @@ const express = require('express');
 const mysql = require('mysql2/promise');
 const cors = require('cors');
 require('dotenv').config();
+const axios = require('axios');
 
 const app = express();
 app.use(cors());
@@ -19,8 +20,6 @@ const dbConfig = {
 };
 
 const pool = mysql.createPool(dbConfig);
-
-// ... (tất cả các API từ /orders đến /orders/:id/feedback giữ nguyên) ...
 
 // API Endpoint: Tạo đơn hàng mới
 app.post('/orders', async (req, res) => {
@@ -41,6 +40,15 @@ app.post('/orders', async (req, res) => {
         if (connection) connection.release();
     }
 });
+
+// Hàm helper để gửi thông báo, tránh lặp code
+const notify = async (userId, eventName, data) => {
+    try {
+        await axios.post('http://notification-service:3006/notify', { userId, eventName, data });
+    } catch (err) {
+        console.error(`Lỗi khi gửi thông báo '${eventName}':`, err.message);
+    }
+};
 
 // API ĐỂ LẤY CÁC ĐƠN HÀNG "ĐANG CHỜ"
 app.get('/orders/unassigned', async (req, res) => {
@@ -65,11 +73,36 @@ app.get('/orders/customer/:customerId', async (req, res) => {
     let connection;
     try {
         connection = await pool.getConnection();
-        const [rows] = await connection.execute(
+        const [orders] = await connection.execute(
             'SELECT * FROM orders WHERE customer_id = ? ORDER BY created_at DESC',
             [customerId]
         );
-        res.json(rows);
+
+        // --- PHẦN LÀM GIÀU DỮ LIỆU ---
+        const enrichedOrders = await Promise.all(
+            orders.map(async (order) => {
+                // Nếu là dịch vụ thu âm và đã qua giai đoạn pending, đi hỏi studio-service
+                if (order.service_type === 'recording' && order.status !== 'pending') {
+                    try {
+                        const bookingResponse = await axios.get(`http://studio-service:3005/bookings/order/${order.id}`);
+                        // Gắn thêm thông tin phòng thu vào đơn hàng
+                        return { ...order, studioInfo: bookingResponse.data };
+                    } catch (error) {
+                        // Nếu không tìm thấy booking (lỗi 404), không sao cả, chỉ trả về order gốc
+                        if (error.response && error.response.status === 404) {
+                            return order;
+                        }
+                        // Nếu là lỗi khác, log ra console
+                        console.error(`[Order Service] Lỗi khi lấy booking cho order ${order.id}:`, error.message);
+                        return order;
+                    }
+                }
+                return order; // Trả về đơn hàng gốc nếu không phải dịch vụ thu âm
+            })
+        );
+        // -----------------------------
+
+        res.json(enrichedOrders); // Trả về danh sách đơn hàng đã được làm giàu
     } catch (error) {
         console.error('Get orders by customer error:', error);
         res.status(500).json({ error: 'Database error' });
@@ -78,14 +111,31 @@ app.get('/orders/customer/:customerId', async (req, res) => {
     }
 });
 
-// API ĐỂ CẬP NHẬT TRẠNG THÁI ĐƠN HÀNG
+// API ĐỂ CẬP NHẬT TRẠNG THÁI ĐƠN HÀNG (ĐÃ NÂNG CẤP)
 app.put('/orders/:id/status', async (req, res) => {
     const { id } = req.params;
     const { status } = req.body;
     let connection;
     try {
         connection = await pool.getConnection();
+        
+        // Lấy thông tin customer_id trước khi update
+        const [orderRows] = await connection.execute('SELECT customer_id FROM orders WHERE id = ?', [id]);
+        if (orderRows.length === 0) {
+            return res.status(404).json({ message: 'Order not found' });
+        }
+        const customerId = orderRows[0].customer_id;
+
+        // Thực hiện update
         await connection.execute('UPDATE orders SET status = ? WHERE id = ?', [status, id]);
+
+        // Gửi thông báo real-time cho khách hàng
+        notify(customerId, 'order_status_updated', {
+            orderId: id,
+            newStatus: status,
+            message: `Trạng thái đơn hàng #${id} của bạn đã được cập nhật thành: ${status}.`
+        });
+
         res.json({ message: 'Order status updated successfully' });
     } catch (error) {
         console.error('Update order status error:', error);

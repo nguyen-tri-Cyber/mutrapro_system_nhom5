@@ -1,16 +1,15 @@
 // web-app/src/pages/OrderHistoryPage.js
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom'; // 1. Import Link để tạo đường dẫn
-import { useAuth } from '../context/AuthContext'; // 2. Import useAuth để lấy thông tin user
+import { Link } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import orderApi from '../api/orderApi';
 
 const OrderHistoryPage = () => {
-    const { user } = useAuth(); // 3. Lấy user trực tiếp từ trạm điều khiển trung tâm
+    const { user } = useAuth();
     const [orders, setOrders] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // Hàm fetchOrders không đổi
         const fetchOrders = async (userId) => {
             try {
                 const data = await orderApi.getOrdersByCustomer(userId);
@@ -21,15 +20,12 @@ const OrderHistoryPage = () => {
                 setLoading(false);
             }
         };
-
-        // 4. Logic được đơn giản hóa: nếu có user thì fetch, không thì thôi
         if (user) {
             fetchOrders(user.id);
         } else {
-            // Nếu không có user (ví dụ: bị logout), không cần làm gì và không loading nữa
             setLoading(false);
         }
-    }, [user]); // useEffect sẽ chạy lại mỗi khi user thay đổi (đăng nhập/đăng xuất)
+    }, [user]);
 
     if (loading) return <div className="page-container"><p>Đang tải lịch sử đơn hàng...</p></div>;
 
@@ -39,25 +35,29 @@ const OrderHistoryPage = () => {
             {orders.length === 0 ? (
                 <p>Bạn chưa có đơn hàng nào.</p>
             ) : (
-                <table style={{ width: '100%', marginTop: '20px', borderCollapse: 'collapse' }}>
-                    <thead>
-                        <tr style={{ borderBottom: '2px solid #333' }}>
-                            <th style={{ padding: '10px', textAlign: 'left' }}>ID Order</th>
-                            <th style={{ padding: '10px', textAlign: 'left' }}>Dịch Vụ</th>
-                            <th style={{ padding: '10px', textAlign: 'left' }}>Mô Tả</th>
-                            <th style={{ padding: '10px', textAlign: 'left' }}>Trạng Thái</th>
+
+                <table className="admin-table" style={{color: 'white'}}> 
+                    <thead style={{color: 'black'}}>
+                        <tr>
+                            <th>ID Đơn hàng</th>
+                            <th>Dịch Vụ</th>
+                            <th>Trạng Thái</th>
+                            <th>Chi tiết</th> 
                         </tr>
                     </thead>
                     <tbody>
                         {orders.map(order => (
-                            <tr key={order.id} style={{ borderBottom: '1px solid #ccc' }}>
-                                {/* --- 5. SỬA LỖI Ở ĐÂY: BIẾN ID THÀNH LINK --- */}
-                                <td style={{ padding: '10px' }}>
-                                    <Link to={`/orders/${order.id}`}>#{order.id}</Link>
+                            <tr key={order.id}>
+                                <td><Link to={`/orders/${order.id}`} style={{color: 'red', fontWeight:'bold'}}>#{order.id}</Link></td>
+                                <td style={{color: '#58a6ff', fontWeight:'bold'}}>{order.service_type}</td>
+                                <td style={{ fontWeight: 'bold', color:'red'}}>{order.status}</td>
+                                <td style={{fontSize: '0.9em', color: '#58a6ff', fontWeight:'bold'}}>
+                                    {order.studioInfo ? (
+                                        `Phòng thu: ${order.studioInfo.studioName} (${order.studioInfo.location})`
+                                    ) : (
+                                        ''
+                                    )}
                                 </td>
-                                <td style={{ padding: '10px' }}>{order.service_type}</td>
-                                <td style={{ padding: '10px' }}>{order.description}</td>
-                                <td style={{ padding: '10px', fontWeight: 'bold' }}>{order.status}</td>
                             </tr>
                         ))}
                     </tbody>

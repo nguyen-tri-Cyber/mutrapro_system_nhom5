@@ -1,17 +1,23 @@
 // web-app/src/components/ProtectedRoute.js
 import React from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext'; // <-- Dùng useAuth
+import { useAuth } from '../context/AuthContext';
 
 const ProtectedRoute = () => {
-    const { user } = useAuth(); // <-- Lấy user từ "trạm điều khiển"
-    
-    // Nếu không có user, chuyển hướng về trang đăng nhập
-    if (!user) {
-        return <Navigate to="/login" />;
+    // Lấy cả user và loading từ context
+    const { user, loading } = useAuth(); 
+
+    // 1. Nếu đang trong quá trình kiểm tra (loading), hiển thị màn hình chờ
+    if (loading) {
+        return <div className="page-container"><h1>Đang xác thực...</h1></div>;
     }
-    
-    // Nếu có user, cho phép truy cập
+
+    // 2. Sau khi đã kiểm tra xong, nếu không có user thì mới chuyển hướng
+    if (!user) {
+        return <Navigate to="/login" replace />;
+    }
+
+    // 3. Nếu có user, cho phép truy cập
     return <Outlet />;
 };
 

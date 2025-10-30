@@ -1,8 +1,10 @@
 // web-app/src/pages/StudioBookingPage.js
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify'; // Dùng toast cho đẹp
 import studioApi from '../api/studioApi';
 import { useAuth } from '../context/AuthContext';
+import { io } from "socket.io-client";
 
 const StudioBookingPage = () => {
     const { user } = useAuth();
@@ -18,7 +20,6 @@ const StudioBookingPage = () => {
             try {
                 const data = await studioApi.getStudios();
                 setStudios(data);
-                // Tìm và chọn phòng thu 'available' đầu tiên làm mặc định
                 const availableStudio = data.find(s => s.status === 'available');
                 if (availableStudio) {
                     setSelectedStudio(availableStudio.id);
@@ -28,36 +29,58 @@ const StudioBookingPage = () => {
             }
         };
         fetchStudios();
+
+        const socket = io("http://localhost:3006");
+        socket.on('studio_status_updated', (data) => {
+            console.log("Nhận được cập nhật trạng thái studio real-time:", data);
+            setStudios(prevStudios => 
+                prevStudios.map(studio => 
+                    studio.id === Number(data.studioId)
+                        ? { ...studio, status: data.newStatus } 
+                        : studio
+                )
+            );
+        });
+        return () => {
+            socket.disconnect();
+        };
     }, []);
 
+    // ======================= SỬA LỖI Ở HÀM NÀY =======================
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!user || !selectedStudio || !startTime || !orderId) {
-            alert("Vui lòng điền đầy đủ thông tin.");
+            toast.warn("Vui lòng điền đầy đủ thông tin.");
             return;
         }
+        
+        // 1. SỬ DỤNG `setLoading`
         setLoading(true);
 
         try {
-            // Giả sử một buổi thu kéo dài 3 tiếng
-            const endTime = new Date(new Date(startTime).getTime() + 3 * 60 * 60 * 1000);
+            // Giả sử một buổi thu kéo dài 2 tiếng
+            const endTime = new Date(new Date(startTime).getTime() + 2 * 60 * 60 * 1000);
 
             await studioApi.createBooking({
                 studio_id: selectedStudio,
-                artist_id: user.id,
+                artist_id: user.id, // 2. SỬ DỤNG `user`
                 order_id: orderId,
                 start_time: startTime,
-                end_time: endTime
+                end_time: endTime.toISOString().slice(0, 19).replace('T', ' ')
             });
-            alert("Đặt phòng thành công!");
-            navigate('/dashboard');
+            toast.success("Đặt phòng thành công!");
+            
+            // 3. SỬ DỤNG `Maps`
+            navigate('/dashboard'); 
         } catch (error) {
-            alert("Đặt phòng thất bại! Vui lòng kiểm tra lại thông tin.");
+            toast.error("Đặt phòng thất bại! Vui lòng kiểm tra lại thông tin.");
             console.error("Failed to create booking", error);
         } finally {
+            // 1. SỬ DỤNG `setLoading`
             setLoading(false);
         }
     };
+    // ================================================================
 
     return (
         <div className="form-container">
@@ -67,7 +90,6 @@ const StudioBookingPage = () => {
                     <label>Chọn phòng thu</label>
                     <select value={selectedStudio} onChange={(e) => setSelectedStudio(e.target.value)}>
                         {studios.map(studio => (
-                            // Chỉ cho phép chọn các phòng thu đang 'available'
                             <option key={studio.id} value={studio.id} disabled={studio.status !== 'available'}>
                                 {studio.name} - {studio.location} ({studio.status})
                             </option>

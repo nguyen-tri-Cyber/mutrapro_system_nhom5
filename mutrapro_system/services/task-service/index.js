@@ -23,24 +23,38 @@ const dbConfig = {
 // Tạo ra một "bể" chứa các kết nối có sẵn
 const pool = mysql.createPool(dbConfig);
 
+// Hàm helper để gửi thông báo
+const notify = async (userId, eventName, data) => {
+    try {
+        await axios.post('http://notification-service:3006/notify', { userId, eventName, data });
+    } catch (err) {
+        console.error(`Lỗi khi gửi thông báo '${eventName}':`, err.message);
+    }
+};
+
 // API Endpoint: Tạo công việc mới
 app.post('/tasks', async (req, res) => {
     const { order_id, assigned_to, specialist_role, deadline } = req.body;
     let connection;
     try {
-        // 2. "Mượn" một kết nối từ bể
         connection = await pool.getConnection();
         const [result] = await connection.execute(
             `INSERT INTO task (order_id, assigned_to, specialist_role, status, assigned_at, deadline)
              VALUES (?, ?, ?, 'assigned', NOW(), ?)`,
             [order_id, assigned_to, specialist_role, deadline]
         );
+        
+        // Gửi thông báo cho chuyên viên được giao việc
+        notify(assigned_to, 'new_task', {
+            orderId: order_id,
+            message: `Bạn vừa được giao một công việc mới cho đơn hàng #${order_id}.`
+        });
+
         res.status(201).json({ id: result.insertId, message: 'Task created' });
     } catch (error) {
         console.error('Create task error:', error);
         res.status(500).json({ error: 'Database error' });
     } finally {
-        // 3. "Trả lại" kết nối về bể
         if (connection) connection.release();
     }
 });
@@ -48,11 +62,24 @@ app.post('/tasks', async (req, res) => {
 // API Endpoint: Cập nhật trạng thái công việc
 app.put('/tasks/:id/status', async (req, res) => {
     const { id } = req.params;
-    const { status } = req.body;
+    const { status, coordinatorId } = req.body; // Giả sử frontend gửi kèm ID của coordinator
     let connection;
     try {
         connection = await pool.getConnection();
         await connection.execute('UPDATE task SET status = ? WHERE id = ?', [status, id]);
+
+        // Nếu task hoàn thành và có coordinatorId, báo cho coordinator biết
+        if (status === 'done' && coordinatorId) {
+            const [taskRows] = await connection.execute('SELECT order_id FROM task WHERE id = ?', [id]);
+            const orderId = taskRows[0]?.order_id;
+            
+            notify(coordinatorId, 'task_completed', {
+                taskId: id,
+                orderId: orderId,
+                message: `Công việc cho đơn hàng #${orderId} đã được chuyên viên hoàn thành.`
+            });
+        }
+        
         res.json({ message: 'Task status updated' });
     } catch (error) {
         console.error('Update task status error:', error);
