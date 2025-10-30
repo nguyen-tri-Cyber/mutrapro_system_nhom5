@@ -1,6 +1,5 @@
 
 services:
-
   # Dịch vụ Cơ sở dữ liệu MySQL
   mysql_db:
     image: mysql:8.0
