@@ -1,3 +1,4 @@
+/* --- RESET MẶC ĐỊNH --- */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -5,7 +6,7 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* --- LỚP NỀN MỚI CHO TOÀN BỘ APP --- */
+/* --- LỚP NỀN CHUNG CHO TOÀN APP --- */
 .app-background {
   position: relative;
   min-height: 100vh;
@@ -18,15 +19,17 @@
   left: 0;
   right: 0;
   bottom: 0;
-  
-  background-image: url('D:\mutrapro_system\images\wallpaper_background.jpg');
+
+  /* 👉 Sử dụng ảnh trong thư mục public/images */
+  background-image: url("../public/images/wallpaper_background.jpg");
   background-size: cover;
   background-position: center;
+  
   filter: blur(8px) brightness(0.6);
   z-index: -1;
 }
 
-/* --- TRANG CHUNG (DASHBOARD, PROFILE, V.V.) --- */
+/* --- TRANG CHUNG (DASHBOARD, PROFILE, ...) --- */
 .page-container {
   display: flex;
   flex-direction: column;
@@ -34,7 +37,7 @@
   justify-content: center;
   padding: 4rem;
   text-align: center;
-  color: #fff; /* <-- FIX LỖI CHỮ ĐEN NẰM Ở ĐÂY */
+  color: #fff;
 }
 
 /* --- FORM ĐĂNG NHẬP / ĐĂNG KÝ --- */
@@ -51,7 +54,7 @@
   background: rgba(10, 10, 10, 0.65);
   padding: 2.5rem;
   border-radius: 15px;
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.18);
@@ -63,7 +66,7 @@
 .form-card h2 {
   margin-bottom: 1.5rem;
   text-align: center;
-  color: #fff; /* <-- THÊM VÀO ĐỂ TIÊU ĐỀ FORM MÀU TRẮNG */
+  color: #fff;
 }
 
 .form-group {
@@ -73,16 +76,30 @@
 .form-group label {
   display: block;
   margin-bottom: 0.5rem;
-  color: #ccc; /* Label màu xám nhạt */
+  color: #ccc;
 }
 
-.form-group input, .form-group select {
+.form-group input,
+.form-group select {
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.3);
   color: #fff;
   width: 100%;
   padding: 0.75rem;
   border-radius: 4px;
+}
+
+.form-group select {
+  background-color: rgba(255, 255, 255, 0.9);
+  color: #000;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.form-group select:focus {
+  outline: none;
+  border-color: #4b89ff;
+  box-shadow: 0 0 6px #4b89ff80;
 }
 
 .form-button {
@@ -102,20 +119,20 @@
 }
 
 .error-message {
-  color: #ff8a8a; /* Đổi màu lỗi sang đỏ nhạt cho dễ đọc trên nền tối */
+  color: #ff8a8a;
   margin-bottom: 1rem;
   text-align: center;
 }
 
-/* --- CÁC BOX TRÊN DASHBOARD --- */
+/* --- DASHBOARD --- */
 .dashboard-features {
   width: 100%;
   margin-top: 20px;
   padding: 20px;
-  background-color: #f9f9f9; /* Box này có nền trắng... */
+  background-color: #f9f9f9;
   border: 1px solid #ddd;
   border-radius: 8px;
-  color: #111; /* ...nên chữ bên trong nó phải màu đen */
+  color: #111;
 }
 
 .dashboard-features h3 {
@@ -149,16 +166,21 @@
   text-decoration: none;
   font-weight: bold;
 }
+
 .file-download-link:hover {
   text-decoration: underline;
 }
 
-/* --- HOMEPAGE (GHI ĐÈ LẠI ĐỂ NÓ KHÔNG BỊ BLUR) --- */
+/* --- HOMEPAGE (KHÔNG BỊ BLUR) --- */
 .hero-container {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('D:\mutrapro_system\images\wallpaper_background.jpg');
+  /* 👉 Vẫn dùng ảnh trong public/images */
+  background-image: 
+    linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+    url("../public/images/wallpaper_background.jpg");
+
   background-size: cover;
   background-position: center;
-  height: calc(100vh - 80px); 
+  height: calc(100vh - 80px);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -166,8 +188,7 @@
   text-align: center;
   color: #fff;
   padding: 0 20px;
-  /* Quan trọng: đặt z-index cao hơn lớp nền mờ */
-  position: relative; 
+  position: relative;
   z-index: 1;
 }
 
@@ -180,14 +201,14 @@
   margin-bottom: 1rem;
   font-weight: 700;
   letter-spacing: 1px;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .hero-subtitle {
   font-size: 1.5rem;
   margin-bottom: 2.5rem;
   font-weight: 300;
-  text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
 }
 
 .hero-button {
@@ -209,27 +230,9 @@
   color: #fff;
   transform: translateY(-3px);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-  border-bottom: none;
 }
 
-.form-group select {
-  background-color: rgba(255,255,255,0.9);
-  color: #000;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  padding: 0.75rem;
-}
-
-.form-group select:focus {
-  outline: none;
-  border-color: #4b89ff;
-  box-shadow: 0 0 6px #4b89ff80;
-}
-
-
-
-
-/* Responsive adjustments */
+/* --- RESPONSIVE --- */
 @media screen and (max-width: 768px) {
   .hero-title {
     font-size: 2.5rem;
