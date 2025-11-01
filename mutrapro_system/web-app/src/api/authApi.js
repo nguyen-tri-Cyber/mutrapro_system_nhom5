@@ -1,7 +1,8 @@
 import axios from 'axios';
+import { getApiUrl } from '../config/apiConfig';
 
-// Địa chỉ của Auth Service
-const API_URL = 'http://localhost:3001';
+// Địa chỉ của Auth Service (qua API Gateway hoặc trực tiếp)
+const API_URL = getApiUrl('auth');
 
 /**
  * Gửi yêu cầu đăng nhập đến server.

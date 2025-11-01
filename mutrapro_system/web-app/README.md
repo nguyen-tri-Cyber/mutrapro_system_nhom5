@@ -1,70 +1,213 @@
-# Getting Started with Create React App
+# MuTraPro - Music Production System
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Hệ thống quản lý và sản xuất âm nhạc chuyên nghiệp được xây dựng với React và microservices architecture.
 
-## Available Scripts
+![MuTraPro](https://img.shields.io/badge/MuTraPro-Music%20Production-blue)
+![React](https://img.shields.io/badge/React-18.3.1-61DAFB?logo=react)
+![License](https://img.shields.io/badge/license-MIT-green)
 
-In the project directory, you can run:
+##  Giới Thiệu
+
+MuTraPro là một hệ thống quản lý dịch vụ sản xuất âm nhạc toàn diện, cho phép khách hàng đặt hàng các dịch vụ như ký âm, phối khí, và thu âm. Hệ thống hỗ trợ quản lý đơn hàng, phân công nhiệm vụ cho các chuyên gia, và quản lý phòng thu một cách hiệu quả.
+
+### Tính Năng Chính
+
+-  **Quản Lý Người Dùng**: Xác thực và phân quyền theo vai trò (Customer, Artist, Transcriber, Arranger, Coordinator, Admin, Studio Admin)
+-  **Quản Lý Đơn Hàng**: Tạo và theo dõi đơn hàng dịch vụ âm nhạc
+-  **Phân Công Nhiệm Vụ**: Tự động phân công công việc cho các chuyên gia
+-  **Quản Lý Phòng Thu**: Đặt lịch và quản lý phòng thu
+-  **Upload & Download File**: Quản lý file audio, notation, và các file sản phẩm
+-  **Thông Báo Real-time**: Thông báo tức thời qua Socket.IO
+-  **Thống Kê & Báo Cáo**: Dashboard với biểu đồ và báo cáo chi tiết
+
+##  Bắt Đầu
+
+### Yêu Cầu Hệ Thống
+
+- Node.js >= 16.x
+- npm hoặc yarn
+- MySQL 8.0 (được chạy qua Docker Compose)
+
+### Cài Đặt
+
+1. **Clone repository** (nếu chưa có)
+   ```bash
+   git clone <repository-url>
+   cd mutrapro_system/web-app
+   ```
+
+2. **Cài đặt dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Đảm bảo các microservices đang chạy**
+   
+   Từ thư mục gốc của dự án, khởi động các services bằng Docker Compose:
+   ```bash
+   docker-compose up -d
+   ```
+   
+   Các services sẽ chạy trên các ports:
+   - Auth Service: `http://localhost:3001`
+   - Order Service: `http://localhost:3002`
+   - Task Service: `http://localhost:3003`
+   - File Service: `http://localhost:3004`
+   - Studio Service: `http://localhost:3005`
+   - Notification Service: `http://localhost:3006`
+
+4. **Khởi chạy ứng dụng web**
+   ```bash
+   npm start
+   ```
+
+5. **Mở trình duyệt**
+   
+   Ứng dụng sẽ tự động mở tại [http://localhost:3000](http://localhost:3000)
+
+##  Scripts Có Sẵn
+
+Trong thư mục dự án, bạn có thể chạy:
 
 ### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Chạy ứng dụng ở chế độ development.\
+Mở [http://localhost:3000](http://localhost:3000) để xem trong trình duyệt.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Trang sẽ tự động reload khi bạn thay đổi code.\
+Bạn cũng sẽ thấy các lỗi lint trong console.
 
 ### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Chạy test runner ở chế độ interactive watch mode.\
+Xem thêm thông tin về [running tests](https://facebook.github.io/create-react-app/docs/running-tests).
 
 ### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Build ứng dụng cho production vào thư mục `build`.\
+Code được bundle tối ưu cho production và minified.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Build được tối ưu và sẵn sàng để deploy!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+##  Cấu Trúc Dự Án
 
-### `npm run eject`
+```
+web-app/
+├── public/                 # Static files
+│   ├── images/            # Hình ảnh và assets
+│   └── index.html         # HTML template
+├── src/
+│   ├── api/               # API clients
+│   │   ├── authApi.js
+│   │   ├── orderApi.js
+│   │   ├── taskApi.js
+│   │   ├── fileApi.js
+│   │   └── studioApi.js
+│   ├── components/        # React components
+│   │   ├── Layout.js      # Layout chính
+│   │   ├── Navbar.js      # Navigation bar
+│   │   ├── ProtectedRoute.js
+│   │   └── ...
+│   ├── context/           # React Context
+│   │   └── AuthContext.js # Authentication context
+│   ├── pages/             # Page components
+│   │   ├── HomePage.js
+│   │   ├── LoginPage.js
+│   │   ├── Dashboard.js
+│   │   ├── CreateOrderPage.js
+│   │   ├── TaskListPage.js
+│   │   └── ...
+│   ├── App.js            # Main app component
+│   └── App.css           # Global styles
+└── package.json
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+##  Tính Năng Giao Diện
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- **Glassmorphism Design**: Giao diện hiện đại với hiệu ứng glassmorphism
+- **Gradient Backgrounds**: Màu sắc gradient đẹp mắt
+- **Smooth Animations**: Animations mượt mà cho các tương tác
+- **Responsive Design**: Tối ưu cho mọi thiết bị
+- **Dark Theme**: Giao diện tối với nền hình ảnh blur
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+##  Vai Trò Người Dùng
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Customer (Khách hàng)
+- Tạo đơn hàng mới
+- Xem lịch sử đơn hàng
+- Xem chi tiết đơn hàng
+- Chỉnh sửa hồ sơ
 
-## Learn More
+### Artist (Nghệ sĩ)
+- Xem nhiệm vụ được giao
+- Đặt lịch phòng thu
+- Upload sản phẩm hoàn thành
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Transcriber (Ký âm)
+- Xem nhiệm vụ ký âm
+- Tải file audio của khách
+- Upload file notation hoàn thành
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Arranger (Phối khí)
+- Xem nhiệm vụ phối khí
+- Tải file notation
+- Upload file mix hoàn thành
 
-### Code Splitting
+### Coordinator (Điều phối viên)
+- Phân công nhiệm vụ cho chuyên gia
+- Xem báo cáo và thống kê
+- Quản lý đơn hàng
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Admin (Quản trị viên)
+- Xem báo cáo tổng quan
+- Thống kê hệ thống
 
-### Analyzing the Bundle Size
+### Studio Admin (Quản lý phòng thu)
+- Quản lý phòng thu
+- Xem và quản lý lịch đặt
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## 🔧 Công Nghệ Sử Dụng
 
-### Making a Progressive Web App
+### Frontend
+- **React 18.3.1**: UI framework
+- **React Router DOM 6.23.1**: Client-side routing
+- **Axios 1.7.2**: HTTP client
+- **Socket.IO Client 4.8.1**: Real-time communication
+- **React Toastify 11.0.5**: Toast notifications
+- **Chart.js 4.5.1**: Data visualization
+- **React Big Calendar 1.12.2**: Calendar component
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### Styling
+- **CSS3**: Custom styles với modern effects
+- **Google Fonts**: Inter & Poppins
 
-### Advanced Configuration
+##  API Endpoints
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Web app kết nối với các microservices:
 
-### Deployment
+- **Auth Service** (`localhost:3001`): Xác thực và quản lý người dùng
+- **Order Service** (`localhost:3002`): Quản lý đơn hàng
+- **Task Service** (`localhost:3003`): Quản lý nhiệm vụ
+- **File Service** (`localhost:3004`): Upload và download file
+- **Studio Service** (`localhost:3005`): Quản lý phòng thu
+- **Notification Service** (`localhost:3006`): Thông báo real-time (Socket.IO)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+##  Xử Lý Lỗi
 
-### `npm run build` fails to minify
+Nếu gặp vấn đề:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+1. **Port đã được sử dụng**: Đảm bảo port 3000 không bị chiếm dụng
+2. **API không kết nối được**: Kiểm tra các microservices đã chạy chưa
+3. **Database connection**: Kiểm tra MySQL đã được khởi động qua Docker
+
+##  License
+
+MIT License
+
+##  Phát Triển
+
+Dự án được phát triển bởi Nhóm 5 - MuTraPro System
+
+---
+
+**"Designed For Music, Engineered to Last"** 🎵

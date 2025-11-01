@@ -94,5 +94,27 @@ services:
     depends_on:
       - mysql_db
 
+  # API Gateway - Entry point cho tất cả requests
+  api-gateway:
+    build: ./services/api-gateway
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - AUTH_SERVICE_URL=http://auth-service:3001
+      - ORDER_SERVICE_URL=http://order-service:3002
+      - TASK_SERVICE_URL=http://task-service:3003
+      - FILE_SERVICE_URL=http://file-service:3004
+      - STUDIO_SERVICE_URL=http://studio-service:3005
+      - NOTIFICATION_SERVICE_URL=http://notification-service:3006
+    depends_on:
+      - auth-service
+      - order-service
+      - task-service
+      - file-service
+      - studio-service
+      - notification-service
+
 volumes:
   mysql_data:

@@ -4,6 +4,7 @@ import { Outlet } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useAuth } from '../context/AuthContext';
 import { io } from "socket.io-client";
+import { getNotificationSocketUrl } from '../config/apiConfig';
 import Navbar from './Navbar';
 
 const Layout = () => {
@@ -14,7 +15,10 @@ const Layout = () => {
 
         if (user) {
             console.log(`[Layout Effect] User logged in (ID: ${user.id}). Attempting to connect socket...`);
-            socket = io("http://localhost:3006"); // Kết nối socket
+            // Sử dụng API Gateway hoặc kết nối trực tiếp tùy theo config
+            socket = io(getNotificationSocketUrl(), {
+                path: '/socket.io'
+            }); // Kết nối socket
 
             socket.on('connect', () => {
                 console.log(`[Socket.IO] Connected successfully! Socket ID: ${socket.id}`);

@@ -1,7 +1,8 @@
 // web-app/src/api/fileApi.js
 import axios from 'axios';
+import { getApiUrl } from '../config/apiConfig';
 
-const API_URL = 'http://localhost:3004'; // Địa chỉ của File Service
+const API_URL = getApiUrl('file'); // Địa chỉ của File Service (qua API Gateway hoặc trực tiếp)
 
 /**
  * Tải một file lên server.
@@ -20,7 +21,8 @@ const uploadFile = async (file, orderId, uploaderId, fileType) => {
     formData.append('file_type', fileType);
 
     try {
-        const response = await axios.post(`${API_URL}/upload`, formData, {
+        const endpoint = API_URL.includes('/api/files') ? `${API_URL}/upload` : `${API_URL}/upload`;
+        const response = await axios.post(endpoint, formData, {
             headers: {
                 // Header này rất quan trọng khi gửi file
                 'Content-Type': 'multipart/form-data',
@@ -35,7 +37,8 @@ const uploadFile = async (file, orderId, uploaderId, fileType) => {
 
 const getFilesByOrder = async (orderId) => {
     try {
-        const response = await axios.get(`${API_URL}/files/order/${orderId}`);
+        const endpoint = API_URL.includes('/api/files') ? `${API_URL}/files/order/${orderId}` : `${API_URL}/files/order/${orderId}`;
+        const response = await axios.get(endpoint);
         return response.data;
     } catch (error) {
         throw error;
