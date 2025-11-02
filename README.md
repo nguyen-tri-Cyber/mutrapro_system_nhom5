@@ -1,36 +1,3 @@
-🎶 Hệ thống MuTraPro
-MuTraPro (Music Transcription & Production) là một nền tảng tích hợp, được xây dựng trên kiến trúc microservices, cung cấp các dịch vụ ký âm, phối khí và sản xuất âm nhạc theo yêu cầu một cách hiệu quả và liền mạch.
-Hệ thống cho phép khách hàng chuyển đổi bất kỳ tệp âm thanh đầu vào nào thành bản ký âm chi tiết, yêu cầu phối khí tùy chỉnh, và kết hợp thu âm chuyên nghiệp. Toàn bộ quy trình được quản lý chặt chẽ từ khi nhận yêu cầu, phân công nhiệm vụ, đến khi bàn giao sản phẩm cuối cùng.
-🚀 Tính năng nổi bật
-•	Quản lý Dịch vụ: Khách hàng upload file âm thanh (MP3, WAV, MP4...) để yêu cầu Ký âm, Phối khí, hoặc Thu âm.
-•	Quản lý Quy trình (Workflow):
-  o	Điều phối viên (Coordinator) tiếp nhận và phân công nhiệm vụ cho các chuyên viên.
-  o	Chuyên viên (Specialist) nhận việc, xử lý, và nộp sản phẩm.
-  o	Khách hàng (Customer) theo dõi tiến độ, thanh toán, và gửi phản hồi/yêu cầu chỉnh sửa (revision).
-•	Quản lý Phòng thu: Nghệ sĩ (Artist) có thể đặt lịch phòng thu. Quản trị viên phòng thu (Studio Admin) quản lý trạng thái và lịch làm việc của phòng thu.
-•	Thông báo Real-time: Sử dụng WebSockets (Socket.io) để gửi thông báo tức thời về đơn hàng mới, nhiệm vụ mới, cập nhật trạng thái...
-•	Quản trị Hệ thống: Admin có toàn quyền quản lý người dùng (CRUD) và xem báo cáo thống kê doanh thu, đơn hàng.
-
-🛠️ Công nghệ sử dụng
-Backend (Microservices): Node.js, Express.js, MySQL (với mysql2/promise)
-Frontend: React.js, React Router, Axios, Socket.io Client
-Cơ sở dữ liệu: MySQL 8.0
-Containerization: Docker, Docker Compose
-Web Server (Frontend): Nginx (để phục vụ React app đã build)
-Xác thực: JSON Web Tokens (JWT)
-Upload File: Multer (trong file-service)
-
-🏛️ Kiến trúc hệ thống
-Project được xây dựng theo kiến trúc Microservices, giao tiếp với nhau qua các lời gọi API nội bộ (và docker-compose quản lý network):
-•	mysql_db (Port 3306): Dịch vụ cơ sở dữ liệu MySQL1111.
-•	auth-service (Port 3001): Xử lý đăng ký, đăng nhập, phân quyền (JWT), và CRUD người dùng222.
-•	order-service (Port 3002): Xử lý logic tạo đơn hàng, thanh toán, và feedback333.
-•	task-service (Port 3003): Xử lý việc phân công và cập nhật trạng thái công việc444.
-•	file-service (Port 3004): Xử lý upload (Multer) và download file cho các đơn hàng555.
-•	studio-service (Port 3005): Xử lý logic phòng thu và đặt lịch (booking)666.
-•	notification-service (Port 3006): Xử lý thông báo real-time qua Socket.io777.
-•	web-app (Port 3000): Giao diện React phục vụ cho tất cả người dùng qua Nginx888.
-
 📋 Yêu cầu hệ thống
 Trước khi bắt đầu, bạn cần cài đặt:
 1.	Docker: Tải Docker Desktop
