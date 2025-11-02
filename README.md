@@ -38,12 +38,12 @@ docker-compose up --build -d
 Lần chạy đầu tiên có thể mất vài phút để tải image MySQL và build các service.
 
 4. Kiểm tra trạng thái
-Sau khi chạy xong, bạn có thể kiểm tra xem tất cả các container đã "up" và "healthy" chưa:
+- Sau khi chạy xong, bạn có thể kiểm tra xem tất cả các container đã "up" và "healthy" chưa:
 docker-compose ps
-Bạn sẽ thấy một danh sách các service đang chạy, bao gồm mysql_db, auth-service, web-app...
+- Bạn sẽ thấy một danh sách các service đang chạy, bao gồm mysql_db, auth-service, web-app...
 
 5. Dừng hệ thống
-Để dừng toàn bộ hệ thống, chạy lệnh:
+- Để dừng toàn bộ hệ thống, chạy lệnh:
 docker-compose down
 
 🌐 Truy cập hệ thống
