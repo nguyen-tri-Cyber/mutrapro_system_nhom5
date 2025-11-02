@@ -25,7 +25,7 @@ DB_PASSWORD=123456
 # BẮT BUỘC đổi chuỗi này thành một chuỗi ngẫu nhiên, dài và phức tạp
 - JWT_SECRET=daylamotcaisupersecretkeyratlaannin_haydoithanhgiatrikhac
 - (Nội dung này được lấy từ file .env và docker-compose.yml của bạn).
-- 
+
 3. Build và Chạy Docker
 Mở terminal của bạn ngay tại thư mục gốc (mutrapro_system/) và chạy lệnh sau:
 
