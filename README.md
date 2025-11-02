@@ -47,25 +47,25 @@ docker-compose down
 
 🌐 Truy cập hệ thống
 Sau khi đã khởi chạy thành công (docker-compose up), bạn có thể truy cập hệ thống:
-•	Trang Web (Frontend):
-o	http://localhost:3000
-•	Các API (Backend - Dùng để test bằng Postman/Insomnia):
-o	Auth Service: http://localhost:3001
-o	Order Service: http://localhost:3002
-o	Task Service: http://localhost:3003
-o	File Service: http://localhost:3004
-o	Studio Service: http://localhost:3005
-o	Notification Service: http://localhost:3006
+Trang Web (Frontend):
+http://localhost:3000
+Các API (Backend - Dùng để test bằng Postman/Insomnia):
+- Auth Service: http://localhost:3001
+- Order Service: http://localhost:3002
+- Task Service: http://localhost:3003
+- File Service: http://localhost:3004
+- Studio Service: http://localhost:3005
+- Notification Service: http://localhost:3006
 
 🔑 Tài khoản mẫu
 Hệ thống đã tự động tạo sẵn các tài khoản mẫu (từ file init.sql) để bạn kiểm tra các vai trò.
 Mật khẩu chung cho tất cả tài khoản: Admin@123
-Admin: admin@mutrapro.com
-Điều phối viên (Coordinator): dpv@mutrapro.com
-Chuyên viên Ký âm (Transcriber): cvka@mutrapro.com
-Chuyên viên Phối khí (Arranger): cvpk@mutrapro.com
-Nghệ sĩ (Artist):  artist@mutrapro.com
-Quản trị Phòng thu (Studio Admin): studio@mutrapro.com
+- Admin: admin@mutrapro.com
+- Điều phối viên (Coordinator): dpv@mutrapro.com
+- Chuyên viên Ký âm (Transcriber): cvka@mutrapro.com
+- Chuyên viên Phối khí (Arranger): cvpk@mutrapro.com
+- Nghệ sĩ (Artist):  artist@mutrapro.com
+- Quản trị Phòng thu (Studio Admin): studio@mutrapro.com
 
 🔧 Xử lý sự cố (Troubleshooting)
 Reset cơ sở dữ liệu
