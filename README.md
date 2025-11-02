@@ -77,10 +77,10 @@ Bash
 docker-compose down -v
 
 # 2. Build lại và khởi động lại
-docker-compose up --build -d
-Xem Log của một Service cụ thể
-Nếu một service bị lỗi (ví dụ: order-service), bạn có thể xem log của nó:
-Bash
-docker-compose logs -f order-service
-(Thay order-service bằng tên service bạn muốn xem, ví dụ: auth-service, web-app...)
+- docker-compose up --build -d
+- Xem Log của một Service cụ thể
+- Nếu một service bị lỗi (ví dụ: order-service), bạn có thể xem log của nó:
+
+- docker-compose logs -f order-service
+- (Thay order-service bằng tên service bạn muốn xem, ví dụ: auth-service, web-app...)
 
