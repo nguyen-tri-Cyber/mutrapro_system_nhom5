@@ -23,11 +23,12 @@ DB_PASSWORD=123456
 
 # Chuỗi bí mật để mã hóa JWT
 # BẮT BUỘC đổi chuỗi này thành một chuỗi ngẫu nhiên, dài và phức tạp
-JWT_SECRET=daylamotcaisupersecretkeyratlaannin_haydoithanhgiatrikhac
-(Nội dung này được lấy từ file .env và docker-compose.yml của bạn).
+- JWT_SECRET=daylamotcaisupersecretkeyratlaannin_haydoithanhgiatrikhac
+- (Nội dung này được lấy từ file .env và docker-compose.yml của bạn).
+- 
 3. Build và Chạy Docker
 Mở terminal của bạn ngay tại thư mục gốc (mutrapro_system/) và chạy lệnh sau:
-Bash
+
 # Lệnh này sẽ:
 # 1. Build images cho tất cả các services (auth, order, web-app...)
 # 2. Khởi tạo các container
@@ -35,14 +36,14 @@ Bash
 # 4. Chạy ở chế độ "detached" (chạy ngầm)
 docker-compose up --build -d
 Lần chạy đầu tiên có thể mất vài phút để tải image MySQL và build các service.
+
 4. Kiểm tra trạng thái
 Sau khi chạy xong, bạn có thể kiểm tra xem tất cả các container đã "up" và "healthy" chưa:
-Bash
 docker-compose ps
 Bạn sẽ thấy một danh sách các service đang chạy, bao gồm mysql_db, auth-service, web-app...
+
 5. Dừng hệ thống
 Để dừng toàn bộ hệ thống, chạy lệnh:
-Bash
 docker-compose down
 
 🌐 Truy cập hệ thống
