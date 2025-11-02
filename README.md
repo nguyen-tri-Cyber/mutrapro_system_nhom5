@@ -16,8 +16,8 @@ git clone https://github.com/your-username/mutrapro_system.git
 # Di chuyển vào thư mục gốc của project
 cd mutrapro_system
 2. Tạo file môi trường (.env)
-Tạo một file mới tên là .env 9 trong thư mục gốc (mutrapro_system/) và sao chép nội dung bên dưới vào. File này chứa các biến môi trường mà docker-compose.yml sẽ sử dụng.
-Ini, TOML
+- Tạo một file mới tên là .env  trong thư mục gốc (mutrapro_system/) và sao chép nội dung bên dưới vào. File này chứa các biến môi trường mà docker-compose.yml sẽ sử dụng.
+- Ini, TOML
 # Mật khẩu cho user 'root' của MySQL
 DB_PASSWORD=123456
 
