@@ -46,7 +46,7 @@
 - Đây là các bước chi tiết để chạy toàn bộ hệ thống trên máy của bạn:
 1. Clone Project:
 # Clone repository về máy (thay bằng URL repo của bạn)
-git clone https://github.com/your-username/mutrapro_system.git
+git clone https://github.com/nguyen-tri-Cyber/mutrapro_system_nhom5.git
 
 # Di chuyển vào thư mục gốc của project
 cd mutrapro_system
