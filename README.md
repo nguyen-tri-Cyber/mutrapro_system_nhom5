@@ -36,7 +36,7 @@
     - web-app (Port 3000): Giao diện React phục vụ cho tất cả người dùng qua Nginx .
 
 📋 Yêu cầu hệ thống
-Trước khi bắt đầu, bạn cần cài đặt:
+- Trước khi bắt đầu, bạn cần cài đặt:
     - Docker & Docker Compose: Tải Docker Desktop (Docker Compose đã đi kèm).
     - Git: (Để clone project).
     - Trình duyệt web (Chrome, Firefox...)
@@ -104,7 +104,7 @@ docker-compose up --build -d
 🔧 Xử lý sự cố (Troubleshooting)
 - Reset toàn bộ cơ sở dữ liệu
     - Nếu bạn muốn xóa toàn bộ dữ liệu (bao gồm cả các tài khoản, đơn hàng, file đã upload) và bắt đầu lại từ đầu (để init.sql chạy lại), hãy làm theo các bước sau:
-    # 1. Dừng tất cả container VÀ xóa volume
+    # 1. Dừng tất cả container và xóa volume
     # (Cờ -v sẽ xóa volume 'mysql_data' và 'uploads' đã định nghĩa)
     docker-compose down -v
 
