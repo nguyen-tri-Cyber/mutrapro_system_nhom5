@@ -1,4 +1,4 @@
-// File: services/auth-service/index.js
+// File: services/auth-service/index.js (ĐÃ CẬP NHẬT HOÀN CHỈNH VỚI REDIS)
 const express = require('express');
 const mysql = require('mysql2/promise');
 const cors = require('cors');
@@ -9,6 +9,21 @@ require('dotenv').config({ path: '../../.env' });
 
 const { logger } = require('./shared/logger');
 const { asyncHandler, notFound, errorHandler, AppError } = require('./shared/middleware/errorHandler');
+
+// === THÊM KẾT NỐI REDIS ===
+const Redis = require('ioredis');
+const redis = new Redis({
+  host: 'redis_cache', // Tên service trong docker-compose
+  port: 6379,
+});
+redis.on('connect', () => {
+  logger.info('Auth-service đã kết nối với Redis Cache.');
+});
+redis.on('error', (err) => {
+  logger.error('Auth-service không thể kết nối Redis', err);
+});
+// === KẾT THÚC THÊM MỚI ===
+
 const { 
     registerValidation, 
     loginValidation, 
@@ -129,6 +144,14 @@ app.put('/users/:id', authMiddleware, idParamValidation, asyncHandler(async (req
     
     const [result] = await pool.execute('UPDATE users SET name = ? WHERE id = ?', [name, targetUserId]);
     
+    // === THÊM LỆNH XÓA CACHE ===
+    if (result.affectedRows > 0) {
+      const customerCacheKey = `user:${targetUserId}:name`;
+      await redis.del(customerCacheKey); // Lệnh xóa key
+      logger.info(`[Cache] Đã xóa key ${customerCacheKey} do user cập nhật tên.`);
+    }
+    // === KẾT THÚC THÊM MỚI ===
+    
     if (result.affectedRows === 0) {
         throw new AppError('Không tìm thấy người dùng.', 404);
     }
@@ -222,6 +245,14 @@ app.put('/admin/users/:id', authMiddleware, checkRole('admin'), idParamValidatio
         'UPDATE users SET name = ?, email = ?, role = ? WHERE id = ?',
         [name, email, role, id]
     );
+    
+    // === THÊM LỆNH XÓA CACHE ===
+    if (result.affectedRows > 0) {
+      const customerCacheKey = `user:${id}:name`;
+      await redis.del(customerCacheKey); // Lệnh xóa key
+      logger.info(`[Cache] Admin đã xóa key ${customerCacheKey} do user cập nhật.`);
+    }
+    // === KẾT THÚC THÊM MỚI ===
     
     if (result.affectedRows === 0) {
         throw new AppError('Không tìm thấy người dùng.', 404);

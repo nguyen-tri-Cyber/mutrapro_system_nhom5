@@ -1,4 +1,4 @@
-// services/order-service/index.js (ĐÃ CẬP NHẬT)
+// services/order-service/index.js (ĐÃ SỬA LỖI ROUTING VÀ BẬT LOG CACHE)
 const express = require('express');
 const mysql = require('mysql2/promise');
 const cors = require('cors');
@@ -8,6 +8,21 @@ require('dotenv').config({ path: '../../.env' });
 const { logger } = require('./shared/logger');
 const { asyncHandler, notFound, errorHandler, AppError } = require('./shared/middleware/errorHandler');
 const { createOrderValidation, idParamValidation, feedbackValidation } = require('./shared/middleware/validation');
+
+// === THÊM KẾT NỐI REDIS ===
+const Redis = require('ioredis');
+const redis = new Redis({
+  host: 'redis_cache', // Tên service bạn đặt trong docker-compose.yml
+  port: 6379,
+});
+redis.on('connect', () => {
+  logger.info('Order-service đã kết nối với Redis Cache.');
+});
+redis.on('error', (err) => {
+  logger.error('Không thể kết nối Redis', err);
+});
+// === KẾT THÚC THÊM MỚI ===
+
 // TODO: Tạm thời giả lập auth, sẽ được thay thế bằng logic gọi qua API Gateway
 const authMiddleware = (req, res, next) => next();
 const checkRole = (...roles) => (req, res, next) => next();
@@ -45,7 +60,8 @@ const notify = async (userId, eventName, data) => {
 };
 // --- API Endpoints ---
 // API: Tạo đơn hàng mới (yêu cầu vai trò 'customer')
-app.post('/orders', authMiddleware, checkRole('customer'), createOrderValidation, asyncHandler(async (req, res) => {
+// SỬA: Bỏ '/orders'
+app.post('/', authMiddleware, checkRole('customer'), createOrderValidation, asyncHandler(async (req, res) => {
     const { customer_id, service_type, description, price } = req.body;
 
     const [result] = await pool.execute(
@@ -63,7 +79,8 @@ app.post('/orders', authMiddleware, checkRole('customer'), createOrderValidation
 }));
 
 // API: Lấy TẤT CẢ đơn hàng (yêu cầu coordinator/admin)
-app.get('/orders', authMiddleware, checkRole('coordinator', 'admin'), asyncHandler(async (req, res) => {
+// SỬA: Bỏ '/orders'
+app.get('/', authMiddleware, checkRole('coordinator', 'admin'), asyncHandler(async (req, res) => {
     // 1. Lấy tất cả đơn hàng
     const [orders] = await pool.execute('SELECT * FROM orders ORDER BY created_at DESC');
 
@@ -78,20 +95,37 @@ app.get('/orders', authMiddleware, checkRole('coordinator', 'admin'), asyncHandl
     const enrichedOrders = await Promise.all(
         orders.map(async (order) => {
             let assignedSpecialistName = null;
+            
+            // === KHỐI LOGIC ĐÃ ĐƯỢC CẬP NHẬT VỚI REDIS ===
             try {
-                // Gọi qua task-service để lấy thông tin người được giao việc
-                const taskResponse = await axios.get(`http://task-service:3003/tasks/order/${order.id}`);
-                const specialistId = taskResponse.data.assigned_to;
-
+              // Gọi qua task-service (phần này giữ nguyên)
+              const taskResponse = await axios.get(`http://task-service:3003/tasks/order/${order.id}`);
+              const specialistId = taskResponse.data.assigned_to;
+              
+              // === PHẦN SỬA CACHE BẮT ĐẦU TỪ ĐÂY ===
+              const specialistCacheKey = `user:${specialistId}:name`;
+              const cachedName = await redis.get(specialistCacheKey);
+              
+              if (cachedName) {
+                assignedSpecialistName = cachedName;
+                logger.info(`[Cache] HIT for specialist ${specialistId}`); // ĐÃ BẬT LOG
+              } else {
                 // Gọi qua auth-service để lấy tên chuyên viên
+                logger.info(`[Cache] MISS for specialist ${specialistId}. Fetching...`); // ĐÃ BẬT LOG
                 const authResponse = await axios.get(`http://auth-service:3001/users/${specialistId}`);
                 assignedSpecialistName = authResponse.data.name;
+                // Lưu vào cache
+                await redis.set(specialistCacheKey, assignedSpecialistName, 'EX', 3600);
+              }
+              // === KẾT THÚC PHẦN SỬA CACHE ===
+            
             } catch (error) {
                 // Không sao, có thể là đơn hàng 'pending' chưa có task
                 if (error.response?.status !== 404) {
                     logger.warn(`[Order Service] Lỗi khi lấy task/user cho order ${order.id}:`, { message: error.message });
                 }
             }
+            // === KẾT THÚC KHỐI CẬP NHẬT ===
 
             // Lấy feedback từ map
             const feedback = feedbackMap.get(order.id) || null;
@@ -107,10 +141,11 @@ app.get('/orders', authMiddleware, checkRole('coordinator', 'admin'), asyncHandl
 }));
 
 // API: Lấy tất cả đơn hàng của một khách hàng (yêu cầu đúng customer hoặc admin)
-app.get('/orders/customer/:customerId', authMiddleware, asyncHandler(async (req, res) => {
+// SỬA: Bỏ '/orders'
+app.get('/customer/:customerId', authMiddleware, asyncHandler(async (req, res) => {
     const { customerId } = req.params;
     // if (req.user.id !== parseInt(customerId, 10) && req.user.role !== 'admin') {
-    //     throw new AppError('Không có quyền truy cập', 403);
+    //     throw new AppError('Không có quyền truy cập', 403);
     // }
     const [orders] = await pool.execute('SELECT * FROM orders WHERE customer_id = ? ORDER BY created_at DESC', [customerId]);
 
@@ -134,9 +169,10 @@ app.get('/orders/customer/:customerId', authMiddleware, asyncHandler(async (req,
     res.json(enrichedOrders);
 }));
 
-// === START: PHẦN CẬP NHẬT LOGIC NẰM Ở ĐÂY ===
+
 // API: Lấy chi tiết một đơn hàng
-app.get('/orders/:id', authMiddleware, idParamValidation, asyncHandler(async (req, res) => {
+// SỬA: Bỏ '/orders'
+app.get('/:id', authMiddleware, idParamValidation, asyncHandler(async (req, res) => {
     const { id } = req.params;
     
     // 1. Lấy thông tin order và feedback (như cũ)
@@ -154,18 +190,35 @@ app.get('/orders/:id', authMiddleware, idParamValidation, asyncHandler(async (re
 
     const order = rows[0];
 
-    // 2. === START: LÀM GIÀU DỮ LIỆU (PHẦN THÊM MỚI) ===
+    // === KHỐI LOGIC ĐÃ ĐƯỢC CẬP NHẬT VỚI REDIS ===
     let customerName = 'Không rõ';
+    // 1. Định nghĩa một key cache duy nhất cho user này
+    const customerCacheKey = `user:${order.customer_id}:name`;
+
     try {
-        // Gọi qua auth-service để lấy tên khách hàng
+      // 2. Thử lấy dữ liệu từ Redis TRƯỚC
+      const cachedName = await redis.get(customerCacheKey);
+
+      if (cachedName) {
+        // 3. CACHE HIT: Tìm thấy!
+        customerName = cachedName;
+        logger.info(`[Cache] HIT for user ${order.customer_id}`); // ĐÃ BẬT LOG
+      } else {
+        // 4. CACHE MISS: Không tìm thấy.
+        logger.info(`[Cache] MISS for user ${order.customer_id}. Fetching...`); // ĐÃ BẬT LOG
         const authResponse = await axios.get(`http://auth-service:3001/users/${order.customer_id}`);
         customerName = authResponse.data.name;
+
+        // 5. Lưu kết quả vào cache cho lần sau
+        await redis.set(customerCacheKey, customerName, 'EX', 3600);
+      }
     } catch (error) {
-        // Ghi log nếu có lỗi (trừ lỗi 404 - user có thể đã bị xóa)
-        if (error.response?.status !== 404) {
-            logger.warn(`[Order Service] Lỗi khi lấy user ${order.customer_id} cho order ${id}:`, { message: error.message });
-        }
+      // Logic xử lý lỗi giữ nguyên như cũ
+      if (error.response?.status !== 404) {
+        logger.warn(`[Order Service] Lỗi khi lấy user ${order.customer_id} cho order ${id}:`, { message: error.message });
+      }
     }
+    // === END: PHẦN THAY THẾ ===
 
     const enrichedOrder = {
         ...order,
@@ -176,10 +229,10 @@ app.get('/orders/:id', authMiddleware, idParamValidation, asyncHandler(async (re
     // 3. Trả về order đã có tên khách hàng
     res.json(enrichedOrder);
 }));
-// === END: PHẦN CẬP NHẬT LOGIC ===
 
 // API: Cập nhật trạng thái đơn hàng (yêu cầu coordinator hoặc admin)
-app.put('/orders/:id/status', authMiddleware, checkRole('coordinator', 'admin'), idParamValidation, asyncHandler(async (req, res) => {
+// SỬA: Bỏ '/orders'
+app.put('/:id/status', authMiddleware, checkRole('coordinator', 'admin'), idParamValidation, asyncHandler(async (req, res) => {
     const { id } = req.params;
     const { status } = req.body;
     const [orderRows] = await pool.execute('SELECT customer_id FROM orders WHERE id = ?', [id]);
@@ -199,7 +252,8 @@ app.put('/orders/:id/status', authMiddleware, checkRole('coordinator', 'admin'),
 }));
 
 // API: Thanh toán (yêu cầu customer)
-app.post('/orders/:id/pay', authMiddleware, checkRole('customer'), idParamValidation, asyncHandler(async (req, res) => {
+// SỬA: Bỏ '/orders'
+app.post('/:id/pay', authMiddleware, checkRole('customer'), idParamValidation, asyncHandler(async (req, res) => {
     const { id } = req.params;
     const { customer_id, amount, method } = req.body;
     await pool.query('START TRANSACTION');
@@ -222,7 +276,8 @@ app.post('/orders/:id/pay', authMiddleware, checkRole('customer'), idParamValida
 }));
 
 // API: Gửi feedback (yêu cầu customer)
-app.post('/orders/:id/feedback', authMiddleware, checkRole('customer'), idParamValidation, feedbackValidation, asyncHandler(async (req, res) => {
+// SỬA: Bỏ '/orders'
+app.post('/:id/feedback', authMiddleware, checkRole('customer'), idParamValidation, feedbackValidation, asyncHandler(async (req, res) => {
     const { id } = req.params;
     const { rating, comment } = req.body;
     const [existing] = await pool.execute('SELECT id FROM feedback WHERE order_id = ?', [id]);
@@ -239,14 +294,16 @@ app.post('/orders/:id/feedback', authMiddleware, checkRole('customer'), idParamV
 }));
 
 // API: Kiểm tra feedback đã tồn tại chưa
-app.get('/orders/:id/feedback', authMiddleware, idParamValidation, asyncHandler(async (req, res) => {
+// SỬA: Bỏ '/orders'
+app.get('/:id/feedback', authMiddleware, idParamValidation, asyncHandler(async (req, res) => {
     const { id } = req.params;
     const [rows] = await pool.execute('SELECT id FROM feedback WHERE order_id = ?', [id]);
     res.json({ hasFeedback: rows.length > 0 });
 }));
 
 // API: Khách hàng yêu cầu chỉnh sửa (yêu cầu customer)
-app.post('/orders/:id/request-revision', authMiddleware, checkRole('customer'), idParamValidation, asyncHandler(async (req, res) => {
+// SỬA: Bỏ '/orders'
+app.post('/:id/request-revision', authMiddleware, checkRole('customer'), idParamValidation, asyncHandler(async (req, res) => {
     const { id } = req.params;
     const { comment, coordinatorId } = req.body; // Lấy comment và ID của coordinator để gửi thông báo
     // 1. Cập nhật trạng thái đơn hàng thành 'revision_requested'
@@ -279,6 +336,7 @@ app.post('/orders/:id/request-revision', authMiddleware, checkRole('customer'), 
 }));
 
 // API: Lấy thống kê (yêu cầu admin hoặc coordinator)
+// GIỮ NGUYÊN - API Gateway sẽ gọi /api/orders/stats
 app.get('/stats', authMiddleware, checkRole('admin', 'coordinator'), asyncHandler(async (req, res) => {
     const [revenueRows] = await pool.execute("SELECT SUM(amount) as totalRevenue FROM payment WHERE status = 'paid'");
     const [statusRows] = await pool.execute("SELECT status, COUNT(*) as count FROM orders GROUP BY status");
@@ -291,6 +349,7 @@ app.get('/stats', authMiddleware, checkRole('admin', 'coordinator'), asyncHandle
 }));
 
 // === START: API MỚI CHO ADMIN QUẢN LÝ GIAO DỊCH ===
+// GIỮ NGUYÊN - API Gateway sẽ gọi /api/orders/admin/payments
 app.get('/admin/payments', authMiddleware, checkRole('admin'), asyncHandler(async (req, res) => {
     // 1. Lấy tất cả giao dịch từ bảng payment
     const [payments] = await pool.execute(
@@ -302,19 +361,30 @@ app.get('/admin/payments', authMiddleware, checkRole('admin'), asyncHandler(asyn
     }
 
     // 2. Làm giàu dữ liệu: Lấy tên khách hàng từ auth-service
-    // (Sử dụng logic tương tự như API GET /orders của Coordinator)
     const enrichedPayments = await Promise.all(
         payments.map(async (payment) => {
             let customerName = 'Không rõ';
+            
+            // === KHỐI LOGIC CẬP NHẬT VỚI REDIS ===
+            const customerCacheKey = `user:${payment.customer_id}:name`;
             try {
-                // Gọi qua auth-service để lấy tên khách hàng
-                const authResponse = await axios.get(`http://auth-service:3001/users/${payment.customer_id}`);
-                customerName = authResponse.data.name;
+                const cachedName = await redis.get(customerCacheKey);
+                if(cachedName) {
+                    customerName = cachedName;
+                    logger.info(`[Cache] HIT for user ${payment.customer_id} (in payments)`);
+                } else {
+                    logger.info(`[Cache] MISS for user ${payment.customer_id} (in payments). Fetching...`);
+                    const authResponse = await axios.get(`http://auth-service:3001/users/${payment.customer_id}`);
+                    customerName = authResponse.data.name;
+                    await redis.set(customerCacheKey, customerName, 'EX', 3600);
+                }
             } catch (error) {
                 if (error.response?.status !== 404) {
                     logger.warn(`[Order Service] Lỗi khi lấy user ${payment.customer_id}:`, { message: error.message });
                 }
             }
+            // === HẾT KHỐI LOGIC ===
+
             return {
                 ...payment,
                 customer_name: customerName
