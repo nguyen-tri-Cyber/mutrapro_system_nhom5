@@ -19,6 +19,15 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 
+// 🔹 Health check route
+app.get('/health', (req, res) => {
+  res.status(200).json({
+    service: 'notification-service',
+    status: 'ok',
+    timestamp: new Date().toISOString()
+  });
+});
+
 const server = http.createServer(app);
 const io = new Server(server, { cors: corsOptions });
 

@@ -18,6 +18,15 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// 🔹 Health check route
+app.get('/health', (req, res) => {
+  res.status(200).json({
+    service: 'file-service',
+    status: 'ok',
+    timestamp: new Date().toISOString()
+  });
+});
+
 const uploadsDir = path.join(__dirname, 'uploads');
 if (!fs.existsSync(uploadsDir)) {
     fs.mkdirSync(uploadsDir, { recursive: true });

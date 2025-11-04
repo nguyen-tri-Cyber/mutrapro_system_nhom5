@@ -152,12 +152,31 @@ services:
     networks:
       - mutrapro-network
 
+  api-gateway:
+    build:
+      context: ./services/api-gateway
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "3007:3007"
+    depends_on:
+      - auth-service
+      - order-service
+      - task-service
+      - file-service
+      - studio-service
+      - notification-service
+    networks:
+      - mutrapro-network
+
   # Ứng dụng web cho người dùng (giữ nguyên)
   web-app:
     build: ./web-app
     restart: always
     ports:
       - "3000:80" # Đã sửa port 3000 -> 80 cho đúng với Nginx
+    environment:
+      - REACT_APP_API_GATEWAY_URL=http://api-gateway:3007
     networks:
       - mutrapro-network
 
