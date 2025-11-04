@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:3003'; // Địa chỉ của Task Service
+const API_URL = 'http://localhost:3007/api/tasks'; // Địa chỉ của Task Service
 
 const createTask = async (taskData) => {
     try {
