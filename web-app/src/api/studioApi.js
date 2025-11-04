@@ -1,7 +1,7 @@
 // web-app/src/api/studioApi.js
 import axios from 'axios';
 
-const API_URL = 'http://localhost:3005';
+const API_URL = 'http://localhost:3007/api/studio';
 
 // Lấy danh sách tất cả phòng thu
 const getStudios = async () => {
