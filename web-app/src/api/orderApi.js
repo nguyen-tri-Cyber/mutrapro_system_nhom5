@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Địa chỉ của Order Service
-const API_URL = 'http://localhost:3002';
+const API_URL = 'http://localhost:3007/api/orders';
 
 const createOrder = async (orderData) => {
     try {
