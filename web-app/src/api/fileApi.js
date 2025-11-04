@@ -1,7 +1,7 @@
 // web-app/src/api/fileApi.js
 import axios from 'axios';
 
-const API_URL = 'http://localhost:3004'; // Địa chỉ của File Service
+const API_URL = 'http://localhost:3007/api/files'; // Địa chỉ của File Service
 
 /**
  * Tải một file lên server.
