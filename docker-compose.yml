@@ -33,6 +33,22 @@ services:
       - mutrapro-network
   # === KẾT THÚC KHỐI THÊM MỚI ===
 
+  # === THÊM SERVICE RABBITMQ MỚI DƯỚI ĐÂY ===
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    restart: always
+    ports:
+      # Port 5672: Cho các service (Node.js) kết nối
+      - "5672:5672"
+      # Port 15672: Cho bạn xem giao diện web quản lý
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: user
+      RABBITMQ_DEFAULT_PASS: password
+    networks:
+      - mutrapro-network
+  # === KẾT THÚC PHẦN THÊM MỚI ===
+
   # --- CÁC SERVICE BACKEND ĐÃ ĐƯỢC SỬA LẠI PHẦN BUILD ---
   auth-service:
     build:
