@@ -1,29 +1,32 @@
+// File: web-app/src/api/orderApi.js (ĐÃ SỬA LỖI ROUTING)
 import axios from 'axios';
-
-// Địa chỉ của Order Service
+// Địa chỉ của Order Service (đã trỏ đúng vào Gateway)
 const API_URL = 'http://localhost:3007/api/orders';
 
 const createOrder = async (orderData) => {
     try {
-        const response = await axios.post(`${API_URL}/orders`, orderData);
+        // SỬA: Bỏ "/orders" vì nó đã có trong API_URL
+        const response = await axios.post(API_URL, orderData); 
         return response.data;
     } catch (error) {
         throw error;
     }
 };
 
-const  getAllOrders = async ()  =>  {
-try {
-const  response = await axios.get(`${API_URL}/orders`);
-return response.data;
-} catch (error) {
-throw error;
-}
+const getAllOrders = async () => {
+    try {
+        // SỬA: Bỏ "/orders"
+        const response = await axios.get(API_URL);
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
 };
 
 const updateOrderStatus = async (orderId, status) => {
     try {
-        const response = await axios.put(`${API_URL}/orders/${orderId}/status`, { status });
+        // SỬA: Bỏ "/orders"
+        const response = await axios.put(`${API_URL}/${orderId}/status`, { status });
         return response.data;
     } catch (error) {
         throw error;
@@ -32,7 +35,8 @@ const updateOrderStatus = async (orderId, status) => {
 
 const getOrdersByCustomer = async (customerId) => {
     try {
-        const response = await axios.get(`${API_URL}/orders/customer/${customerId}`);
+        // SỬA: Bỏ "/orders"
+        const response = await axios.get(`${API_URL}/customer/${customerId}`);
         return response.data;
     } catch (error) {
         throw error;
@@ -41,7 +45,8 @@ const getOrdersByCustomer = async (customerId) => {
 
 const getOrderById = async (orderId) => {
     try {
-        const response = await axios.get(`${API_URL}/orders/${orderId}`);
+        // SỬA: Bỏ "/orders"
+        const response = await axios.get(`${API_URL}/${orderId}`);
         return response.data;
     } catch (error) {
         throw error;
@@ -50,7 +55,8 @@ const getOrderById = async (orderId) => {
 
 const payForOrder = async (orderId, paymentData) => {
     try {
-        const response = await axios.post(`${API_URL}/orders/${orderId}/pay`, paymentData);
+        // SỬA: Bỏ "/orders"
+        const response = await axios.post(`${API_URL}/${orderId}/pay`, paymentData);
         return response.data;
     } catch (error) {
         throw error;
@@ -60,7 +66,8 @@ const payForOrder = async (orderId, paymentData) => {
 // ======================= HÀM MỚI CHO FEEDBACK =======================
 const getFeedbackForOrder = async (orderId) => {
     try {
-        const response = await axios.get(`${API_URL}/orders/${orderId}/feedback`);
+        // SỬA: Bỏ "/orders"
+        const response = await axios.get(`${API_URL}/${orderId}/feedback`);
         return response.data; // Should return { hasFeedback: true/false }
     } catch (error) {
         throw error;
@@ -69,17 +76,19 @@ const getFeedbackForOrder = async (orderId) => {
 
 const submitFeedback = async (orderId, feedbackData) => {
     try {
-        const response = await axios.post(`${API_URL}/orders/${orderId}/feedback`, feedbackData);
+        // SỬA: Bỏ "/orders"
+        const response = await axios.post(`${API_URL}/${orderId}/feedback`, feedbackData);
         return response.data;
     } catch (error) {
         throw error;
     }
 };
-// ======================================================================
 
+// ======================================================================
 // Hàm mới để gọi API thống kê
 const getStats = async () => {
     try {
+        // GIỮ NGUYÊN: vì route này là /stats
         const response = await axios.get(`${API_URL}/stats`);
         return response.data;
     } catch (error) {
@@ -90,7 +99,8 @@ const getStats = async () => {
 // Hàm mới để yêu cầu chỉnh sửa đơn hàng
 const requestRevision = async (orderId, revisionData) => {
     try {
-        const response = await axios.post(`${API_URL}/orders/${orderId}/request-revision`, revisionData);
+        // SỬA: Bỏ "/orders"
+        const response = await axios.post(`${API_URL}/${orderId}/request-revision`, revisionData);
         return response.data;
     } catch (error) {
         throw error;
@@ -99,6 +109,7 @@ const requestRevision = async (orderId, revisionData) => {
 
 const adminGetTransactions = async () => {
     try {
+        // GIỮ NGUYÊN: vì route này là /admin/payments
         const response = await axios.get(`${API_URL}/admin/payments`);
         return response.data;
     } catch (error) {
@@ -117,7 +128,7 @@ const orderApi = {
     submitFeedback,
     getStats,
     requestRevision,
-    adminGetTransactions      
+    adminGetTransactions
 };
 
 export default orderApi;
