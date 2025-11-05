@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS orders (
     customer_id INT NOT NULL,
     service_type ENUM('transcription','arrangement','recording') NOT NULL,
     description TEXT,
-    status ENUM('pending','assigned','in_progress','completed','revision_requested','paid','cancelled') DEFAULT 'pending',
+    status ENUM('pending','assigned','in_progress','completed','revision_requested','fixed','paid','cancelled') DEFAULT 'pending',
     price DECIMAL(10, 2) NOT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     update_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
