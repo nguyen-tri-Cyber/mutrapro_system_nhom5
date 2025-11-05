@@ -108,8 +108,8 @@ app.post('/notify', (req, res) => {
         res.status(200).json({ message: "Thông báo real-time đã được gửi đi." });
     } else {
         logger.warn(`User ${userId} is OFFLINE. Cannot send real-time message for event '${eventName}'.`);
-        // Có thể lưu thông báo này vào DB để gửi sau
-        res.status(404).json({ message: "Người dùng không online." });
+        // SỬA LỖI LOGIC: Trả về 200 OK khi người dùng offline (yêu cầu được chấp nhận)
+        res.status(200).json({ message: "Người dùng không online." });
     }
 });
 
