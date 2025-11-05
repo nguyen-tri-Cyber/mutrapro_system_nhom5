@@ -9,9 +9,11 @@ const fs = require('fs');
 require('dotenv').config({ path: '../../.env' });
 
 // Import modules
+// ======================= SỬA LỖI PATH Ở ĐÂY =======================
 const { logger } = require('./shared/logger');
 const { asyncHandler, notFound, errorHandler, AppError } = require('./shared/middleware/errorHandler');
 const { idParamValidation, orderIdParamValidation, fileIdParamValidation } = require('./shared/middleware/validation');
+// ==================================================================
 
 const authMiddleware = (req, res, next) => next();
 const app = express();
