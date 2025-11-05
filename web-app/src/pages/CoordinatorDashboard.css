@@ -38,3 +38,4 @@
 .status-badge.status-revision_requested { background-color: #fd7e14; }
 .status-badge.status-paid { background-color: #6f42c1; }
 .status-badge.status-cancelled { background-color: #6c757d; }
+.status-badge.status-fixed { background-color: #0dcaf0; }
