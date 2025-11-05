@@ -12,6 +12,7 @@ import './CoordinatorDashboard.css';
 const formatStatusText = (status) => {
   if (status === 'in_progress') return 'in progress';
   if (status === 'revision_requested') return 'revision requested';
+  if (status === 'fixed') return 'fixed';
   return status;
 };
 // === END: THÊM HÀM FORMAT TRẠNG THÁI ===
@@ -168,6 +169,7 @@ return (
 <button onClick={()  =>  setFilter('in_progress')} className={filter === 'in_progress' ? 'active' : ''}>Đang thực hiện</button>
 <button onClick={()  =>  setFilter('completed')} className={filter === 'completed' ? 'active' : ''}>Hoàn thành</button>
 <button onClick={()  =>  setFilter('revision_requested')} className={filter === 'revision_requested' ? 'active' : ''}>Cần sửa</button>
+<button onClick={() => setFilter('fixed')} className={filter === 'fixed' ? 'active' : ''}>Đã sửa</button>
 <button onClick={()  =>  setFilter('paid')} className={filter === 'paid' ? 'active' : ''}>Đã thanh toán</button>
 </div>
 
