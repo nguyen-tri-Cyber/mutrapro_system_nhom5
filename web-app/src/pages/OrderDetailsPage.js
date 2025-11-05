@@ -12,6 +12,7 @@ import PaymentConfirmModal from '../components/PaymentConfirmModal';
 const formatStatusText = (status) => {
     if (status === 'in_progress') return 'in progress';
     if (status === 'revision_requested') return 'revision requested';
+    if (status === 'fixed') return 'fixed';
     return status;
 };
 // === END: THÊM HÀM FORMAT TRẠNG THÁI ===
@@ -135,8 +136,7 @@ const OrderDetailsPage = () => {
     // 2. hasFeedback = (order.rating !== null)
     const hasFeedback = order.rating !== null;
     const canShowFeedbackForm = user && user.role === 'customer' && order.status === 'paid' && !hasFeedback;
-    const canRequestRevision = user && user.role === 'customer' && order.status === 'completed';
-
+    const canRequestRevision = user && user.role === 'customer' && (order.status === 'completed' || order.status === 'fixed');
     return (
         <>
             <div className="page-container" style={{ alignItems: 'flex-start', maxWidth: '1000px', margin: 'auto' }}>
@@ -166,7 +166,7 @@ const OrderDetailsPage = () => {
                     )}
                     {/* === END: HIỂN THỊ COMMENT === */}
                     
-                    {user && user.role === 'customer' && order.status === 'completed' && (
+                    {user && user.role === 'customer' && (order.status === 'completed' || order.status === 'fixed') && (
                         <button onClick={() => setShowPaymentModal(true)} className="form-button" style={{ marginTop: '20px' }}>
                             Thanh toán ngay
                         </button>
