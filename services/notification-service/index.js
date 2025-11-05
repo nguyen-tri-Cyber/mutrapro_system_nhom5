@@ -4,28 +4,28 @@ const mysql = require('mysql2/promise');
 const cors = require('cors');
 const http = require('http');
 const { Server } = require("socket.io");
-require('dotenv').config({ path: '../../.env' });
+require('dotenv').config({ path: '../.env' }); // Sửa path .env về 1 cấp
 
-// Import modules
+// ======================= SỬA LỖI PATH Ở ĐÂY =======================
 const { logger } = require('./shared/logger');
 const { asyncHandler, notFound, errorHandler, AppError } = require('./shared/middleware/errorHandler');
-const app = express();
+// ==================================================================
 
+const app = express();
 const corsOptions = {
     origin: "http://localhost:3000", // Port mặc định của React app
     methods: ["GET", "POST"]
 };
-
 app.use(cors(corsOptions));
 app.use(express.json());
 
-// 🔹 Health check route
+//  🔹  Health check route
 app.get('/health', (req, res) => {
-  res.status(200).json({
-    service: 'notification-service',
-    status: 'ok',
-    timestamp: new Date().toISOString()
-  });
+    res.status(200).json({
+        service: 'notification-service',
+        status: 'ok',
+        timestamp: new Date().toISOString()
+    });
 });
 
 const server = http.createServer(app);
@@ -72,20 +72,16 @@ const dbConfig = {
     connectionLimit: 10,
     queueLimit: 0
 };
-
 const pool = mysql.createPool(dbConfig);
 
 // --- API Endpoints ---
-
 // API: Lưu thông báo vào DB (dùng nội bộ)
 app.post('/send', asyncHandler(async (req, res) => {
     const { user_id, title, message, channel } = req.body;
-    
     const [result] = await pool.execute(
         `INSERT INTO notifications (user_id, title, message, channel, status) VALUES (?, ?, ?, ?, 'pending')`,
         [user_id, title, message, channel || 'push']
     );
-
     logger.info(`Notification for user #${user_id} queued.`);
     res.status(201).json({ id: result.insertId, message: 'Notification queued for sending' });
 }));
@@ -94,13 +90,11 @@ app.post('/send', asyncHandler(async (req, res) => {
 app.post('/notify', (req, res) => {
     const { userId, eventName, data } = req.body;
     logger.info(`Received POST /notify for userId: ${userId}, event: ${eventName}`);
-    
     if (userId === 'broadcast') {
         io.emit(eventName, data);
         logger.info(`Broadcasted event '${eventName}' to all clients.`);
         return res.status(200).json({ message: "Sự kiện đã được broadcast." });
     }
-
     const receiverSocketId = onlineUsers[userId];
     if (receiverSocketId) {
         io.to(receiverSocketId).emit(eventName, data);
@@ -108,16 +102,13 @@ app.post('/notify', (req, res) => {
         res.status(200).json({ message: "Thông báo real-time đã được gửi đi." });
     } else {
         logger.warn(`User ${userId} is OFFLINE. Cannot send real-time message for event '${eventName}'.`);
-        // SỬA LỖI LOGIC: Trả về 200 OK khi người dùng offline (yêu cầu được chấp nhận)
         res.status(200).json({ message: "Người dùng không online." });
     }
 });
 
-
 // --- Middleware xử lý cuối cùng ---
 app.use(notFound);
 app.use(errorHandler);
-
 const PORT = process.env.PORT || 3006;
 server.listen(PORT, () => {
     logger.info(`Notification Service (HTTP + WebSocket) is running on port ${PORT}`);
