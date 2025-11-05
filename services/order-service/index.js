@@ -335,9 +335,9 @@ app.post('/:id/pay', authMiddleware, checkRole('customer'), idParamValidation, a
     const { id } = req.params;
     const { customer_id, amount, method } = req.body;
     await pool.query('START TRANSACTION');
-    const [updateResult] = await pool.execute(
-        'UPDATE orders SET status = ? WHERE id = ? AND status = ?',
-        ['paid', id, 'completed']
+    const  [updateResult] = await pool.execute(
+        "UPDATE orders SET status = ? WHERE id = ? AND (status = 'completed' OR status = 'fixed')",
+        ['paid', id]
     );
     if (updateResult.affectedRows === 0) {
         await pool.query('ROLLBACK');
