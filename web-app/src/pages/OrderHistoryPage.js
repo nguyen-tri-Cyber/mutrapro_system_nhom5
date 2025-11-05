@@ -8,6 +8,7 @@ import orderApi from '../api/orderApi';
 const formatStatusText = (status) => {
   if (status === 'in_progress') return 'in progress';
   if (status === 'revision_requested') return 'revision requested';
+  if (status === 'fixed') return 'fixed';
   return status;
 };
 // === END: THÊM HÀM FORMAT TRẠNG THÁI ===
