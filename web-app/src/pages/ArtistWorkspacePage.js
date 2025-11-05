@@ -102,7 +102,8 @@ const ArtistWorkspacePage = () => {
         try {
             await fileApi.uploadFile(uploadFile, selectedTask.order_id, user.id, 'audio');
             await taskApi.updateTaskStatus(selectedTask.id, 'done');
-            await orderApi.updateOrderStatus(selectedTask.order_id, 'completed');
+            const newOrderStatus = selectedTask.status === 'revision_requested' ? 'fixed' : 'completed';
+            await orderApi.updateOrderStatus(selectedTask.order_id, newOrderStatus);
             
             toast.success('Nộp file thu âm thành công!');
             const updatedTasks = await taskApi.getTasksBySpecialist(user.id);
