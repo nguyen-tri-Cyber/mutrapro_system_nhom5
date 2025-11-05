@@ -1,13 +1,19 @@
-// services/order-service/index.js (ĐÃ SỬA THỨ TỰ ROUTE)
+// services/order-service/index.js (ĐÃ CẬP NHẬT HOÀN CHỈNH VỚI RABBITMQ)
 const express = require('express');
 const mysql = require('mysql2/promise');
 const cors = require('cors');
 const axios = require('axios');
+const amqp = require('amqplib'); // <-- (MQ) THÊM DÒNG NÀY
 require('dotenv').config({ path: '../../.env' });
+
 // Import các module dùng chung
+// ======================= SỬA LỖI PATH Ở ĐÂY =======================
+// Đường dẫn đúng là './shared' (cùng cấp), không phải '../../shared'
 const { logger } = require('./shared/logger');
 const { asyncHandler, notFound, errorHandler, AppError } = require('./shared/middleware/errorHandler');
 const { createOrderValidation, idParamValidation, feedbackValidation } = require('./shared/middleware/validation');
+// ==================================================================
+
 // === THÊM KẾT NỐI REDIS ===
 const Redis = require('ioredis');
 const redis = new Redis({
@@ -21,6 +27,7 @@ redis.on('error', (err) => {
     logger.error('Không thể kết nối Redis', err);
 });
 // === KẾT THÚC THÊM MỚI ===
+
 // TODO: Tạm thời giả lập auth, sẽ được thay thế bằng logic gọi qua API Gateway
 const authMiddleware = (req, res, next) => next();
 const checkRole = (...roles) => (req, res, next) => next();
@@ -55,6 +62,34 @@ const notify = async (userId, eventName, data) => {
         logger.error(`Lỗi khi gửi thông báo '${eventName}'`, { error: err.message });
     }
 };
+
+// === (MQ) THÊM HÀM GỬI TIN NHẮN RABBITMQ ===
+const amqpUrl = 'amqp://user:password@rabbitmq'; // Chuỗi kết nối RabbitMQ
+const exchangeName = 'mutrapro_events';
+
+// Hàm helper mới để gửi tin nhắn
+const publishMessage = async (routingKey, message) => {
+  let connection;
+  try {
+    connection = await amqp.connect(amqpUrl);
+    const channel = await connection.createChannel();
+    
+    // Đảm bảo exchange tồn tại
+    await channel.assertExchange(exchangeName, 'topic', { durable: true });
+    
+    // Gửi tin nhắn
+    channel.publish(exchangeName, routingKey, Buffer.from(JSON.stringify(message)));
+    
+    logger.info(`[RabbitMQ] Đã gửi tin nhắn. Key: ${routingKey}`, message);
+    await channel.close();
+  } catch (err) {
+    logger.error('[RabbitMQ] Lỗi khi gửi tin nhắn:', err.message);
+  } finally {
+    if (connection) await connection.close();
+  }
+};
+// === KẾT THÚC HÀM MỚI ===
+
 // --- API Endpoints ---
 // API: Tạo đơn hàng mới (yêu cầu vai trò 'customer')
 // SỬA: Bỏ '/orders'
@@ -91,8 +126,12 @@ app.get('/', authMiddleware, checkRole('coordinator', 'admin'), asyncHandler(asy
 
             // === KHỐI LOGIC ĐÃ ĐƯỢC CẬP NHẬT VỚI REDIS ===
             try {
-                // Gọi qua task-service (phần này giữ nguyên)
-                const taskResponse = await axios.get(`http://task-service:3003/tasks/order/${order.id}`);
+                // ======================= SỬA LỖI 404 Ở ĐÂY =======================
+                // Code CŨ: `http://task-service:3003/tasks/order/${order.id}`
+                // Code MỚI: (Đã xóa /tasks)
+                const taskResponse = await axios.get(`http://task-service:3003/order/${order.id}`);
+                // =================================================================
+
                 const specialistId = taskResponse.data.assigned_to;
 
                 // === PHẦN SỬA CACHE BẮT ĐẦU TỪ ĐÂY ===
@@ -194,7 +233,7 @@ app.get('/admin/payments', authMiddleware, checkRole('admin'), asyncHandler(asyn
 app.get('/customer/:customerId', authMiddleware, asyncHandler(async (req, res) => {
     const { customerId } = req.params;
     // if (req.user.id !== parseInt(customerId, 10) && req.user.role !== 'admin') {
-    //     throw new AppError('Không có quyền truy cập', 403);
+    //  throw new AppError('Không có quyền truy cập', 403);
     // }
     const [orders] = await pool.execute('SELECT * FROM orders WHERE customer_id = ? ORDER BY created_at DESC', [customerId]);
     // Làm giàu dữ liệu
@@ -223,9 +262,9 @@ app.get('/customer/:customerId', authMiddleware, asyncHandler(async (req, res) =
 app.get('/:id', authMiddleware, idParamValidation, asyncHandler(async (req, res) => {
     const { id } = req.params;
 
-    // 1. Lấy thông tin order và feedback (như cũ)
+    // 1. Lấy thông tin order và feedback (ĐÃ SỬA LỖI SQL SYNTAX)
     const [rows] = await pool.execute(
-        `SELECT o.*, f.rating, f.comment
+        `SELECT o.*, f.rating, f.comment 
         FROM orders o
         LEFT JOIN feedback f ON o.id = f.order_id
         WHERE o.id = ?`,
@@ -318,13 +357,18 @@ app.post('/:id/pay', authMiddleware, checkRole('customer'), idParamValidation, a
 app.post('/:id/feedback', authMiddleware, checkRole('customer'), idParamValidation, feedbackValidation, asyncHandler(async (req, res) => {
     const { id } = req.params;
     const { rating, comment } = req.body;
+    
+    // ======================= SỬA LỖI SQL UNDEFINED =======================
+    const finalComment = comment || null; // Chuyển undefined (nếu có) thành null
+    // ===================================================================
+
     const [existing] = await pool.execute('SELECT id FROM feedback WHERE order_id = ?', [id]);
     if (existing.length > 0) {
         throw new AppError('Đơn hàng này đã được đánh giá.', 409);
     }
     await pool.execute(
         'INSERT INTO feedback (order_id, rating, comment) VALUES (?, ?, ?)',
-        [id, rating, comment]
+        [id, rating, finalComment] // <-- Sử dụng biến đã sửa
     );
     logger.info(`New feedback submitted for order #${id}`);
     res.status(201).json({ message: 'Gửi đánh giá thành công!' });
@@ -345,21 +389,24 @@ app.post('/:id/request-revision', authMiddleware, checkRole('customer'), idParam
     const { comment, coordinatorId } = req.body; // Lấy comment và ID của coordinator để gửi thông báo
     // 1. Cập nhật trạng thái đơn hàng thành 'revision_requested'
     const [updateResult] = await pool.execute(
-        "UPDATE orders SET status = 'revision_requested' WHERE id = ? AND status = 'completed'",
+        "UPDATE orders SET status = 'revision_requested' WHERE id = ? AND (status = 'completed' OR status = 'fixed')", // Cho phép sửa lại cả đơn đã 'fixed'
         [id]
     );
     if (updateResult.affectedRows === 0) {
         throw new AppError('Đơn hàng không hợp lệ để yêu cầu chỉnh sửa.', 400);
     }
-    // 2. (Quan trọng) Gửi yêu cầu đến task-service để mở lại task
-    try {
-        await axios.post(`http://task-service:3003/tasks/order/${id}/re-open`, { comment });
-    } catch (error) {
-        // Nếu task-service lỗi, rollback lại trạng thái order
-        await pool.execute("UPDATE orders SET status = 'completed' WHERE id = ?", [id]);
-        logger.error(`[Order Service] Lỗi khi gọi re-open task cho order ${id}:`, { message: error.message });
-        throw new AppError('Không thể mở lại công việc cho chuyên viên.', 500);
-    }
+    
+    // === (MQ) THAY THẾ KHỐI AXIOS BẰNG RABBITMQ ===
+    // 2. (Quan trọng) Gửi tin nhắn qua RabbitMQ cho task-service
+    const routingKey = 'order.revision_requested';
+    const message = {
+        orderId: id,
+        comment: comment
+    };
+    await publishMessage(routingKey, message);
+    // KHÔNG CẦN try...catch...rollback nữa!
+    // === KẾT THÚC THAY THẾ ===
+
     // 3. Thông báo cho coordinator biết có yêu cầu chỉnh sửa
     if (coordinatorId) {
         notify(coordinatorId, 'revision_requested', {
