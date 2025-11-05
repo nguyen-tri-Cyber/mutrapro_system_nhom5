@@ -101,7 +101,8 @@ const ArrangerWorkspacePage = () => {
         try {
             await fileApi.uploadFile(uploadFile, selectedTask.order_id, user.id, 'mix');
             await taskApi.updateTaskStatus(selectedTask.id, 'done');
-            await orderApi.updateOrderStatus(selectedTask.order_id, 'completed');
+            const newOrderStatus = selectedTask.status === 'revision_requested' ? 'fixed' : 'completed';
+            await orderApi.updateOrderStatus(selectedTask.order_id, newOrderStatus);
             
             toast.success('Nộp sản phẩm thành công!');
             const updatedTasks = await taskApi.getTasksBySpecialist(user.id);
