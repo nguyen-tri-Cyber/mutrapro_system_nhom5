@@ -111,7 +111,8 @@ const TranscriberWorkspacePage = () => {
             // Bước 2: Cập nhật trạng thái task
             await taskApi.updateTaskStatus(selectedTask.id, 'done');
             // Bước 3: Cập nhật trạng thái order
-            await orderApi.updateOrderStatus(selectedTask.order_id, 'completed');
+            const newOrderStatus = selectedTask.status === 'revision_requested' ? 'fixed' : 'completed';
+            await orderApi.updateOrderStatus(selectedTask.order_id, newOrderStatus);
             
             toast.success('Nộp sản phẩm thành công!');
             // Tải lại danh sách và reset
