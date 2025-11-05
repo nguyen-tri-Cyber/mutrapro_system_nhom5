@@ -6,9 +6,11 @@ const axios = require('axios');
 require('dotenv').config({ path: '../../.env' });
 
 // Import modules
+// ======================= SỬA LỖI PATH Ở ĐÂY =======================
 const { logger } = require('./shared/logger');
 const { asyncHandler, notFound, errorHandler, AppError } = require('./shared/middleware/errorHandler');
 const { idParamValidation } = require('./shared/middleware/validation');
+// ==================================================================
 
 // TODO: Tạm thời giả lập auth, sẽ được thay thế bằng logic gọi qua API Gateway
 const authMiddleware = (req, res, next) => next();
