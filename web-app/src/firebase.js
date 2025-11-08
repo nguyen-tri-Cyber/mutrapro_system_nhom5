@@ -3,13 +3,13 @@ import { initializeApp } from "firebase/app";
 import { getMessaging, getToken, onMessage } from "firebase/messaging";
 import axios from 'axios'; // Import axios để gọi API
 
-const firebaseConfig = { 
-  apiKey : "AIzaSyCR2EouiicDQLa_IsATzRKMUm2zdArrfoo" , 
-  authDomain : "mutrapro-test.firebaseapp.com" , 
-  projectId : "mutrapro-test" , 
-  storageBucket : "mutrapro-test.firebasestorage.app" , 
-  messagingSenderId : "14920393633" , 
-  appId : "1:14920393633:web:de2730da6c4f4c318221e0" 
+const firebaseConfig = {
+  apiKey: "",
+  authDomain: "",
+  projectId: "",
+  storageBucket: "",
+  messagingSenderId: "",
+  appId: ""
 };
 
 // Khởi tạo Firebase
