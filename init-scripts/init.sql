@@ -32,7 +32,7 @@ INSERT IGNORE INTO users (name, email, password_hash, role) VALUES
 ('Coordinator', 'dpv@mutrapro.com', '$2b$10$JUw0.X0O8tN/MYxaGT9f7O8/Xi/mtqQ3KD2zOSKw6wRUXN65Z.lGC', 'coordinator'),
 ('Transcriber', 'cvka@mutrapro.com', '$2b$10$JUw0.X0O8tN/MYxaGT9f7O8/Xi/mtqQ3KD2zOSKw6wRUXN65Z.lGC', 'transcriber'),
 ('Arranger', 'cvpk@mutrapro.com', '$2b$10$JUw0.X0O8tN/MYxaGT9f7O8/Xi/mtqQ3KD2zOSKw6wRUXN65Z.lGC', 'arranger'),
-('Artist', 'artist@mutrapro.com', '$2b$10$JUw0.X0O8tN/MYxaGT9f7O8/Xi/mtqQ3KD2zOSKw6wRUXN65Z.lGC', 'artist'),
+('Artist', 'ist@mutrapro.artcom', '$2b$10$JUw0.X0O8tN/MYxaGT9f7O8/Xi/mtqQ3KD2zOSKw6wRUXN65Z.lGC', 'artist'),
 ('Studio Admin', 'studio@mutrapro.com', '$2b$10$JUw0.X0O8tN/MYxaGT9f7O8/Xi/mtqQ3KD2zOSKw6wRUXN65Z.lGC', 'studio_admin');
 
 -- ================ DATABASE: mutrapro_order ================
@@ -168,4 +168,14 @@ CREATE TABLE IF NOT EXISTS notifications (
     INDEX idx_user (user_id),
     INDEX idx_status (status),
     INDEX idx_created (created_at)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+-- ================ DATABASE: mutrapro_notification (Thêm bảng mới) ================
+USE mutrapro_notification;
+CREATE TABLE IF NOT EXISTS user_devices (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT NOT NULL,
+  fcm_token VARCHAR(255) NOT NULL,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE KEY idx_user_token (user_id, fcm_token), -- Tránh 1 user đăng ký 1 token nhiều lần
+  INDEX idx_user (user_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

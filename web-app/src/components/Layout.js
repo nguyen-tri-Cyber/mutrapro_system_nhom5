@@ -6,13 +6,40 @@ import { useAuth } from '../context/AuthContext';
 import { io } from "socket.io-client";
 import Navbar from './Navbar';
 
+// --- THÊM DÒNG NÀY ---
+import { getFcmToken } from '../firebase'; 
+import axios from 'axios'; 
+// --- KẾT THÚC THÊM ---
+
 const Layout = () => {
     const { user } = useAuth(); 
+
+    // --- THÊM HÀM MỚI ---
+    const registerDevice = async () => {
+      try {
+        const fcmToken = await getFcmToken();
+        if (fcmToken && user) {
+          // Gọi API mới của notification-service
+          await axios.post('http://localhost:3007/api/notifications/register-device', {
+            userId: user.id,
+            fcmToken: fcmToken
+          });
+          console.log('[FCM] Đã đăng ký thiết bị với backend.');
+        }
+      } catch (err) {
+        console.error('[FCM] Không thể đăng ký thiết bị:', err);
+      }
+    };
+    // --- KẾT THÚC HÀM MỚI ---
 
     useEffect(() => {
         let socket; // Khai báo socket ở đây để có thể truy cập trong cleanup function
 
         if (user) {
+            // --- GỌI HÀM MỚI ---
+            registerDevice(); 
+            // --- KẾT THÚC ---
+
             console.log(`[Layout Effect] User logged in (ID: ${user.id}). Attempting to connect socket...`);
             socket = io("http://localhost:3006"); // Kết nối socket
 

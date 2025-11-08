@@ -935,3 +935,423 @@
 {"level":"info","message":"Notification Service (HTTP + WebSocket) is running on port 3006","service":"notification-service","timestamp":"2025-11-04 14:36:25"}
 {"level":"info","message":"Received POST /notify for userId: broadcast, event: new_order_pending","service":"notification-service","timestamp":"2025-11-04 14:51:56"}
 {"level":"info","message":"Broadcasted event 'new_order_pending' to all clients.","service":"notification-service","timestamp":"2025-11-04 14:51:56"}
+{"level":"info","message":"Notification Service (HTTP + WebSocket) is running on port 3006","service":"notification-service","timestamp":"2025-11-08 07:05:42"}
+{"level":"info","message":"Notification Service (HTTP + WebSocket) is running on port 3006","service":"notification-service","timestamp":"2025-11-08 07:28:50"}
+{"level":"info","message":"New client connected: 89RiQDwJ21BQePPnAAAB","service":"notification-service","timestamp":"2025-11-08 07:33:12"}
+{"level":"info","message":"User 7 connected with socket 89RiQDwJ21BQePPnAAAB. Total online: 1","service":"notification-service","timestamp":"2025-11-08 07:33:12"}
+{"level":"info","message":"Received POST /notify for userId: broadcast, event: new_order_pending","service":"notification-service","timestamp":"2025-11-08 07:33:26"}
+{"level":"info","message":"Broadcasted event 'new_order_pending' to all clients.","service":"notification-service","timestamp":"2025-11-08 07:33:26"}
+{"level":"info","message":"Received POST /notify for userId: broadcast, event: new_order_pending","service":"notification-service","timestamp":"2025-11-08 07:33:30"}
+{"level":"info","message":"Broadcasted event 'new_order_pending' to all clients.","service":"notification-service","timestamp":"2025-11-08 07:33:30"}
+{"level":"info","message":"Received POST /notify for userId: broadcast, event: new_order_pending","service":"notification-service","timestamp":"2025-11-08 07:33:31"}
+{"level":"info","message":"Broadcasted event 'new_order_pending' to all clients.","service":"notification-service","timestamp":"2025-11-08 07:33:31"}
+{"level":"info","message":"Received POST /notify for userId: broadcast, event: new_order_pending","service":"notification-service","timestamp":"2025-11-08 07:34:31"}
+{"level":"info","message":"Broadcasted event 'new_order_pending' to all clients.","service":"notification-service","timestamp":"2025-11-08 07:34:31"}
+{"level":"info","message":"User 7 disconnected (socket 89RiQDwJ21BQePPnAAAB). Total online: 0","service":"notification-service","timestamp":"2025-11-08 07:35:07"}
+{"level":"info","message":"New client connected: vzgXIrvSOu6bKoWoAAAD","service":"notification-service","timestamp":"2025-11-08 07:35:08"}
+{"level":"info","message":"User 7 connected with socket vzgXIrvSOu6bKoWoAAAD. Total online: 1","service":"notification-service","timestamp":"2025-11-08 07:35:08"}
+{"level":"info","message":"User 7 disconnected (socket vzgXIrvSOu6bKoWoAAAD). Total online: 0","service":"notification-service","timestamp":"2025-11-08 07:35:11"}
+{"level":"info","message":"New client connected: saiB1w0aBqcSRUAQAAAF","service":"notification-service","timestamp":"2025-11-08 07:35:46"}
+{"level":"info","message":"User 7 connected with socket saiB1w0aBqcSRUAQAAAF. Total online: 1","service":"notification-service","timestamp":"2025-11-08 07:35:46"}
+{"level":"info","message":"Received POST /notify for userId: broadcast, event: new_order_pending","service":"notification-service","timestamp":"2025-11-08 07:36:00"}
+{"level":"info","message":"Broadcasted event 'new_order_pending' to all clients.","service":"notification-service","timestamp":"2025-11-08 07:36:00"}
+{"level":"info","message":"Received POST /notify for userId: broadcast, event: new_order_pending","service":"notification-service","timestamp":"2025-11-08 07:36:14"}
+{"level":"info","message":"Broadcasted event 'new_order_pending' to all clients.","service":"notification-service","timestamp":"2025-11-08 07:36:14"}
+{"level":"info","message":"Received POST /notify for userId: broadcast, event: new_order_pending","service":"notification-service","timestamp":"2025-11-08 07:37:13"}
+{"level":"info","message":"Broadcasted event 'new_order_pending' to all clients.","service":"notification-service","timestamp":"2025-11-08 07:37:13"}
+{"level":"info","message":"User 7 disconnected (socket saiB1w0aBqcSRUAQAAAF). Total online: 0","service":"notification-service","timestamp":"2025-11-08 07:37:59"}
+{"level":"info","message":"New client connected: yLqnryB3wkEkRKwwAAAH","service":"notification-service","timestamp":"2025-11-08 07:38:58"}
+{"level":"info","message":"User 1 connected with socket yLqnryB3wkEkRKwwAAAH. Total online: 1","service":"notification-service","timestamp":"2025-11-08 07:38:58"}
+{"level":"info","message":"User 1 disconnected (socket yLqnryB3wkEkRKwwAAAH). Total online: 0","service":"notification-service","timestamp":"2025-11-08 07:39:25"}
+{"level":"info","message":"New client connected: NneLWFlePQ3IOCvMAAAJ","service":"notification-service","timestamp":"2025-11-08 07:39:50"}
+{"level":"info","message":"User 4 connected with socket NneLWFlePQ3IOCvMAAAJ. Total online: 1","service":"notification-service","timestamp":"2025-11-08 07:39:50"}
+{"level":"info","message":"User 4 disconnected (socket NneLWFlePQ3IOCvMAAAJ). Total online: 0","service":"notification-service","timestamp":"2025-11-08 07:40:10"}
+{"level":"info","message":"New client connected: cdJdlO-2dKPF-wNQAAAL","service":"notification-service","timestamp":"2025-11-08 07:40:15"}
+{"level":"info","message":"User 3 connected with socket cdJdlO-2dKPF-wNQAAAL. Total online: 1","service":"notification-service","timestamp":"2025-11-08 07:40:15"}
+{"level":"info","message":"User 3 disconnected (socket cdJdlO-2dKPF-wNQAAAL). Total online: 0","service":"notification-service","timestamp":"2025-11-08 07:40:43"}
+{"level":"info","message":"New client connected: D8kpBjJ-FsGVsVe-AAAN","service":"notification-service","timestamp":"2025-11-08 07:40:47"}
+{"level":"info","message":"User 6 connected with socket D8kpBjJ-FsGVsVe-AAAN. Total online: 1","service":"notification-service","timestamp":"2025-11-08 07:40:47"}
+{"level":"info","message":"Received POST /notify for userId: broadcast, event: studio_status_updated","service":"notification-service","timestamp":"2025-11-08 07:41:02"}
+{"level":"info","message":"Broadcasted event 'studio_status_updated' to all clients.","service":"notification-service","timestamp":"2025-11-08 07:41:02"}
+{"level":"info","message":"Received POST /notify for userId: broadcast, event: studio_status_updated","service":"notification-service","timestamp":"2025-11-08 07:41:03"}
+{"level":"info","message":"Broadcasted event 'studio_status_updated' to all clients.","service":"notification-service","timestamp":"2025-11-08 07:41:03"}
+{"level":"info","message":"User 6 disconnected (socket D8kpBjJ-FsGVsVe-AAAN). Total online: 0","service":"notification-service","timestamp":"2025-11-08 07:41:21"}
+{"level":"info","message":"New client connected: bLyTI1eqWtpZMbsSAAAP","service":"notification-service","timestamp":"2025-11-08 07:41:26"}
+{"level":"info","message":"User 2 connected with socket bLyTI1eqWtpZMbsSAAAP. Total online: 1","service":"notification-service","timestamp":"2025-11-08 07:41:26"}
+{"level":"info","message":"Received POST /notify for userId: 3, event: new_task","service":"notification-service","timestamp":"2025-11-08 07:41:41"}
+{"level":"warn","message":"User 3 is OFFLINE. Cannot send real-time message for event 'new_task'.","service":"notification-service","timestamp":"2025-11-08 07:41:41"}
+{"level":"info","message":"Received POST /notify for userId: 7, event: order_status_updated","service":"notification-service","timestamp":"2025-11-08 07:41:41"}
+{"level":"warn","message":"User 7 is OFFLINE. Cannot send real-time message for event 'order_status_updated'.","service":"notification-service","timestamp":"2025-11-08 07:41:41"}
+{"level":"info","message":"User 2 disconnected (socket bLyTI1eqWtpZMbsSAAAP). Total online: 0","service":"notification-service","timestamp":"2025-11-08 07:42:16"}
+{"level":"info","message":"New client connected: tKzIUY7165t14Ax4AAAR","service":"notification-service","timestamp":"2025-11-08 07:42:28"}
+{"level":"info","message":"User 3 connected with socket tKzIUY7165t14Ax4AAAR. Total online: 1","service":"notification-service","timestamp":"2025-11-08 07:42:28"}
+{"level":"info","message":"Received POST /notify for userId: 7, event: order_status_updated","service":"notification-service","timestamp":"2025-11-08 07:42:37"}
+{"level":"warn","message":"User 7 is OFFLINE. Cannot send real-time message for event 'order_status_updated'.","service":"notification-service","timestamp":"2025-11-08 07:42:37"}
+{"level":"info","message":"Received POST /notify for userId: 7, event: order_status_updated","service":"notification-service","timestamp":"2025-11-08 07:42:56"}
+{"level":"warn","message":"User 7 is OFFLINE. Cannot send real-time message for event 'order_status_updated'.","service":"notification-service","timestamp":"2025-11-08 07:42:56"}
+{"level":"info","message":"User 3 disconnected (socket tKzIUY7165t14Ax4AAAR). Total online: 0","service":"notification-service","timestamp":"2025-11-08 07:43:00"}
+{"level":"info","message":"New client connected: bxkrv-HmhtgHgvVuAAAT","service":"notification-service","timestamp":"2025-11-08 07:43:05"}
+{"level":"info","message":"User 7 connected with socket bxkrv-HmhtgHgvVuAAAT. Total online: 1","service":"notification-service","timestamp":"2025-11-08 07:43:05"}
+{"level":"info","message":"User 7 disconnected (socket bxkrv-HmhtgHgvVuAAAT). Total online: 0","service":"notification-service","timestamp":"2025-11-08 07:43:38"}
+{"level":"info","message":"New client connected: kn-va2ov-7lojsuLAAAV","service":"notification-service","timestamp":"2025-11-08 07:43:51"}
+{"level":"info","message":"User 2 connected with socket kn-va2ov-7lojsuLAAAV. Total online: 1","service":"notification-service","timestamp":"2025-11-08 07:43:51"}
+{"level":"info","message":"Received POST /notify for userId: 3, event: new_task","service":"notification-service","timestamp":"2025-11-08 07:44:06"}
+{"level":"warn","message":"User 3 is OFFLINE. Cannot send real-time message for event 'new_task'.","service":"notification-service","timestamp":"2025-11-08 07:44:06"}
+{"level":"info","message":"Received POST /notify for userId: 7, event: order_status_updated","service":"notification-service","timestamp":"2025-11-08 07:44:06"}
+{"level":"warn","message":"User 7 is OFFLINE. Cannot send real-time message for event 'order_status_updated'.","service":"notification-service","timestamp":"2025-11-08 07:44:06"}
+{"level":"info","message":"User 2 disconnected (socket kn-va2ov-7lojsuLAAAV). Total online: 0","service":"notification-service","timestamp":"2025-11-08 07:44:12"}
+{"level":"info","message":"New client connected: qblt65J1BgHRr9INAAAX","service":"notification-service","timestamp":"2025-11-08 07:44:24"}
+{"level":"info","message":"User 3 connected with socket qblt65J1BgHRr9INAAAX. Total online: 1","service":"notification-service","timestamp":"2025-11-08 07:44:24"}
+{"level":"info","message":"Received POST /notify for userId: 7, event: order_status_updated","service":"notification-service","timestamp":"2025-11-08 07:44:44"}
+{"level":"warn","message":"User 7 is OFFLINE. Cannot send real-time message for event 'order_status_updated'.","service":"notification-service","timestamp":"2025-11-08 07:44:44"}
+{"level":"info","message":"Received POST /notify for userId: 7, event: order_status_updated","service":"notification-service","timestamp":"2025-11-08 07:44:52"}
+{"level":"warn","message":"User 7 is OFFLINE. Cannot send real-time message for event 'order_status_updated'.","service":"notification-service","timestamp":"2025-11-08 07:44:52"}
+{"level":"info","message":"User 3 disconnected (socket qblt65J1BgHRr9INAAAX). Total online: 0","service":"notification-service","timestamp":"2025-11-08 07:45:04"}
+{"level":"info","message":"New client connected: RPEbtoSPlEyTt_3-AAAZ","service":"notification-service","timestamp":"2025-11-08 07:45:07"}
+{"level":"info","message":"User 7 connected with socket RPEbtoSPlEyTt_3-AAAZ. Total online: 1","service":"notification-service","timestamp":"2025-11-08 07:45:07"}
+{"level":"info","message":"User 7 disconnected (socket RPEbtoSPlEyTt_3-AAAZ). Total online: 0","service":"notification-service","timestamp":"2025-11-08 07:45:34"}
+{"level":"info","message":"New client connected: ZOm_EnWwj9FdmTlWAAAb","service":"notification-service","timestamp":"2025-11-08 07:45:40"}
+{"level":"info","message":"User 6 connected with socket ZOm_EnWwj9FdmTlWAAAb. Total online: 1","service":"notification-service","timestamp":"2025-11-08 07:45:40"}
+{"level":"info","message":"Received POST /notify for userId: broadcast, event: studio_status_updated","service":"notification-service","timestamp":"2025-11-08 07:45:48"}
+{"level":"info","message":"Broadcasted event 'studio_status_updated' to all clients.","service":"notification-service","timestamp":"2025-11-08 07:45:48"}
+{"level":"info","message":"Received POST /notify for userId: broadcast, event: studio_status_updated","service":"notification-service","timestamp":"2025-11-08 07:45:49"}
+{"level":"info","message":"Broadcasted event 'studio_status_updated' to all clients.","service":"notification-service","timestamp":"2025-11-08 07:45:49"}
+{"level":"info","message":"User 6 disconnected (socket ZOm_EnWwj9FdmTlWAAAb). Total online: 0","service":"notification-service","timestamp":"2025-11-08 07:45:58"}
+{"level":"info","message":"New client connected: BT37IN8chbQfAKUJAAAd","service":"notification-service","timestamp":"2025-11-08 07:46:24"}
+{"level":"info","message":"User 2 connected with socket BT37IN8chbQfAKUJAAAd. Total online: 1","service":"notification-service","timestamp":"2025-11-08 07:46:24"}
+{"level":"info","message":"User 2 disconnected (socket BT37IN8chbQfAKUJAAAd). Total online: 0","service":"notification-service","timestamp":"2025-11-08 07:47:15"}
+{"level":"info","message":"New client connected: 1LNYNpkTP5_ysEHoAAAf","service":"notification-service","timestamp":"2025-11-08 07:47:20"}
+{"level":"info","message":"User 7 connected with socket 1LNYNpkTP5_ysEHoAAAf. Total online: 1","service":"notification-service","timestamp":"2025-11-08 07:47:20"}
+{"level":"info","message":"Received POST /notify for userId: 3, event: task_revision_needed","service":"notification-service","timestamp":"2025-11-08 07:48:17"}
+{"level":"warn","message":"User 3 is OFFLINE. Cannot send real-time message for event 'task_revision_needed'.","service":"notification-service","timestamp":"2025-11-08 07:48:17"}
+{"level":"info","message":"Received POST /notify for userId: 2, event: revision_requested","service":"notification-service","timestamp":"2025-11-08 07:48:17"}
+{"level":"warn","message":"User 2 is OFFLINE. Cannot send real-time message for event 'revision_requested'.","service":"notification-service","timestamp":"2025-11-08 07:48:17"}
+{"level":"info","message":"User 7 disconnected (socket 1LNYNpkTP5_ysEHoAAAf). Total online: 0","service":"notification-service","timestamp":"2025-11-08 07:48:23"}
+{"level":"info","message":"Notification Service (HTTP + WebSocket) is running on port 3006","service":"notification-service","timestamp":"2025-11-08 07:51:43"}
+{"level":"info","message":"New client connected: Q8axUBWECXLgHkf9AAAB","service":"notification-service","timestamp":"2025-11-08 07:54:32"}
+{"level":"info","message":"User 1 connected with socket Q8axUBWECXLgHkf9AAAB. Total online: 1","service":"notification-service","timestamp":"2025-11-08 07:54:32"}
+{"level":"info","message":"User 1 disconnected (socket Q8axUBWECXLgHkf9AAAB). Total online: 0","service":"notification-service","timestamp":"2025-11-08 07:54:51"}
+{"level":"info","message":"New client connected: n8BlgUuOqCYxUEeGAAAD","service":"notification-service","timestamp":"2025-11-08 07:54:54"}
+{"level":"info","message":"User 1 connected with socket n8BlgUuOqCYxUEeGAAAD. Total online: 1","service":"notification-service","timestamp":"2025-11-08 07:54:54"}
+{"level":"info","message":"User 1 disconnected (socket n8BlgUuOqCYxUEeGAAAD). Total online: 0","service":"notification-service","timestamp":"2025-11-08 07:55:08"}
+{"level":"info","message":"New client connected: rjNi_dwj4VI6ecIYAAAF","service":"notification-service","timestamp":"2025-11-08 07:55:08"}
+{"level":"info","message":"User 1 connected with socket rjNi_dwj4VI6ecIYAAAF. Total online: 1","service":"notification-service","timestamp":"2025-11-08 07:55:08"}
+{"level":"info","message":"User 1 disconnected (socket rjNi_dwj4VI6ecIYAAAF). Total online: 0","service":"notification-service","timestamp":"2025-11-08 07:56:36"}
+{"level":"info","message":"New client connected: iNyo26jP7xFW7tu6AAAH","service":"notification-service","timestamp":"2025-11-08 07:56:43"}
+{"level":"info","message":"User 1 connected with socket iNyo26jP7xFW7tu6AAAH. Total online: 1","service":"notification-service","timestamp":"2025-11-08 07:56:43"}
+{"level":"info","message":"User 1 disconnected (socket iNyo26jP7xFW7tu6AAAH). Total online: 0","service":"notification-service","timestamp":"2025-11-08 07:57:05"}
+{"level":"info","message":"New client connected: Vc5ya7RfLsNMJbgUAAAJ","service":"notification-service","timestamp":"2025-11-08 07:57:06"}
+{"level":"info","message":"User 1 connected with socket Vc5ya7RfLsNMJbgUAAAJ. Total online: 1","service":"notification-service","timestamp":"2025-11-08 07:57:06"}
+{"level":"info","message":"User 1 disconnected (socket Vc5ya7RfLsNMJbgUAAAJ). Total online: 0","service":"notification-service","timestamp":"2025-11-08 08:07:01"}
+{"level":"info","message":"New client connected: x5Acyqz0-_WwzUnQAAAL","service":"notification-service","timestamp":"2025-11-08 08:14:59"}
+{"level":"info","message":"User 1 connected with socket x5Acyqz0-_WwzUnQAAAL. Total online: 1","service":"notification-service","timestamp":"2025-11-08 08:14:59"}
+{"level":"info","message":"User 1 disconnected (socket x5Acyqz0-_WwzUnQAAAL). Total online: 0","service":"notification-service","timestamp":"2025-11-08 08:15:01"}
+{"level":"info","message":"Notification Service (HTTP + WebSocket) is running on port 3006","service":"notification-service","timestamp":"2025-11-08 08:22:21"}
+{"level":"info","message":"New client connected: j8ktDNvBPw1CwGV5AAAB","service":"notification-service","timestamp":"2025-11-08 08:23:27"}
+{"level":"info","message":"User 1 connected with socket j8ktDNvBPw1CwGV5AAAB. Total online: 1","service":"notification-service","timestamp":"2025-11-08 08:23:27"}
+{"level":"info","message":"User 1 disconnected (socket j8ktDNvBPw1CwGV5AAAB). Total online: 0","service":"notification-service","timestamp":"2025-11-08 08:23:42"}
+{"level":"info","message":"New client connected: CHTUP9U27XZvk5AGAAAD","service":"notification-service","timestamp":"2025-11-08 08:23:46"}
+{"level":"info","message":"User 1 connected with socket CHTUP9U27XZvk5AGAAAD. Total online: 1","service":"notification-service","timestamp":"2025-11-08 08:23:46"}
+{"level":"info","message":"User 1 disconnected (socket CHTUP9U27XZvk5AGAAAD). Total online: 0","service":"notification-service","timestamp":"2025-11-08 08:24:04"}
+{"level":"info","message":"New client connected: 7qejPwNTU_n_JXceAAAF","service":"notification-service","timestamp":"2025-11-08 08:24:24"}
+{"level":"info","message":"User 7 connected with socket 7qejPwNTU_n_JXceAAAF. Total online: 1","service":"notification-service","timestamp":"2025-11-08 08:24:24"}
+{"level":"info","message":"User 7 disconnected (socket 7qejPwNTU_n_JXceAAAF). Total online: 0","service":"notification-service","timestamp":"2025-11-08 08:26:03"}
+{"level":"info","message":"Đã khởi tạo Firebase Admin SDK.","service":"notification-service","timestamp":"2025-11-08 08:33:48"}
+{"level":"info","message":"Notification Service (HTTP + WebSocket) is running on port 3006","service":"notification-service","timestamp":"2025-11-08 08:33:48"}
+{"level":"info","message":"New client connected: jBS6zqBtHbUozpQ5AAAB","service":"notification-service","timestamp":"2025-11-08 08:41:26"}
+{"level":"info","message":"User 1 connected with socket jBS6zqBtHbUozpQ5AAAB. Total online: 1","service":"notification-service","timestamp":"2025-11-08 08:41:26"}
+{"level":"info","message":"User 1 disconnected (socket jBS6zqBtHbUozpQ5AAAB). Total online: 0","service":"notification-service","timestamp":"2025-11-08 08:41:33"}
+{"level":"info","message":"New client connected: C136jQfHr8ykb7VhAAAD","service":"notification-service","timestamp":"2025-11-08 08:41:33"}
+{"level":"info","message":"User 1 connected with socket C136jQfHr8ykb7VhAAAD. Total online: 1","service":"notification-service","timestamp":"2025-11-08 08:41:33"}
+{"level":"info","message":"User 1 disconnected (socket C136jQfHr8ykb7VhAAAD). Total online: 0","service":"notification-service","timestamp":"2025-11-08 08:41:38"}
+{"level":"info","message":"New client connected: O5QyhEeSyE19jIeHAAAF","service":"notification-service","timestamp":"2025-11-08 08:41:43"}
+{"level":"info","message":"User 1 connected with socket O5QyhEeSyE19jIeHAAAF. Total online: 1","service":"notification-service","timestamp":"2025-11-08 08:41:43"}
+{"level":"info","message":"Đã khởi tạo Firebase Admin SDK.","service":"notification-service","timestamp":"2025-11-08 08:45:38"}
+{"level":"info","message":"Notification Service (HTTP + WebSocket) is running on port 3006","service":"notification-service","timestamp":"2025-11-08 08:45:38"}
+{"level":"info","message":"New client connected: t9Rxs-zqeUFttNXGAAAB","service":"notification-service","timestamp":"2025-11-08 08:45:42"}
+{"level":"info","message":"User 1 connected with socket t9Rxs-zqeUFttNXGAAAB. Total online: 1","service":"notification-service","timestamp":"2025-11-08 08:45:42"}
+{"level":"info","message":"User 1 disconnected (socket t9Rxs-zqeUFttNXGAAAB). Total online: 0","service":"notification-service","timestamp":"2025-11-08 08:47:22"}
+{"level":"info","message":"New client connected: KVLI_kdPL52HDMPkAAAD","service":"notification-service","timestamp":"2025-11-08 08:47:22"}
+{"level":"info","message":"User 1 connected with socket KVLI_kdPL52HDMPkAAAD. Total online: 1","service":"notification-service","timestamp":"2025-11-08 08:47:22"}
+{"level":"info","message":"User 1 disconnected (socket KVLI_kdPL52HDMPkAAAD). Total online: 0","service":"notification-service","timestamp":"2025-11-08 08:47:25"}
+{"level":"info","message":"New client connected: NAArKbYiqtMNmjxUAAAF","service":"notification-service","timestamp":"2025-11-08 08:48:36"}
+{"level":"info","message":"User 1 connected with socket NAArKbYiqtMNmjxUAAAF. Total online: 1","service":"notification-service","timestamp":"2025-11-08 08:48:36"}
+{"level":"info","message":"User 1 disconnected (socket NAArKbYiqtMNmjxUAAAF). Total online: 0","service":"notification-service","timestamp":"2025-11-08 08:48:43"}
+{"level":"info","message":"New client connected: vWYoZ75AhSuBCd_oAAAH","service":"notification-service","timestamp":"2025-11-08 08:48:43"}
+{"level":"info","message":"User 1 connected with socket vWYoZ75AhSuBCd_oAAAH. Total online: 1","service":"notification-service","timestamp":"2025-11-08 08:48:44"}
+{"level":"info","message":"Đã đăng ký FcmToken cho User 1","service":"notification-service","timestamp":"2025-11-08 08:48:45"}
+{"level":"info","message":"User 1 disconnected (socket vWYoZ75AhSuBCd_oAAAH). Total online: 0","service":"notification-service","timestamp":"2025-11-08 08:48:52"}
+{"level":"info","message":"New client connected: ziAzuECM2ZKOGPOKAAAJ","service":"notification-service","timestamp":"2025-11-08 08:48:55"}
+{"level":"info","message":"User 1 connected with socket ziAzuECM2ZKOGPOKAAAJ. Total online: 1","service":"notification-service","timestamp":"2025-11-08 08:48:55"}
+{"level":"info","message":"Đã đăng ký FcmToken cho User 1","service":"notification-service","timestamp":"2025-11-08 08:48:55"}
+{"level":"info","message":"User 1 disconnected (socket ziAzuECM2ZKOGPOKAAAJ). Total online: 0","service":"notification-service","timestamp":"2025-11-08 08:50:23"}
+{"level":"info","message":"New client connected: Oukl0c_3Y5VgzVEUAAAL","service":"notification-service","timestamp":"2025-11-08 08:50:38"}
+{"level":"info","message":"User 1 connected with socket Oukl0c_3Y5VgzVEUAAAL. Total online: 1","service":"notification-service","timestamp":"2025-11-08 08:50:38"}
+{"level":"info","message":"User 1 disconnected (socket Oukl0c_3Y5VgzVEUAAAL). Total online: 0","service":"notification-service","timestamp":"2025-11-08 08:50:39"}
+{"level":"info","message":"New client connected: vCBbNnXI71tg9gfeAAAN","service":"notification-service","timestamp":"2025-11-08 08:50:48"}
+{"level":"info","message":"User 7 connected with socket vCBbNnXI71tg9gfeAAAN. Total online: 1","service":"notification-service","timestamp":"2025-11-08 08:50:48"}
+{"level":"info","message":"User 7 disconnected (socket vCBbNnXI71tg9gfeAAAN). Total online: 0","service":"notification-service","timestamp":"2025-11-08 08:51:35"}
+{"level":"info","message":"New client connected: I4pZ6uO5ENyIwU32AAAP","service":"notification-service","timestamp":"2025-11-08 08:51:41"}
+{"level":"info","message":"User 2 connected with socket I4pZ6uO5ENyIwU32AAAP. Total online: 1","service":"notification-service","timestamp":"2025-11-08 08:51:41"}
+{"level":"info","message":"User 2 disconnected (socket I4pZ6uO5ENyIwU32AAAP). Total online: 0","service":"notification-service","timestamp":"2025-11-08 08:52:48"}
+{"level":"info","message":"New client connected: TjCwJ2cuXTcCSvWtAAAR","service":"notification-service","timestamp":"2025-11-08 08:53:35"}
+{"level":"info","message":"User 2 connected with socket TjCwJ2cuXTcCSvWtAAAR. Total online: 1","service":"notification-service","timestamp":"2025-11-08 08:53:35"}
+{"level":"info","message":"User 2 disconnected (socket TjCwJ2cuXTcCSvWtAAAR). Total online: 0","service":"notification-service","timestamp":"2025-11-08 08:53:36"}
+{"level":"info","message":"New client connected: JnFcnPy6wMO1k8TlAAAT","service":"notification-service","timestamp":"2025-11-08 08:53:39"}
+{"level":"info","message":"User 7 connected with socket JnFcnPy6wMO1k8TlAAAT. Total online: 1","service":"notification-service","timestamp":"2025-11-08 08:53:39"}
+{"level":"info","message":"Received POST /notify for userId: broadcast, event: new_order_pending","service":"notification-service","timestamp":"2025-11-08 08:53:53"}
+{"level":"info","message":"Broadcasted event 'new_order_pending' to all clients.","service":"notification-service","timestamp":"2025-11-08 08:53:53"}
+{"level":"info","message":"User 7 disconnected (socket JnFcnPy6wMO1k8TlAAAT). Total online: 0","service":"notification-service","timestamp":"2025-11-08 08:53:59"}
+{"level":"info","message":"New client connected: MJ2GQcahCydvkGK1AAAV","service":"notification-service","timestamp":"2025-11-08 08:54:03"}
+{"level":"info","message":"User 7 connected with socket MJ2GQcahCydvkGK1AAAV. Total online: 1","service":"notification-service","timestamp":"2025-11-08 08:54:03"}
+{"level":"info","message":"User 7 disconnected (socket MJ2GQcahCydvkGK1AAAV). Total online: 0","service":"notification-service","timestamp":"2025-11-08 08:54:05"}
+{"level":"info","message":"New client connected: Xl6tH293EIDCCkrPAAAX","service":"notification-service","timestamp":"2025-11-08 08:54:16"}
+{"level":"info","message":"User 2 connected with socket Xl6tH293EIDCCkrPAAAX. Total online: 1","service":"notification-service","timestamp":"2025-11-08 08:54:16"}
+{"level":"info","message":"Received POST /notify for userId: 5, event: new_task","service":"notification-service","timestamp":"2025-11-08 08:54:20"}
+{"level":"warn","message":"User 5 is OFFLINE. Gọi hàm sendPushNotification...","service":"notification-service","timestamp":"2025-11-08 08:54:20"}
+{"level":"warn","message":"[FCM] User 5 offline và không có FcmToken nào trong DB.","service":"notification-service","timestamp":"2025-11-08 08:54:20"}
+{"level":"info","message":"Received POST /notify for userId: 7, event: order_status_updated","service":"notification-service","timestamp":"2025-11-08 08:54:20"}
+{"level":"warn","message":"User 7 is OFFLINE. Gọi hàm sendPushNotification...","service":"notification-service","timestamp":"2025-11-08 08:54:20"}
+{"level":"warn","message":"[FCM] User 7 offline và không có FcmToken nào trong DB.","service":"notification-service","timestamp":"2025-11-08 08:54:20"}
+{"level":"info","message":"User 2 disconnected (socket Xl6tH293EIDCCkrPAAAX). Total online: 0","service":"notification-service","timestamp":"2025-11-08 08:55:27"}
+{"level":"info","message":"New client connected: mhvKzL5u-HRMcbLqAAAZ","service":"notification-service","timestamp":"2025-11-08 08:55:42"}
+{"level":"info","message":"User 2 connected with socket mhvKzL5u-HRMcbLqAAAZ. Total online: 1","service":"notification-service","timestamp":"2025-11-08 08:55:42"}
+{"level":"info","message":"User 2 disconnected (socket mhvKzL5u-HRMcbLqAAAZ). Total online: 0","service":"notification-service","timestamp":"2025-11-08 08:55:53"}
+{"level":"info","message":"New client connected: jyArtE_mnPSbga8yAAAb","service":"notification-service","timestamp":"2025-11-08 08:56:08"}
+{"level":"info","message":"User 7 connected with socket jyArtE_mnPSbga8yAAAb. Total online: 1","service":"notification-service","timestamp":"2025-11-08 08:56:08"}
+{"level":"info","message":"User 7 disconnected (socket jyArtE_mnPSbga8yAAAb). Total online: 0","service":"notification-service","timestamp":"2025-11-08 08:57:12"}
+{"level":"info","message":"New client connected: b_sgFGXc7z5q-aR8AAAd","service":"notification-service","timestamp":"2025-11-08 08:57:12"}
+{"level":"info","message":"User 7 connected with socket b_sgFGXc7z5q-aR8AAAd. Total online: 1","service":"notification-service","timestamp":"2025-11-08 08:57:12"}
+{"level":"info","message":"Đã đăng ký FcmToken cho User 7","service":"notification-service","timestamp":"2025-11-08 08:57:12"}
+{"level":"info","message":"User 7 disconnected (socket b_sgFGXc7z5q-aR8AAAd). Total online: 0","service":"notification-service","timestamp":"2025-11-08 08:57:15"}
+{"level":"info","message":"New client connected: OrNLyzm3ozSEOV-9AAAf","service":"notification-service","timestamp":"2025-11-08 08:57:16"}
+{"level":"info","message":"User 7 connected with socket OrNLyzm3ozSEOV-9AAAf. Total online: 1","service":"notification-service","timestamp":"2025-11-08 08:57:16"}
+{"level":"info","message":"Đã đăng ký FcmToken cho User 7","service":"notification-service","timestamp":"2025-11-08 08:57:16"}
+{"level":"info","message":"User 7 disconnected (socket OrNLyzm3ozSEOV-9AAAf). Total online: 0","service":"notification-service","timestamp":"2025-11-08 08:58:22"}
+{"level":"info","message":"New client connected: iJw2wZ4ht0vwT5P_AAAh","service":"notification-service","timestamp":"2025-11-08 08:58:52"}
+{"level":"info","message":"User 7 connected with socket iJw2wZ4ht0vwT5P_AAAh. Total online: 1","service":"notification-service","timestamp":"2025-11-08 08:58:52"}
+{"level":"info","message":"Received POST /notify for userId: broadcast, event: new_order_pending","service":"notification-service","timestamp":"2025-11-08 08:59:05"}
+{"level":"info","message":"Broadcasted event 'new_order_pending' to all clients.","service":"notification-service","timestamp":"2025-11-08 08:59:05"}
+{"level":"info","message":"Received POST /notify for userId: broadcast, event: new_order_pending","service":"notification-service","timestamp":"2025-11-08 08:59:09"}
+{"level":"info","message":"Broadcasted event 'new_order_pending' to all clients.","service":"notification-service","timestamp":"2025-11-08 08:59:09"}
+{"level":"info","message":"Received POST /notify for userId: broadcast, event: new_order_pending","service":"notification-service","timestamp":"2025-11-08 08:59:16"}
+{"level":"info","message":"Broadcasted event 'new_order_pending' to all clients.","service":"notification-service","timestamp":"2025-11-08 08:59:16"}
+{"level":"info","message":"Received POST /notify for userId: broadcast, event: new_order_pending","service":"notification-service","timestamp":"2025-11-08 08:59:23"}
+{"level":"info","message":"Broadcasted event 'new_order_pending' to all clients.","service":"notification-service","timestamp":"2025-11-08 08:59:23"}
+{"level":"info","message":"Received POST /notify for userId: broadcast, event: new_order_pending","service":"notification-service","timestamp":"2025-11-08 08:59:31"}
+{"level":"info","message":"Broadcasted event 'new_order_pending' to all clients.","service":"notification-service","timestamp":"2025-11-08 08:59:31"}
+{"level":"info","message":"User 7 disconnected (socket iJw2wZ4ht0vwT5P_AAAh). Total online: 0","service":"notification-service","timestamp":"2025-11-08 08:59:37"}
+{"level":"info","message":"New client connected: zMrBr9c7CuqUj9TpAAAj","service":"notification-service","timestamp":"2025-11-08 08:59:40"}
+{"level":"info","message":"User 7 connected with socket zMrBr9c7CuqUj9TpAAAj. Total online: 1","service":"notification-service","timestamp":"2025-11-08 08:59:40"}
+{"level":"info","message":"User 7 disconnected (socket zMrBr9c7CuqUj9TpAAAj). Total online: 0","service":"notification-service","timestamp":"2025-11-08 08:59:41"}
+{"level":"info","message":"New client connected: Vfh-jehoQX_oaW7PAAAl","service":"notification-service","timestamp":"2025-11-08 09:00:00"}
+{"level":"info","message":"User 2 connected with socket Vfh-jehoQX_oaW7PAAAl. Total online: 1","service":"notification-service","timestamp":"2025-11-08 09:00:00"}
+{"level":"info","message":"Received POST /notify for userId: 4, event: new_task","service":"notification-service","timestamp":"2025-11-08 09:00:05"}
+{"level":"warn","message":"User 4 is OFFLINE. Gọi hàm sendPushNotification...","service":"notification-service","timestamp":"2025-11-08 09:00:05"}
+{"level":"warn","message":"[FCM] User 4 offline và không có FcmToken nào trong DB.","service":"notification-service","timestamp":"2025-11-08 09:00:05"}
+{"level":"info","message":"Received POST /notify for userId: 7, event: order_status_updated","service":"notification-service","timestamp":"2025-11-08 09:00:05"}
+{"level":"warn","message":"User 7 is OFFLINE. Gọi hàm sendPushNotification...","service":"notification-service","timestamp":"2025-11-08 09:00:05"}
+{"level":"error","message":"[FCM] Lỗi khi gửi Push Notification cho User 7: admin.messaging(...).sendMulticast is not a function","service":"notification-service","stack":"TypeError: admin.messaging(...).sendMulticast is not a function\n    at sendPushNotification (/app/index.js:128:46)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)","timestamp":"2025-11-08 09:00:05"}
+{"level":"info","message":"User 2 disconnected (socket Vfh-jehoQX_oaW7PAAAl). Total online: 0","service":"notification-service","timestamp":"2025-11-08 09:00:35"}
+{"level":"info","message":"New client connected: beV8WjaQ-QQyhSOWAAAn","service":"notification-service","timestamp":"2025-11-08 09:00:39"}
+{"level":"info","message":"User 7 connected with socket beV8WjaQ-QQyhSOWAAAn. Total online: 1","service":"notification-service","timestamp":"2025-11-08 09:00:39"}
+{"level":"info","message":"User 7 disconnected (socket beV8WjaQ-QQyhSOWAAAn). Total online: 0","service":"notification-service","timestamp":"2025-11-08 09:00:45"}
+{"level":"info","message":"New client connected: WYt3dEeTWke2sLhfAAAp","service":"notification-service","timestamp":"2025-11-08 09:00:46"}
+{"level":"info","message":"Đã đăng ký FcmToken cho User 7","service":"notification-service","timestamp":"2025-11-08 09:00:46"}
+{"level":"info","message":"User 7 connected with socket WYt3dEeTWke2sLhfAAAp. Total online: 1","service":"notification-service","timestamp":"2025-11-08 09:00:46"}
+{"level":"info","message":"Received POST /notify for userId: broadcast, event: new_order_pending","service":"notification-service","timestamp":"2025-11-08 09:01:04"}
+{"level":"info","message":"Broadcasted event 'new_order_pending' to all clients.","service":"notification-service","timestamp":"2025-11-08 09:01:04"}
+{"level":"info","message":"Received POST /notify for userId: broadcast, event: new_order_pending","service":"notification-service","timestamp":"2025-11-08 09:01:23"}
+{"level":"info","message":"Broadcasted event 'new_order_pending' to all clients.","service":"notification-service","timestamp":"2025-11-08 09:01:23"}
+{"level":"info","message":"Received POST /notify for userId: broadcast, event: new_order_pending","service":"notification-service","timestamp":"2025-11-08 09:02:33"}
+{"level":"info","message":"Broadcasted event 'new_order_pending' to all clients.","service":"notification-service","timestamp":"2025-11-08 09:02:33"}
+{"level":"info","message":"User 7 disconnected (socket WYt3dEeTWke2sLhfAAAp). Total online: 0","service":"notification-service","timestamp":"2025-11-08 09:02:42"}
+{"level":"info","message":"New client connected: Unsl62lLJ8UuJxFEAAAr","service":"notification-service","timestamp":"2025-11-08 09:02:49"}
+{"level":"info","message":"User 2 connected with socket Unsl62lLJ8UuJxFEAAAr. Total online: 1","service":"notification-service","timestamp":"2025-11-08 09:02:49"}
+{"level":"info","message":"Đã đăng ký FcmToken cho User 2","service":"notification-service","timestamp":"2025-11-08 09:02:49"}
+{"level":"info","message":"Received POST /notify for userId: 3, event: new_task","service":"notification-service","timestamp":"2025-11-08 09:02:56"}
+{"level":"warn","message":"User 3 is OFFLINE. Gọi hàm sendPushNotification...","service":"notification-service","timestamp":"2025-11-08 09:02:56"}
+{"level":"warn","message":"[FCM] User 3 offline và không có FcmToken nào trong DB.","service":"notification-service","timestamp":"2025-11-08 09:02:56"}
+{"level":"info","message":"Received POST /notify for userId: 7, event: order_status_updated","service":"notification-service","timestamp":"2025-11-08 09:02:56"}
+{"level":"warn","message":"User 7 is OFFLINE. Gọi hàm sendPushNotification...","service":"notification-service","timestamp":"2025-11-08 09:02:56"}
+{"level":"error","message":"[FCM] Lỗi khi gửi Push Notification cho User 7: admin.messaging(...).sendMulticast is not a function","service":"notification-service","stack":"TypeError: admin.messaging(...).sendMulticast is not a function\n    at sendPushNotification (/app/index.js:128:46)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)","timestamp":"2025-11-08 09:02:56"}
+{"level":"info","message":"Received POST /notify for userId: 3, event: new_task","service":"notification-service","timestamp":"2025-11-08 09:03:23"}
+{"level":"warn","message":"User 3 is OFFLINE. Gọi hàm sendPushNotification...","service":"notification-service","timestamp":"2025-11-08 09:03:23"}
+{"level":"warn","message":"[FCM] User 3 offline và không có FcmToken nào trong DB.","service":"notification-service","timestamp":"2025-11-08 09:03:23"}
+{"level":"info","message":"Received POST /notify for userId: 7, event: order_status_updated","service":"notification-service","timestamp":"2025-11-08 09:03:23"}
+{"level":"warn","message":"User 7 is OFFLINE. Gọi hàm sendPushNotification...","service":"notification-service","timestamp":"2025-11-08 09:03:23"}
+{"level":"error","message":"[FCM] Lỗi khi gửi Push Notification cho User 7: admin.messaging(...).sendMulticast is not a function","service":"notification-service","stack":"TypeError: admin.messaging(...).sendMulticast is not a function\n    at sendPushNotification (/app/index.js:128:46)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)","timestamp":"2025-11-08 09:03:23"}
+{"level":"info","message":"Received POST /notify for userId: 3, event: new_task","service":"notification-service","timestamp":"2025-11-08 09:03:25"}
+{"level":"warn","message":"User 3 is OFFLINE. Gọi hàm sendPushNotification...","service":"notification-service","timestamp":"2025-11-08 09:03:25"}
+{"level":"warn","message":"[FCM] User 3 offline và không có FcmToken nào trong DB.","service":"notification-service","timestamp":"2025-11-08 09:03:25"}
+{"level":"info","message":"Received POST /notify for userId: 7, event: order_status_updated","service":"notification-service","timestamp":"2025-11-08 09:03:25"}
+{"level":"warn","message":"User 7 is OFFLINE. Gọi hàm sendPushNotification...","service":"notification-service","timestamp":"2025-11-08 09:03:25"}
+{"level":"error","message":"[FCM] Lỗi khi gửi Push Notification cho User 7: admin.messaging(...).sendMulticast is not a function","service":"notification-service","stack":"TypeError: admin.messaging(...).sendMulticast is not a function\n    at sendPushNotification (/app/index.js:128:46)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)","timestamp":"2025-11-08 09:03:25"}
+{"level":"info","message":"Đã khởi tạo Firebase Admin SDK.","service":"notification-service","timestamp":"2025-11-08 09:09:19"}
+{"level":"info","message":"Notification Service (HTTP + WebSocket) is running on port 3006","service":"notification-service","timestamp":"2025-11-08 09:09:19"}
+{"level":"info","message":"New client connected: 82IH4Aewc4_E407VAAAB","service":"notification-service","timestamp":"2025-11-08 09:09:21"}
+{"level":"info","message":"User 2 connected with socket 82IH4Aewc4_E407VAAAB. Total online: 1","service":"notification-service","timestamp":"2025-11-08 09:09:21"}
+{"level":"info","message":"User 2 disconnected (socket 82IH4Aewc4_E407VAAAB). Total online: 0","service":"notification-service","timestamp":"2025-11-08 09:10:30"}
+{"level":"info","message":"New client connected: 87lXGR7E0Z8o0MW5AAAD","service":"notification-service","timestamp":"2025-11-08 09:11:02"}
+{"level":"info","message":"User 2 connected with socket 87lXGR7E0Z8o0MW5AAAD. Total online: 1","service":"notification-service","timestamp":"2025-11-08 09:11:02"}
+{"level":"info","message":"Đã đăng ký FcmToken cho User 2","service":"notification-service","timestamp":"2025-11-08 09:11:02"}
+{"level":"info","message":"User 2 disconnected (socket 87lXGR7E0Z8o0MW5AAAD). Total online: 0","service":"notification-service","timestamp":"2025-11-08 09:11:05"}
+{"level":"info","message":"New client connected: SXrjKjRuzkIxw30NAAAF","service":"notification-service","timestamp":"2025-11-08 09:11:07"}
+{"level":"info","message":"User 2 connected with socket SXrjKjRuzkIxw30NAAAF. Total online: 1","service":"notification-service","timestamp":"2025-11-08 09:11:07"}
+{"level":"info","message":"Đã đăng ký FcmToken cho User 2","service":"notification-service","timestamp":"2025-11-08 09:11:07"}
+{"level":"info","message":"User 2 disconnected (socket SXrjKjRuzkIxw30NAAAF). Total online: 0","service":"notification-service","timestamp":"2025-11-08 09:11:09"}
+{"level":"info","message":"New client connected: PBMkLdU3xbyoJdkvAAAH","service":"notification-service","timestamp":"2025-11-08 09:11:19"}
+{"level":"info","message":"User 7 connected with socket PBMkLdU3xbyoJdkvAAAH. Total online: 1","service":"notification-service","timestamp":"2025-11-08 09:11:19"}
+{"level":"info","message":"Đã đăng ký FcmToken cho User 7","service":"notification-service","timestamp":"2025-11-08 09:11:19"}
+{"level":"info","message":"Received POST /notify for userId: broadcast, event: new_order_pending","service":"notification-service","timestamp":"2025-11-08 09:11:33"}
+{"level":"info","message":"Broadcasted event 'new_order_pending' to all clients.","service":"notification-service","timestamp":"2025-11-08 09:11:33"}
+{"level":"info","message":"User 7 disconnected (socket PBMkLdU3xbyoJdkvAAAH). Total online: 0","service":"notification-service","timestamp":"2025-11-08 09:12:09"}
+{"level":"info","message":"New client connected: rzWfRBVwCZus9huAAAAJ","service":"notification-service","timestamp":"2025-11-08 09:12:18"}
+{"level":"info","message":"Đã đăng ký FcmToken cho User 7","service":"notification-service","timestamp":"2025-11-08 09:12:18"}
+{"level":"info","message":"User 7 connected with socket rzWfRBVwCZus9huAAAAJ. Total online: 1","service":"notification-service","timestamp":"2025-11-08 09:12:18"}
+{"level":"info","message":"User 7 disconnected (socket rzWfRBVwCZus9huAAAAJ). Total online: 0","service":"notification-service","timestamp":"2025-11-08 09:12:19"}
+{"level":"info","message":"New client connected: pXjpQpSg4_iK7tuzAAAL","service":"notification-service","timestamp":"2025-11-08 09:12:42"}
+{"level":"info","message":"Đã đăng ký FcmToken cho User 2","service":"notification-service","timestamp":"2025-11-08 09:12:42"}
+{"level":"info","message":"User 2 connected with socket pXjpQpSg4_iK7tuzAAAL. Total online: 1","service":"notification-service","timestamp":"2025-11-08 09:12:42"}
+{"level":"info","message":"Received POST /notify for userId: 3, event: new_task","service":"notification-service","timestamp":"2025-11-08 09:12:47"}
+{"level":"warn","message":"User 3 is OFFLINE. Gọi hàm sendPushNotification...","service":"notification-service","timestamp":"2025-11-08 09:12:47"}
+{"level":"warn","message":"[FCM] User 3 offline và không có FcmToken nào trong DB.","service":"notification-service","timestamp":"2025-11-08 09:12:47"}
+{"level":"info","message":"Received POST /notify for userId: 7, event: order_status_updated","service":"notification-service","timestamp":"2025-11-08 09:12:47"}
+{"level":"warn","message":"User 7 is OFFLINE. Gọi hàm sendPushNotification...","service":"notification-service","timestamp":"2025-11-08 09:12:47"}
+{"level":"error","message":"[FCM] Lỗi khi gửi Push Notification cho User 7: getMessaging(...).sendMulticast is not a function","service":"notification-service","stack":"TypeError: getMessaging(...).sendMulticast is not a function\n    at sendPushNotification (/app/index.js:130:54)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)","timestamp":"2025-11-08 09:12:47"}
+{"level":"info","message":"Đã khởi tạo Firebase Admin SDK.","service":"notification-service","timestamp":"2025-11-08 09:16:03"}
+{"level":"info","message":"Notification Service (HTTP + WebSocket) is running on port 3006","service":"notification-service","timestamp":"2025-11-08 09:16:03"}
+{"level":"info","message":"New client connected: ln3VJBVw_3fxdJCtAAAB","service":"notification-service","timestamp":"2025-11-08 09:16:06"}
+{"level":"info","message":"User 2 connected with socket ln3VJBVw_3fxdJCtAAAB. Total online: 1","service":"notification-service","timestamp":"2025-11-08 09:16:06"}
+{"level":"info","message":"User 2 disconnected (socket ln3VJBVw_3fxdJCtAAAB). Total online: 0","service":"notification-service","timestamp":"2025-11-08 09:17:04"}
+{"level":"info","message":"New client connected: Tznsxx0SFMx0hXT_AAAD","service":"notification-service","timestamp":"2025-11-08 09:17:11"}
+{"level":"info","message":"User 7 connected with socket Tznsxx0SFMx0hXT_AAAD. Total online: 1","service":"notification-service","timestamp":"2025-11-08 09:17:11"}
+{"level":"info","message":"Đã đăng ký FcmToken cho User 7","service":"notification-service","timestamp":"2025-11-08 09:17:11"}
+{"level":"info","message":"Received POST /notify for userId: broadcast, event: new_order_pending","service":"notification-service","timestamp":"2025-11-08 09:17:25"}
+{"level":"info","message":"Broadcasted event 'new_order_pending' to all clients.","service":"notification-service","timestamp":"2025-11-08 09:17:25"}
+{"level":"info","message":"User 7 disconnected (socket Tznsxx0SFMx0hXT_AAAD). Total online: 0","service":"notification-service","timestamp":"2025-11-08 09:17:30"}
+{"level":"info","message":"New client connected: Yww_5IJi5j5N2oQHAAAF","service":"notification-service","timestamp":"2025-11-08 09:18:20"}
+{"level":"info","message":"User 2 connected with socket Yww_5IJi5j5N2oQHAAAF. Total online: 1","service":"notification-service","timestamp":"2025-11-08 09:18:20"}
+{"level":"info","message":"Đã đăng ký FcmToken cho User 2","service":"notification-service","timestamp":"2025-11-08 09:18:20"}
+{"level":"info","message":"Received POST /notify for userId: 5, event: new_task","service":"notification-service","timestamp":"2025-11-08 09:18:23"}
+{"level":"warn","message":"User 5 is OFFLINE. Gọi hàm sendPushNotification...","service":"notification-service","timestamp":"2025-11-08 09:18:23"}
+{"level":"warn","message":"[FCM] User 5 offline và không có FcmToken nào trong DB.","service":"notification-service","timestamp":"2025-11-08 09:18:23"}
+{"level":"info","message":"Received POST /notify for userId: 7, event: order_status_updated","service":"notification-service","timestamp":"2025-11-08 09:18:23"}
+{"level":"warn","message":"User 7 is OFFLINE. Gọi hàm sendPushNotification...","service":"notification-service","timestamp":"2025-11-08 09:18:23"}
+{"level":"error","message":"[FCM] Lỗi khi gửi Push Notification cho User 7: getMessaging(...).sendMulticast is not a function","service":"notification-service","stack":"TypeError: getMessaging(...).sendMulticast is not a function\n    at sendPushNotification (/app/index.js:130:54)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)","timestamp":"2025-11-08 09:18:23"}
+{"level":"info","message":"User 2 disconnected (socket Yww_5IJi5j5N2oQHAAAF). Total online: 0","service":"notification-service","timestamp":"2025-11-08 09:18:52"}
+{"level":"info","message":"New client connected: IiWYlU51Ogi4--csAAAH","service":"notification-service","timestamp":"2025-11-08 09:18:52"}
+{"level":"info","message":"User 2 connected with socket IiWYlU51Ogi4--csAAAH. Total online: 1","service":"notification-service","timestamp":"2025-11-08 09:18:52"}
+{"level":"info","message":"Đã đăng ký FcmToken cho User 2","service":"notification-service","timestamp":"2025-11-08 09:18:52"}
+{"level":"info","message":"User 2 disconnected (socket IiWYlU51Ogi4--csAAAH). Total online: 0","service":"notification-service","timestamp":"2025-11-08 09:19:58"}
+{"level":"info","message":"New client connected: q_5chPuSIm4KRBYwAAAJ","service":"notification-service","timestamp":"2025-11-08 09:19:58"}
+{"level":"info","message":"User 2 connected with socket q_5chPuSIm4KRBYwAAAJ. Total online: 1","service":"notification-service","timestamp":"2025-11-08 09:19:58"}
+{"level":"info","message":"Đã đăng ký FcmToken cho User 2","service":"notification-service","timestamp":"2025-11-08 09:19:58"}
+{"level":"info","message":"User 2 disconnected (socket q_5chPuSIm4KRBYwAAAJ). Total online: 0","service":"notification-service","timestamp":"2025-11-08 09:20:17"}
+{"level":"info","message":"New client connected: llLW2HV6RscocqrXAAAL","service":"notification-service","timestamp":"2025-11-08 09:20:21"}
+{"level":"info","message":"User 2 connected with socket llLW2HV6RscocqrXAAAL. Total online: 1","service":"notification-service","timestamp":"2025-11-08 09:20:21"}
+{"level":"info","message":"Đã đăng ký FcmToken cho User 2","service":"notification-service","timestamp":"2025-11-08 09:20:21"}
+{"level":"info","message":"User 2 disconnected (socket llLW2HV6RscocqrXAAAL). Total online: 0","service":"notification-service","timestamp":"2025-11-08 09:20:22"}
+{"level":"info","message":"New client connected: IDMgYp6XW4VyJa2KAAAN","service":"notification-service","timestamp":"2025-11-08 09:20:24"}
+{"level":"info","message":"User 7 connected with socket IDMgYp6XW4VyJa2KAAAN. Total online: 1","service":"notification-service","timestamp":"2025-11-08 09:20:24"}
+{"level":"info","message":"Đã đăng ký FcmToken cho User 7","service":"notification-service","timestamp":"2025-11-08 09:20:24"}
+{"level":"info","message":"Received POST /notify for userId: broadcast, event: new_order_pending","service":"notification-service","timestamp":"2025-11-08 09:20:35"}
+{"level":"info","message":"Broadcasted event 'new_order_pending' to all clients.","service":"notification-service","timestamp":"2025-11-08 09:20:35"}
+{"level":"info","message":"User 7 disconnected (socket IDMgYp6XW4VyJa2KAAAN). Total online: 0","service":"notification-service","timestamp":"2025-11-08 09:21:29"}
+{"level":"info","message":"New client connected: 3tiqb4KQq-7EuBkGAAAP","service":"notification-service","timestamp":"2025-11-08 09:21:48"}
+{"level":"info","message":"User 7 connected with socket 3tiqb4KQq-7EuBkGAAAP. Total online: 1","service":"notification-service","timestamp":"2025-11-08 09:21:48"}
+{"level":"info","message":"Đã đăng ký FcmToken cho User 7","service":"notification-service","timestamp":"2025-11-08 09:21:48"}
+{"level":"info","message":"User 7 disconnected (socket 3tiqb4KQq-7EuBkGAAAP). Total online: 0","service":"notification-service","timestamp":"2025-11-08 09:21:51"}
+{"level":"info","message":"New client connected: wmjU7I9kJRfPuZEDAAAR","service":"notification-service","timestamp":"2025-11-08 09:22:04"}
+{"level":"info","message":"Đã đăng ký FcmToken cho User 2","service":"notification-service","timestamp":"2025-11-08 09:22:04"}
+{"level":"info","message":"User 2 connected with socket wmjU7I9kJRfPuZEDAAAR. Total online: 1","service":"notification-service","timestamp":"2025-11-08 09:22:05"}
+{"level":"info","message":"Received POST /notify for userId: 3, event: new_task","service":"notification-service","timestamp":"2025-11-08 09:22:07"}
+{"level":"warn","message":"User 3 is OFFLINE. Gọi hàm sendPushNotification...","service":"notification-service","timestamp":"2025-11-08 09:22:07"}
+{"level":"warn","message":"[FCM] User 3 offline và không có FcmToken nào trong DB.","service":"notification-service","timestamp":"2025-11-08 09:22:07"}
+{"level":"info","message":"Received POST /notify for userId: 7, event: order_status_updated","service":"notification-service","timestamp":"2025-11-08 09:22:07"}
+{"level":"warn","message":"User 7 is OFFLINE. Gọi hàm sendPushNotification...","service":"notification-service","timestamp":"2025-11-08 09:22:07"}
+{"level":"error","message":"[FCM] Lỗi khi gửi Push Notification cho User 7: getMessaging(...).sendMulticast is not a function","service":"notification-service","stack":"TypeError: getMessaging(...).sendMulticast is not a function\n    at sendPushNotification (/app/index.js:130:54)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)","timestamp":"2025-11-08 09:22:07"}
+{"level":"info","message":"User 2 disconnected (socket wmjU7I9kJRfPuZEDAAAR). Total online: 0","service":"notification-service","timestamp":"2025-11-08 09:25:46"}
+{"level":"info","message":"Đã khởi tạo Firebase Admin SDK.","service":"notification-service","timestamp":"2025-11-08 09:26:01"}
+{"level":"info","message":"Notification Service (HTTP + WebSocket) is running on port 3006","service":"notification-service","timestamp":"2025-11-08 09:26:01"}
+{"level":"info","message":"New client connected: jS6Vymr0Bv90wxIrAAAB","service":"notification-service","timestamp":"2025-11-08 09:27:01"}
+{"level":"info","message":"User 2 connected with socket jS6Vymr0Bv90wxIrAAAB. Total online: 1","service":"notification-service","timestamp":"2025-11-08 09:27:01"}
+{"level":"info","message":"Đã đăng ký FcmToken cho User 2","service":"notification-service","timestamp":"2025-11-08 09:27:01"}
+{"level":"info","message":"User 2 disconnected (socket jS6Vymr0Bv90wxIrAAAB). Total online: 0","service":"notification-service","timestamp":"2025-11-08 09:27:04"}
+{"level":"info","message":"New client connected: N33jBartHvPnIncSAAAD","service":"notification-service","timestamp":"2025-11-08 09:27:11"}
+{"level":"info","message":"User 7 connected with socket N33jBartHvPnIncSAAAD. Total online: 1","service":"notification-service","timestamp":"2025-11-08 09:27:11"}
+{"level":"info","message":"Đã đăng ký FcmToken cho User 7","service":"notification-service","timestamp":"2025-11-08 09:27:11"}
+{"level":"info","message":"Received POST /notify for userId: broadcast, event: new_order_pending","service":"notification-service","timestamp":"2025-11-08 09:27:23"}
+{"level":"info","message":"Broadcasted event 'new_order_pending' to all clients.","service":"notification-service","timestamp":"2025-11-08 09:27:23"}
+{"level":"info","message":"User 7 disconnected (socket N33jBartHvPnIncSAAAD). Total online: 0","service":"notification-service","timestamp":"2025-11-08 09:27:43"}
+{"level":"info","message":"New client connected: _Cj8FrSbOLgiG6roAAAF","service":"notification-service","timestamp":"2025-11-08 09:27:54"}
+{"level":"info","message":"User 7 connected with socket _Cj8FrSbOLgiG6roAAAF. Total online: 1","service":"notification-service","timestamp":"2025-11-08 09:27:54"}
+{"level":"info","message":"Đã đăng ký FcmToken cho User 7","service":"notification-service","timestamp":"2025-11-08 09:27:54"}
+{"level":"info","message":"User 7 disconnected (socket _Cj8FrSbOLgiG6roAAAF). Total online: 0","service":"notification-service","timestamp":"2025-11-08 09:27:55"}
+{"level":"info","message":"New client connected: E__eUmzUXGDSEdVPAAAH","service":"notification-service","timestamp":"2025-11-08 09:28:05"}
+{"level":"info","message":"Đã đăng ký FcmToken cho User 2","service":"notification-service","timestamp":"2025-11-08 09:28:05"}
+{"level":"info","message":"User 2 connected with socket E__eUmzUXGDSEdVPAAAH. Total online: 1","service":"notification-service","timestamp":"2025-11-08 09:28:05"}
+{"level":"info","message":"Received POST /notify for userId: 3, event: new_task","service":"notification-service","timestamp":"2025-11-08 09:28:07"}
+{"level":"warn","message":"User 3 is OFFLINE. Gọi hàm sendPushNotification...","service":"notification-service","timestamp":"2025-11-08 09:28:07"}
+{"level":"warn","message":"[FCM] User 3 offline và không có FcmToken nào trong DB.","service":"notification-service","timestamp":"2025-11-08 09:28:07"}
+{"level":"info","message":"Received POST /notify for userId: 7, event: order_status_updated","service":"notification-service","timestamp":"2025-11-08 09:28:07"}
+{"level":"warn","message":"User 7 is OFFLINE. Gọi hàm sendPushNotification...","service":"notification-service","timestamp":"2025-11-08 09:28:07"}
+{"level":"error","message":"[FCM] Lỗi khi gửi Push Notification cho User 7: getMessaging(...).sendMulticast is not a function","service":"notification-service","stack":"TypeError: getMessaging(...).sendMulticast is not a function\n    at sendPushNotification (/app/index.js:130:54)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)","timestamp":"2025-11-08 09:28:07"}
+{"level":"info","message":"Đã khởi tạo Firebase Admin SDK.","service":"notification-service","timestamp":"2025-11-08 09:31:08"}
+{"level":"info","message":"Notification Service (HTTP + WebSocket) is running on port 3006","service":"notification-service","timestamp":"2025-11-08 09:31:08"}
+{"level":"info","message":"New client connected: TQhn3H5CdCt1wG5DAAAB","service":"notification-service","timestamp":"2025-11-08 09:31:16"}
+{"level":"info","message":"User 7 connected with socket TQhn3H5CdCt1wG5DAAAB. Total online: 1","service":"notification-service","timestamp":"2025-11-08 09:31:16"}
+{"level":"info","message":"Đã đăng ký FcmToken cho User 7","service":"notification-service","timestamp":"2025-11-08 09:31:16"}
+{"level":"info","message":"Received POST /notify for userId: broadcast, event: new_order_pending","service":"notification-service","timestamp":"2025-11-08 09:31:28"}
+{"level":"info","message":"Broadcasted event 'new_order_pending' to all clients.","service":"notification-service","timestamp":"2025-11-08 09:31:28"}
+{"level":"info","message":"User 7 disconnected (socket TQhn3H5CdCt1wG5DAAAB). Total online: 0","service":"notification-service","timestamp":"2025-11-08 09:31:43"}
+{"level":"info","message":"New client connected: ZHHWzmv5Aq3PX8wdAAAD","service":"notification-service","timestamp":"2025-11-08 09:32:26"}
+{"level":"info","message":"User 2 connected with socket ZHHWzmv5Aq3PX8wdAAAD. Total online: 1","service":"notification-service","timestamp":"2025-11-08 09:32:26"}
+{"level":"info","message":"Đã đăng ký FcmToken cho User 2","service":"notification-service","timestamp":"2025-11-08 09:32:26"}
+{"level":"info","message":"Received POST /notify for userId: 3, event: new_task","service":"notification-service","timestamp":"2025-11-08 09:32:29"}
+{"level":"warn","message":"User 3 is OFFLINE. Gọi hàm sendPushNotification...","service":"notification-service","timestamp":"2025-11-08 09:32:29"}
+{"level":"warn","message":"[FCM] User 3 offline và không có FcmToken nào trong DB.","service":"notification-service","timestamp":"2025-11-08 09:32:29"}
+{"level":"info","message":"Received POST /notify for userId: 7, event: order_status_updated","service":"notification-service","timestamp":"2025-11-08 09:32:29"}
+{"level":"warn","message":"User 7 is OFFLINE. Gọi hàm sendPushNotification...","service":"notification-service","timestamp":"2025-11-08 09:32:29"}
+{"level":"error","message":"[FCM] Lỗi khi gửi Push Notification cho User 7: getMessaging(...).sendMulticast is not a function","service":"notification-service","stack":"TypeError: getMessaging(...).sendMulticast is not a function\n    at sendPushNotification (/app/index.js:130:54)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)","timestamp":"2025-11-08 09:32:29"}
+{"level":"info","message":"Received POST /notify for userId: 4, event: new_task","service":"notification-service","timestamp":"2025-11-08 09:35:23"}
+{"level":"warn","message":"User 4 is OFFLINE. Gọi hàm sendPushNotification...","service":"notification-service","timestamp":"2025-11-08 09:35:23"}
+{"level":"warn","message":"[FCM] User 4 offline và không có FcmToken nào trong DB.","service":"notification-service","timestamp":"2025-11-08 09:35:23"}
+{"level":"info","message":"Received POST /notify for userId: 7, event: order_status_updated","service":"notification-service","timestamp":"2025-11-08 09:35:24"}
+{"level":"warn","message":"User 7 is OFFLINE. Gọi hàm sendPushNotification...","service":"notification-service","timestamp":"2025-11-08 09:35:24"}
+{"level":"error","message":"[FCM] Lỗi khi gửi Push Notification cho User 7: getMessaging(...).sendMulticast is not a function","service":"notification-service","stack":"TypeError: getMessaging(...).sendMulticast is not a function\n    at sendPushNotification (/app/index.js:130:54)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)","timestamp":"2025-11-08 09:35:24"}
+{"level":"info","message":"Received POST /notify for userId: 3, event: new_task","service":"notification-service","timestamp":"2025-11-08 09:35:49"}
+{"level":"warn","message":"User 3 is OFFLINE. Gọi hàm sendPushNotification...","service":"notification-service","timestamp":"2025-11-08 09:35:49"}
+{"level":"warn","message":"[FCM] User 3 offline và không có FcmToken nào trong DB.","service":"notification-service","timestamp":"2025-11-08 09:35:49"}
+{"level":"info","message":"Received POST /notify for userId: 7, event: order_status_updated","service":"notification-service","timestamp":"2025-11-08 09:35:49"}
+{"level":"warn","message":"User 7 is OFFLINE. Gọi hàm sendPushNotification...","service":"notification-service","timestamp":"2025-11-08 09:35:49"}
+{"level":"error","message":"[FCM] Lỗi khi gửi Push Notification cho User 7: getMessaging(...).sendMulticast is not a function","service":"notification-service","stack":"TypeError: getMessaging(...).sendMulticast is not a function\n    at sendPushNotification (/app/index.js:130:54)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)","timestamp":"2025-11-08 09:35:49"}
+{"level":"info","message":"User 2 disconnected (socket ZHHWzmv5Aq3PX8wdAAAD). Total online: 0","service":"notification-service","timestamp":"2025-11-08 09:35:55"}
+{"level":"info","message":"New client connected: YZpSsecevB55t7mqAAAF","service":"notification-service","timestamp":"2025-11-08 09:36:00"}
+{"level":"info","message":"User 7 connected with socket YZpSsecevB55t7mqAAAF. Total online: 1","service":"notification-service","timestamp":"2025-11-08 09:36:00"}
+{"level":"info","message":"Đã đăng ký FcmToken cho User 7","service":"notification-service","timestamp":"2025-11-08 09:36:00"}
+{"level":"info","message":"Received POST /notify for userId: broadcast, event: new_order_pending","service":"notification-service","timestamp":"2025-11-08 09:36:14"}
+{"level":"info","message":"Broadcasted event 'new_order_pending' to all clients.","service":"notification-service","timestamp":"2025-11-08 09:36:14"}
+{"level":"info","message":"User 7 disconnected (socket YZpSsecevB55t7mqAAAF). Total online: 0","service":"notification-service","timestamp":"2025-11-08 09:36:24"}
+{"level":"info","message":"New client connected: YDP-l_palVVXyq3SAAAH","service":"notification-service","timestamp":"2025-11-08 09:36:36"}
+{"level":"info","message":"User 2 connected with socket YDP-l_palVVXyq3SAAAH. Total online: 1","service":"notification-service","timestamp":"2025-11-08 09:36:36"}
+{"level":"info","message":"Đã đăng ký FcmToken cho User 2","service":"notification-service","timestamp":"2025-11-08 09:36:36"}
+{"level":"info","message":"Received POST /notify for userId: 3, event: new_task","service":"notification-service","timestamp":"2025-11-08 09:36:38"}
+{"level":"warn","message":"User 3 is OFFLINE. Gọi hàm sendPushNotification...","service":"notification-service","timestamp":"2025-11-08 09:36:38"}
+{"level":"warn","message":"[FCM] User 3 offline và không có FcmToken nào trong DB.","service":"notification-service","timestamp":"2025-11-08 09:36:38"}
+{"level":"info","message":"Received POST /notify for userId: 7, event: order_status_updated","service":"notification-service","timestamp":"2025-11-08 09:36:38"}
+{"level":"warn","message":"User 7 is OFFLINE. Gọi hàm sendPushNotification...","service":"notification-service","timestamp":"2025-11-08 09:36:38"}
+{"level":"error","message":"[FCM] Lỗi khi gửi Push Notification cho User 7: getMessaging(...).sendMulticast is not a function","service":"notification-service","stack":"TypeError: getMessaging(...).sendMulticast is not a function\n    at sendPushNotification (/app/index.js:130:54)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)","timestamp":"2025-11-08 09:36:38"}
+{"level":"info","message":"Received POST /notify for userId: 3, event: new_task","service":"notification-service","timestamp":"2025-11-08 09:41:15"}
+{"level":"warn","message":"User 3 is OFFLINE. Gọi hàm sendPushNotification...","service":"notification-service","timestamp":"2025-11-08 09:41:15"}
+{"level":"warn","message":"[FCM] User 3 offline và không có FcmToken nào trong DB.","service":"notification-service","timestamp":"2025-11-08 09:41:15"}
+{"level":"info","message":"Received POST /notify for userId: 7, event: order_status_updated","service":"notification-service","timestamp":"2025-11-08 09:41:15"}
+{"level":"warn","message":"User 7 is OFFLINE. Gọi hàm sendPushNotification...","service":"notification-service","timestamp":"2025-11-08 09:41:15"}
+{"level":"error","message":"[FCM] Lỗi khi gửi Push Notification cho User 7: getMessaging(...).sendMulticast is not a function","service":"notification-service","stack":"TypeError: getMessaging(...).sendMulticast is not a function\n    at sendPushNotification (/app/index.js:130:54)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)","timestamp":"2025-11-08 09:41:15"}
+{"level":"info","message":"Received POST /notify for userId: 3, event: new_task","service":"notification-service","timestamp":"2025-11-08 09:41:17"}
+{"level":"warn","message":"User 3 is OFFLINE. Gọi hàm sendPushNotification...","service":"notification-service","timestamp":"2025-11-08 09:41:17"}
+{"level":"warn","message":"[FCM] User 3 offline và không có FcmToken nào trong DB.","service":"notification-service","timestamp":"2025-11-08 09:41:17"}
+{"level":"info","message":"Received POST /notify for userId: 7, event: order_status_updated","service":"notification-service","timestamp":"2025-11-08 09:41:17"}
+{"level":"warn","message":"User 7 is OFFLINE. Gọi hàm sendPushNotification...","service":"notification-service","timestamp":"2025-11-08 09:41:17"}
+{"level":"error","message":"[FCM] Lỗi khi gửi Push Notification cho User 7: getMessaging(...).sendMulticast is not a function","service":"notification-service","stack":"TypeError: getMessaging(...).sendMulticast is not a function\n    at sendPushNotification (/app/index.js:130:54)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)","timestamp":"2025-11-08 09:41:17"}
+{"level":"info","message":"User 2 disconnected (socket YDP-l_palVVXyq3SAAAH). Total online: 0","service":"notification-service","timestamp":"2025-11-08 09:41:34"}

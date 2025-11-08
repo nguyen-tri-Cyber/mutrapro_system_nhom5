@@ -92,3 +92,23 @@
 {"level":"info","message":"File Service is running on port 3004","service":"file-service","timestamp":"2025-11-04 05:30:44"}
 {"level":"info","message":"File Service is running on port 3004","service":"file-service","timestamp":"2025-11-04 13:56:45"}
 {"level":"info","message":"File Service is running on port 3004","service":"file-service","timestamp":"2025-11-04 14:36:26"}
+{"level":"info","message":"File Service is running on port 3004","service":"file-service","timestamp":"2025-11-08 07:28:50"}
+{"level":"info","message":"File WIN_20241223_22_43_40_Pro.mp4 uploaded for order #4","service":"file-service","timestamp":"2025-11-08 07:34:31"}
+{"level":"info","message":"File lecture-05 (1).pdf uploaded for order #4","service":"file-service","timestamp":"2025-11-08 07:42:56"}
+{"level":"info","message":"File lecture-05 (1).pdf uploaded for order #7","service":"file-service","timestamp":"2025-11-08 07:44:52"}
+{"level":"info","message":"File Service is running on port 3004","service":"file-service","timestamp":"2025-11-08 07:51:43"}
+{"level":"info","message":"File Service is running on port 3004","service":"file-service","timestamp":"2025-11-08 08:22:21"}
+{"level":"info","message":"File Service is running on port 3004","service":"file-service","timestamp":"2025-11-08 08:33:48"}
+{"level":"info","message":"File Service is running on port 3004","service":"file-service","timestamp":"2025-11-08 08:45:39"}
+{"level":"info","message":"File WIN_20241223_22_43_40_Pro.mp4 uploaded for order #1","service":"file-service","timestamp":"2025-11-08 08:53:53"}
+{"level":"info","message":"File 7202489642459.mp4 uploaded for order #9","service":"file-service","timestamp":"2025-11-08 09:02:33"}
+{"level":"info","message":"File Service is running on port 3004","service":"file-service","timestamp":"2025-11-08 09:09:19"}
+{"level":"info","message":"File 7202489642459.mp4 uploaded for order #10","service":"file-service","timestamp":"2025-11-08 09:11:33"}
+{"level":"info","message":"File Service is running on port 3004","service":"file-service","timestamp":"2025-11-08 09:16:03"}
+{"level":"info","message":"File 7202489642459.mp4 uploaded for order #11","service":"file-service","timestamp":"2025-11-08 09:17:25"}
+{"level":"info","message":"File 7202489642459.mp4 uploaded for order #12","service":"file-service","timestamp":"2025-11-08 09:20:36"}
+{"level":"info","message":"File Service is running on port 3004","service":"file-service","timestamp":"2025-11-08 09:26:01"}
+{"level":"info","message":"File 7202489642459.mp4 uploaded for order #13","service":"file-service","timestamp":"2025-11-08 09:27:23"}
+{"level":"info","message":"File Service is running on port 3004","service":"file-service","timestamp":"2025-11-08 09:31:08"}
+{"level":"info","message":"File 7202489642459.mp4 uploaded for order #14","service":"file-service","timestamp":"2025-11-08 09:31:28"}
+{"level":"info","message":"File 7202489642459.mp4 uploaded for order #15","service":"file-service","timestamp":"2025-11-08 09:36:14"}
