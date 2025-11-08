@@ -1,93 +1,92 @@
-// web-app/src/context/AuthContext.js
-import React, { createContext, useState, useEffect, useContext, useCallback } from 'react';
-import authApi from '../api/authApi';
-
-export const AuthContext = createContext(null);
-
-export const useAuth = () => {
-    return useContext(AuthContext);
-};
-
-export const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState(null);
-    const [loading, setLoading] = useState(true);
-
-    // Dùng useCallback để hàm này ổn định
-    const verifyUser = useCallback(async () => {
+// File: web-app/src/api/authApi.js (ĐÃ SỬA LỖI ROUTING)
+import axios from 'axios';
+const API_URL = 'http://localhost:3007/api/auth'; // <--- Đã trỏ đúng
+// --- Axios Interceptors --- (Giữ nguyên)
+axios.interceptors.request.use(
+    (config) => {
         const token = localStorage.getItem('token');
         if (token) {
-            try {
-                const response = await authApi.verifyToken();
-                setUser(response.data.user);
-                localStorage.setItem('user', JSON.stringify(response.data.user));
-            } catch (error) {
-                authApi.logout();
-                setUser(null);
-                console.error("Token verification failed", error);
-            }
+            config.headers.Authorization = `Bearer ${token}`;
         }
-        setLoading(false);
-    }, []);
-
-    // Effect này chạy 1 lần duy nhất khi app khởi động
-    useEffect(() => {
-        verifyUser();
-    }, [verifyUser]);
-
-    // ================== FIX LỖI ĐỒNG BỘ TAB MỚI ==================
-    // Effect này lắng nghe thay đổi từ các tab khác
-    useEffect(() => {
-        const handleStorageChange = (event) => {
-            // Nếu "token" bị xóa (logout ở tab khác)
-            if (event.key === 'token' && event.newValue === null) {
-                console.log("[AuthSync] Token bị xóa, đang đăng xuất tab này...");
-                setUser(null);
-            }
-
-            // Nếu "user" bị thay đổi (login ở tab khác)
-            if (event.key === 'user') {
-                if (event.newValue) {
-                    try {
-                        console.log("[AuthSync] User thay đổi, đang cập nhật tab này...");
-                        setUser(JSON.parse(event.newValue));
-                    } catch (e) {
-                        console.error("Lỗi parse user từ storage sync", e);
-                    }
-                } else {
-                    // Xử lý trường hợp "user" bị xóa (logout)
-                    console.log("[AuthSync] User bị xóa, đang đăng xuất tab này...");
-                    setUser(null);
-                }
-            }
-        };
-
-        // Lắng nghe sự kiện storage
-        window.addEventListener('storage', handleStorageChange);
-
-        // Dọn dẹp
-        return () => {
-            window.removeEventListener('storage', handleStorageChange);
-        };
-    }, []);
-    // ================== KẾT THÚC FIX LỖI ==================
-
-    const login = (userData) => {
-        setUser(userData);
-        // Khi login, hàm authApi.login đã set localStorage rồi
-        // nên event 'storage' sẽ tự động kích hoạt
-    };
-
-    const logout = () => {
-        authApi.logout(); // Hàm này sẽ xóa localStorage [cite: 3113-3114]
-        setUser(null);
-        // Việc xóa localStorage sẽ tự động kích hoạt event 'storage'
-    };
-
-    const value = { user, login, logout, loading };
-
-    return (
-        <AuthContext.Provider value={value}>
-            {children}
-        </AuthContext.Provider>
-    );
+        return config;
+    },
+    (error) => Promise.reject(error)
+);
+axios.interceptors.response.use(
+    (response) => response,
+    (error) => {
+        if (error.response?.status === 401 && error.config.url !== `${API_URL}/login`) {
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            window.location.href = '/login';
+        }
+        return Promise.reject(error);
+    }
+);
+// --- API Functions ---
+const login = async (email, password) => {
+    const response = await axios.post(`${API_URL}/login`, { email, password });
+    if (response.data.token) {
+        localStorage.setItem('token', response.data.token);
+        localStorage.setItem('user', JSON.stringify(response.data.user));
+    }
+    return response.data;
 };
+const register = async (name, email, password) => {
+    return await axios.post(`${API_URL}/register`, { name, email, password });
+};
+const verifyToken = async () => {
+    return await axios.get(`${API_URL}/verify`);
+};
+const logout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+};
+
+// === START: SỬA LỖI NẰM Ở ĐÂY ===
+const getSpecialistsByRole = async (role) => {
+    // Sửa: Gọi qua API_URL (Gateway) thay vì localhost:3001
+    const response = await axios.get(`${API_URL}/users/specialists`, { params: { role } });
+    return response.data;
+};
+// === END: SỬA LỖI ===
+
+const updateProfile = async (userId, profileData) => {
+    return await axios.put(`${API_URL}/users/${userId}`, profileData);
+};
+const changePassword = async (userId, passwordData) => {
+    return await axios.put(`${API_URL}/users/${userId}/password`, passwordData);
+};
+// === START: API MỚI CHO ADMIN ===
+const adminGetAllUsers = async () => {
+    const response = await axios.get(`${API_URL}/admin/users`);
+    return response.data;
+};
+const adminCreateUser = async (userData) => {
+    const response = await axios.post(`${API_URL}/admin/users`, userData);
+    return response.data;
+};
+const adminUpdateUser = async (userId, userData) => {
+    const response = await axios.put(`${API_URL}/admin/users/${userId}`, userData);
+    return response.data;
+};
+const adminDeleteUser = async (userId) => {
+    const response = await axios.delete(`${API_URL}/admin/users/${userId}`);
+    return response.data;
+};
+// === END: API MỚI CHO ADMIN ===
+const authApi = {
+    login,
+    register,
+    logout,
+    verifyToken,
+    getSpecialistsByRole,
+    updateProfile,
+    changePassword,
+    // === EXPORT API MỚI ===
+    adminGetAllUsers,
+    adminCreateUser,
+    adminUpdateUser,
+    adminDeleteUser
+};
+export default authApi;
