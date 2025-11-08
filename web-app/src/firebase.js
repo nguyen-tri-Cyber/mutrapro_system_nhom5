@@ -36,13 +36,9 @@ export const getFcmToken = async () => {
         if (permission === 'granted') {
             console.log('Notification permission granted.');
             
-            // ======================================================
-            // 
-            //  ⚠️  DÁN VAPID KEY CỦA NÍ VÀO ĐÂY (Lấy từ Bước 2)
-            // 
-            // ======================================================
+
             const token = await getToken(messaging, {
-                vapidKey: 'BAbf7hKyraqlqCA0Ia6bDGH6kf8kfsuRKBSr0rRr_Rk1w6FwIWTZMnUM8Q3B8ZbAtCycwKO5vSWSjzxQotlHu8A'
+                vapidKey: ''
             });
 
             if (token) {
