@@ -6,7 +6,7 @@ const multer = require('multer');
 const path = require('path');
 const axios = require('axios');
 const fs = require('fs');
-require('dotenv').config({ path: '../.env' }); // Sửa path .env về 1 cấp
+require('dotenv').config({ path: '../../.env' });
 
 // ======================= SỬA LỖI PATH Ở ĐÂY =======================
 const { logger } = require('./shared/logger');
