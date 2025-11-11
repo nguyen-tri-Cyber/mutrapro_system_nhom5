@@ -4,7 +4,7 @@ const mysql = require('mysql2/promise');
 const cors = require('cors');
 const axios = require('axios');
 const amqp = require('amqplib'); // <-- (MQ) BƯỚC 1: THÊM AMQP
-require('dotenv').config({ path: '../.env' }); // Sửa path .env về 1 cấp
+require('dotenv').config({ path: '../../.env' });
 
 // ======================= SỬA LỖI PATH Ở ĐÂY =======================
 const { logger } = require('./shared/logger');
