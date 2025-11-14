@@ -50,6 +50,7 @@ app.use('/api/files', proxy('http://file-service:3004', {
 
 app.use('/api/studio', proxy('http://studio-service:3005'));
 app.use('/api/notifications', proxy('http://notification-service:3006'));
+app.use('/api/analytics', proxy('http://analytics-service:3008'));
 
 //  🔹  Start server
 const PORT = 3007;
