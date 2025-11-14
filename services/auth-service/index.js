@@ -8,7 +8,7 @@ process.on('uncaughtException', (error) => {
     console.error('!!! LỖI UNCAUGHT EXCEPTION !!!:', error);
     process.exit(1); // Thoát ngay lập tức
 });
-// --- BẮT ĐẦU CODE CỦA BẠN (từ) ---
+
 const express = require('express');
 const mysql = require('mysql2/promise');
 const cors = require('cors');
@@ -190,15 +190,23 @@ app.get('/users/:id', idParamValidation, asyncHandler(async (req, res) => {
     res.json(rows[0]);
 }));
 
+// 8. API MỚI: Lấy IDs theo vai trò (dùng nội bộ)
+app.get('/users/by-role/:role', asyncHandler(async (req, res) => {
+    const { role } = req.params;
+    // Lấy chỉ ID
+    const [users] = await pool.execute('SELECT id FROM users WHERE role = ?', [role]);
+    res.json(users); // Sẽ trả về [ {id: 2}, {id: 4}, ... ]
+}));
+
 // === START: API MỚI CHO ADMIN CRUD USERS ===
-// 8. API (Admin): Lấy tất cả người dùng
+// 9. API (Admin): Lấy tất cả người dùng
 app.get('/admin/users', authMiddleware, checkRole('admin'), asyncHandler(async (req, res) => {
     // Lấy tất cả user, loại bỏ password_hash
     const [users] = await pool.execute('SELECT id, name, email, role, created_at FROM users ORDER BY created_at DESC');
     res.json(users);
 }));
 
-// 9. API (Admin): Tạo người dùng mới
+// 10. API (Admin): Tạo người dùng mới
 app.post('/admin/users', authMiddleware, checkRole('admin'), adminCreateUserValidation, asyncHandler(async (req, res) => {
     const { name, email, password, role } = req.body;
     // Mã hóa mật khẩu
@@ -212,7 +220,7 @@ app.post('/admin/users', authMiddleware, checkRole('admin'), adminCreateUserVali
     res.status(201).json({ id: result.insertId, message: 'Tạo người dùng thành công' });
 }));
 
-// 10. API (Admin): Cập nhật người dùng
+// 11. API (Admin): Cập nhật người dùng
 app.put('/admin/users/:id', authMiddleware, checkRole('admin'), idParamValidation, adminUpdateUserValidation, asyncHandler(async (req, res) => {
     const { id } = req.params;
     const { name, email, role } = req.body;
@@ -238,7 +246,7 @@ app.put('/admin/users/:id', authMiddleware, checkRole('admin'), idParamValidatio
     res.json({ message: 'Cập nhật người dùng thành công' });
 }));
 
-// 11. API (Admin): Xóa người dùng
+// 12. API (Admin): Xóa người dùng
 app.delete('/admin/users/:id', authMiddleware, checkRole('admin'), idParamValidation, asyncHandler(async (req, res) => {
     const { id } = req.params;
     // Ngăn admin tự xóa mình
