@@ -98,12 +98,31 @@ app.post('/', authMiddleware, checkRole('customer'), createOrderValidation, asyn
     const [result] = await pool.execute(
         `INSERT INTO orders (customer_id, service_type, description, price, status) VALUES (?, ?, ?, ?, 'pending')`,
         [customer_id, service_type, description, price]
-    );
-    // Thông báo cho tất cả coordinator biết có đơn hàng mới
-    notify('broadcast', 'new_order_pending', {
+    )
+    ;
+// === SỬA LỖI PUSH NOTIFICATION (Bỏ 'broadcast') ===
+try {
+    // 1. Gọi auth-service để lấy TẤT CẢ IDs của coordinator
+    const authResponse = await axios.get('http://auth-service:3001/users/by-role/coordinator');
+    const coordinators = authResponse.data; // Mảng [ {id: 2}, {id: 9} ]
+
+    // 2. Gửi thông báo cho từng coordinator
+    const notificationData = {
         orderId: result.insertId,
         message: `Có đơn hàng mới #${result.insertId} đang chờ được phân công.`
-    });
+    };
+
+    for (const coord of coordinators) {
+        // Gọi notify cho từng ID
+        notify(coord.id, 'new_order_pending', notificationData);
+    }
+    logger.info(`[Notify] Đã gửi thông báo 'new_order_pending' đến ${coordinators.length} coordinator.`);
+
+} catch (err) {
+    logger.error(`[Notify] Lỗi nghiêm trọng khi gửi thông báo cho coordinator: ${err.message}`);
+}
+// === KẾT THÚC SỬA LỖI ===
+
     logger.info(`New order created with ID: ${result.insertId}`);
     res.status(201).json({ id: result.insertId, message: 'Order created' });
 }));
