@@ -73,7 +73,11 @@ const Layout = () => {
                  console.log("[Socket.IO] Received 'product_file_uploaded':", data);
                  toast.success(data.message || `Có file mới cho đơn hàng #${data.orderId}`);
              });
-             // Thêm các listener khác nếu cần
+            
+             socket.on("new_order_pending", (data) => {
+                console.log("[Socket.IO] Received 'new_order_pending':", data);
+                toast.info(data.message || `Bạn có đơn hàng mới #${data.orderId} chờ xử lý!`);
+            });
 
             // Cleanup function khi component unmount hoặc user thay đổi
             return () => {
