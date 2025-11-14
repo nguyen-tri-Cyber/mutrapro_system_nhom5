@@ -179,3 +179,28 @@ CREATE TABLE IF NOT EXISTS user_devices (
   UNIQUE KEY idx_user_token (user_id, fcm_token), -- Tránh 1 user đăng ký 1 token nhiều lần
   INDEX idx_user (user_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+/*
+================================================================
+(MỚI) DATABASE: mutrapro_analytics (Dành cho NiFi)
+================================================================
+*/
+CREATE DATABASE IF NOT EXISTS mutrapro_analytics CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+USE mutrapro_analytics;
+
+/*
+Bảng này sẽ lưu kết quả báo cáo đã được NiFi tính toán trước.
+Trang Admin Dashboard sẽ đọc từ bảng này.
+*/
+CREATE TABLE IF NOT EXISTS report_dashboard (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  report_name VARCHAR(100) UNIQUE NOT NULL,
+  json_value JSON,
+  updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+/* Thêm 1 dòng dữ liệu mẫu (report_name) để NiFi có thể "UPDATE"
+*/
+INSERT IGNORE INTO report_dashboard (report_name, json_value) VALUES
+('dashboard_stats', '{"totalRevenue": 0, "totalOrders": 0, "orderStats": []}');
