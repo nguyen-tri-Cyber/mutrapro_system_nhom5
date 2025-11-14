@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
-import orderApi from '../api/orderApi';
+import analyticsApi from '../api/analyticsApi';
 import './AdminDashboardPage.css';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
@@ -15,7 +15,7 @@ const AdminDashboardPage = () => {
     useEffect(() => {
         const fetchStats = async () => {
             try {
-                const data = await orderApi.getStats();
+                const data = await analyticsApi.getStats();
                 setStats(data);
             } catch (err) {
                 setError('Không thể tải dữ liệu thống kê.');
