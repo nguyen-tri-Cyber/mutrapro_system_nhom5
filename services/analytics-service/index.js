@@ -1,11 +1,11 @@
 const express = require('express');
 const mysql = require('mysql2/promise');
 const cors = require('cors');
-require('dotenv').config({ path: '../../.env' });
+require('dotenv').config({ path: '../.env' }); // Sửa path .env về 1 cấp
 
 // Sửa đường dẫn require cho đúng
-const { logger } = require('../../shared/logger');
-const { asyncHandler, notFound, errorHandler, AppError } = require('../../shared/middleware/errorHandler');
+const  { logger } = require('./shared/logger');
+const  { asyncHandler, notFound, errorHandler, AppError } = require('./shared/middleware/errorHandler');
 
 const app = express();
 app.use(cors());
