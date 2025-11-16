@@ -1,15 +1,19 @@
-# Sử dụng base image Node.js
+# File: services/analytics-service/Dockerfile (ĐÃ SỬA LỖI)
+
 FROM node:18-alpine
-# Đặt thư mục làm việc
 WORKDIR /app
-# Sao chép package.json và cài đặt
-COPY package*.json ./
+
+# 1. Copy CHỈ file package.json của service này vào
+COPY services/analytics-service/package*.json ./
+
+# 2. Chạy npm install ĐỂ CÀI express, mysql2, v.v.
 RUN npm install
-# Sao chép code shared
+
+# 3. Copy thư mục shared (vì index.js cần nó)
 COPY shared ./shared
-# Sao chép code của service này
-COPY services/analytics-service .
-# Mở port
+
+# 4. Copy code của service này (index.js)
+COPY services/analytics-service/ .
+
 EXPOSE 3008
-# Chạy service
 CMD ["node", "index.js"]
